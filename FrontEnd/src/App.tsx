@@ -17,6 +17,14 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+          <div className="min-h-screen bg-gray-100 grid place-items-center">
+      <h1 className="text-4xl font-bold text-blue-600">
+        Tailwind v4 Works!
+      </h1>
+      <p className="mt-4 text-lg text-gray-700">
+        If this is styled, your setup is correct.
+      </p>
+    </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
