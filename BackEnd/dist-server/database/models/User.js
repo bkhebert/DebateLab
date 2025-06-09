@@ -57,7 +57,7 @@ const User = database.define('User', {
         allowNull: true
     }
 }, {
-    tableName: 'Users', // Explicitly specify table name
+    tableName: 'User', // Explicitly specify table name
     timestamps: true, // Enables createdAt & updatedAt fields
 });
 export default User;

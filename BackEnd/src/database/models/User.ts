@@ -88,7 +88,7 @@ const User = database.define<UserInstance>(
   },
   
   {
-    tableName: 'Users', // Explicitly specify table name
+    tableName: 'User', // Explicitly specify table name
     timestamps: true, // Enables createdAt & updatedAt fields
     
   }
