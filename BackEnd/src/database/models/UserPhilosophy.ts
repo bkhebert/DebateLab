@@ -3,7 +3,7 @@ import database from '../db.js';
 
 interface UserPhilosophyAttributes {
   id?: number;
-  userId: number;
+  userId?: number;
   category: 'Philosophy' | 'Psychology' | 'Economics' | 'PoliticalTheory';
   school: string;
   description?: string | null; // Optional elaboration
