@@ -5,11 +5,9 @@ interface UserAttributes {
   id?: number; // Auto-incremented by Sequelize
   username: string | null;
   password: string | null;
-  telnyx: string | null;
   subscription: boolean | string | null;
-  licenses: object | null; // or a more specific type if you know the structure
+  philosophy: string | null; // or a more specific type if you know the structure
   googleId: string | null;
-  phone: string | null;
   services: object | null; // or a more specific type
   email: string;
   tokenVersion: number;
@@ -22,8 +20,8 @@ interface UserAttributes {
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 
-  'id' | 'createdAt' | 'updatedAt' | 'username' | 'password' | 'telnyx' | 
-  'subscription' | 'licenses' | 'googleId' | 'phone' | 'services' | 
+  'id' | 'createdAt' | 'updatedAt' | 'username' | 'password' | 
+  'subscription' | 'philosophy' | 'googleId' | 'services' | 
   'email_verification_token' | 'stripeSubscriptionId' | 'stripeCustomerId'> {}
 
 
@@ -40,26 +38,18 @@ const User = database.define<UserInstance>(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    telnyx: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     subscription: {
       type: DataTypes.BOOLEAN || DataTypes.STRING,
       allowNull: true,
     },
-    licenses: {
-      type: DataTypes.JSONB,
+    philosophy: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
      googleId: {
     type: DataTypes.STRING,
     allowNull: true,
     unique: true,
-  },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
     services: {
       type: DataTypes.JSONB,
@@ -78,11 +68,6 @@ const User = database.define<UserInstance>(
       allowNull: false,
       defaultValue: 0,
     },
-    //  companyEmail: {
-    //         type: DataTypes.STRING,
-    //         unique: false,
-    //         allowNull: true,
-    // },
       email_verified: { 
         type: DataTypes.BOOLEAN, 
         allowNull: false, 
@@ -92,14 +77,14 @@ const User = database.define<UserInstance>(
       type: DataTypes.STRING,
       allowNull: true,  
     },
-stripeSubscriptionId: {
-  type: DataTypes.STRING,
-  allowNull: true
-},
-stripeCustomerId: {
-  type: DataTypes.STRING,
-  allowNull: true
-}
+    stripeSubscriptionId: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    stripeCustomerId: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   },
   
   {
