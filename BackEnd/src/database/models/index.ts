@@ -17,8 +17,8 @@ UserPhilosophy.belongsTo(User, {
   as: 'user',
 });
 
-Message.belongsTo(User); // UserId
-User.hasMany(Message);
+Message.belongsTo(User, { foreignKey: 'userId' }); // UserId
+User.hasMany(Message, { foreignKey: 'userId' });
 
 Message.belongsTo(Topic, { foreignKey: 'topicId' }); // TopicId
 Topic.hasMany(Message, { foreignKey: 'topicId' });
@@ -26,11 +26,11 @@ Topic.hasMany(Message, { foreignKey: 'topicId' });
 User.hasOne(PoliticalView, { foreignKey: 'email', sourceKey: 'email'});
 PoliticalView.belongsTo(User, { foreignKey: 'email', targetKey: 'email'});
 
-Reply.belongsTo(User); // userId
-User.hasMany(Reply);
+Reply.belongsTo(User, { foreignKey: 'userId' }); // userId
+User.hasMany(Reply, { foreignKey: 'userId' });
 
-Reply.belongsTo(Message); // messageId
-Message.hasMany(Reply, { as: 'Replies'});
+Reply.belongsTo(Message, { foreignKey: 'messageId' }); // messageId
+Message.hasMany(Reply, { foreignKey: 'messageId', as: 'Replies'});
 
 
 export {
