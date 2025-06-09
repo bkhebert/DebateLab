@@ -9,26 +9,18 @@ const User = database.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    telnyx: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     subscription: {
         type: DataTypes.BOOLEAN || DataTypes.STRING,
         allowNull: true,
     },
-    licenses: {
-        type: DataTypes.JSONB,
+    philosophy: {
+        type: DataTypes.STRING,
         allowNull: true,
     },
     googleId: {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true,
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: true,
     },
     services: {
         type: DataTypes.JSONB,
@@ -47,11 +39,6 @@ const User = database.define('User', {
         allowNull: false,
         defaultValue: 0,
     },
-    //  companyEmail: {
-    //         type: DataTypes.STRING,
-    //         unique: false,
-    //         allowNull: true,
-    // },
     email_verified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

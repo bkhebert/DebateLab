@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import User from "./database/models/User.js";
 import database from "./database/db.js";
 dotenv.config();
 const app = express();
@@ -14,8 +15,15 @@ app.listen(PORT, async () => {
     }
     else {
         try {
-            await database.sync({ alter: true }); // set to alter true
+            await database.sync(); // set to alter true
             console.log('Successfully connected to the database');
+            const testDB = async () => {
+                const user = await User.create({ username: 'testuser', email: 'abc@abc.com', tokenVersion: 0, email_verified: false });
+                console.log('Created user:', user.toJSON());
+                const users = await User.findAll();
+                console.log('All users:', users.map(u => u.toJSON()));
+            };
+            testDB().catch(console.error);
         }
         catch (error) {
             console.error('Failed to connect to the database:', error);
