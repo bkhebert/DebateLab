@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import redisClient from '../utils/redis.js'; // adjust as needed
 
-export const rateLimitOnePerDay = async (
+const rateLimitOnePerDay = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -24,3 +24,5 @@ export const rateLimitOnePerDay = async (
     res.status(500).json({ error: "Internal server error." });
   }
 };
+
+export default rateLimitOnePerDay

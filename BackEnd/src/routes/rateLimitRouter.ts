@@ -1,6 +1,6 @@
 // src/routes/arguments.ts
 import express from 'express';
-import { rateLimitOnePerDay } from '../middleware/rateLimit';
+import rateLimitOnePerDay from '../middleware/rateLimit.js';
 
 const rateLimitRouter = express.Router();
 
