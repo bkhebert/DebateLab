@@ -1,3 +1,4 @@
+import ArgumentForm from "../components/ArgumentForm";
 
 function Home() {
   return (
@@ -11,11 +12,13 @@ function Home() {
       <div className="inline-block bg-cstmblack p-4 rounded-xl">
         <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-64 mx-auto" />
         </div>
+          <ArgumentForm />
         <p className="text-gray-secondary text-lg italic">
           Instant facts for every opinion
         </p>
       </div>
       <div className="w-full h-2 bg-gradient-to-r from-red-primary via-neutral-400 to-blue-primary mb-8" />
+
       <a
   href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"
   target="_blank"
