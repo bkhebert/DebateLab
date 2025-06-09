@@ -1,42 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from './views/Home';
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-          <div className="min-h-screen bg-gray-100 grid place-items-center">
-      <h1 className="text-4xl font-bold text-blue-600">
-        Tailwind v4 Works!
-      </h1>
-      <p className="mt-4 text-lg text-gray-700">
-        If this is styled, your setup is correct.
-      </p>
-    </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+     <>
+     <BrowserRouter>
+     <Routes>
+      <Route path="/" element={<Home />}/>
+     </Routes>
+     </BrowserRouter>
+     </>
   )
 }
 
