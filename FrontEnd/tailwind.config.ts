@@ -8,13 +8,18 @@ export default {
   theme: {
     extend: {
       colors: {
-      primary: '#2E1A47',
-      accent: '#FF6B35',
-      secondary: '#D5CFE1',
-      neutral: '#4A4E69',
-      success: '#7AC74F',
-      error: '#FF4F58',
-      background: '#F7F6F9',
+      primary: '#5E10DB',
+      primarydark: '#21133C',
+      cstmdarkaccent: '#412476',
+      cstmgold: '#FFD700',
+      cstmgray: '#4A4E69',
+      cstmgreen: '#A8FF60',
+      cstmred: '#FF4F58',
+      cstmblack: '#111016',
+      cstmneutral: '#E0E0E3',
+      cstmblue: '#00D9FF',
+      cstmwhite: '#F7F6F9',
+
     },
     },
   },
