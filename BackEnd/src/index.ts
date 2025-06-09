@@ -20,53 +20,9 @@ app.listen(PORT, async () => {
     console.log('⚠️ Skipping database sync due to SKIP_DB=true');
   } else {
     try {
-      await database.sync(); // set to alter true
+      await database.sync({force: true}); // set to alter true
       console.log('Successfully connected to the database');
-      const testUserPhilosophy = async () => {
-  try {
 
-    // Create a user
-    const newUser = await User.create({
-      username: 'debate_hero3232', // replace with your actual user schema fields
-      email: 'debate3322@example.com',
-      password: 'secure12332', // ideally hashed in real use
-      tokenVersion: 0, 
-      email_verified: false 
-    });
-
-    console.log('👤 New user created:', newUser.toJSON());
-
-    // Add a UserPhilosophy entry
-    const newPhilosophy = await UserPhilosophy.create({
-      userId: newUser.id,
-      category: 'Philosophy',
-      school: 'Rationalism',
-      description: 'Believes reason is the primary source of knowledge.',
-      keyThinkers: ['Descartes', 'Leibniz'],
-    });
-
-    console.log('📚 New user philosophy added:', newPhilosophy.toJSON());
-
-    // Fetch with association (optional)
-    const userWithPhilosophies = await User.findByPk(newUser.id, {
-      include:  {
-      model: UserPhilosophy,
-      as: 'philosophies',
-    },
-    });
-
-    console.dir(userWithPhilosophies?.toJSON(), { depth: null });
-
-    console.log('✅ Test completed!');
-  } catch (error) {
-    console.error('❌ Error during test:', error);
-  } finally {
-
-    console.log('aye')
-  }
-};
-
-testUserPhilosophy();
 //       const testDB = async () => {
 //   const user = await User.create({ username: 'testuser', email: 'abc@abc.com', tokenVersion: 0, email_verified: false });
 //   console.log('Created user:', user.toJSON());
