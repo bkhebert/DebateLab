@@ -1,10 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
+app.use(cors({
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173', // Explicit origin
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Hello from DebateLab backend");
