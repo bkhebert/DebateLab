@@ -20,8 +20,8 @@ UserPhilosophy.belongsTo(User, {
 Message.belongsTo(User); // UserId
 User.hasMany(Message);
 
-Message.belongsTo(Topic); // TopicId
-Topic.hasMany(Message);
+Message.belongsTo(Topic, { foreignKey: 'topicId' }); // TopicId
+Topic.hasMany(Message, { foreignKey: 'topicId' });
 
 User.hasOne(PoliticalView, { foreignKey: 'email', sourceKey: 'email'});
 PoliticalView.belongsTo(User, { foreignKey: 'email', targetKey: 'email'});
@@ -30,7 +30,7 @@ Reply.belongsTo(User); // userId
 User.hasMany(Reply);
 
 Reply.belongsTo(Message); // messageId
-Message.hasMany(Reply);
+Message.hasMany(Reply, { as: 'Replies'});
 
 
 export {

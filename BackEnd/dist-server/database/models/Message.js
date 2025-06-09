@@ -5,9 +5,9 @@ const Message = database.define('Message', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    respondingTo: {
+    topicId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
     },
 }, {
     tableName: 'Message', // Explicitly specify table name

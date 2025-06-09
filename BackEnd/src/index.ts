@@ -1,9 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import sequelize from "./database/db.js";
-import {User, UserPhilosophy } from "./database/models/index.js";
 import database from "./database/db.js";
-
+import apiRouter from "./routes/index.js";
 
 dotenv.config();
 const app = express();
@@ -14,6 +13,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello from DebateLab backend");
 });
+
+app.use('/api', apiRouter);
 
 app.listen(PORT, async () => {
   if (process.env.SKIP_DB === 'true') {

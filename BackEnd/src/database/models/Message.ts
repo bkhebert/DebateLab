@@ -4,6 +4,7 @@ import database from '../db.js';
 interface MessageAttributes {
   id?: number; // Auto-incremented by Sequelize
   content: string | null;
+  topicId: number;
 }
 
 interface MessageInstance extends Model<MessageAttributes>, MessageAttributes {}
@@ -14,6 +15,10 @@ const Message = database.define<MessageInstance>(
     content: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    topicId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {

@@ -1,9 +1,6 @@
-const { Router } = require('express');
+import { Router } from "express";
 
-const Message = require('../db/models/Message');
-const User = require('../db/models/User');
-const Reply = require('../db/models/Reply');
-const PoliticalView = require('../db/models/PoliticalViews');
+import { Message, PoliticalView, User, Reply } from "../database/models/index.js";
 
 const messageRouter = Router();
 
@@ -57,7 +54,8 @@ messageRouter.get('/:topicId', async (req: any, res: any) => {
         },
         {
           model: Reply,
-          include: { model: User }
+          include:[{ model: User }],
+          as: 'Reply'
         }
       ],
     });
@@ -74,7 +72,7 @@ messageRouter.get('/:topicId', async (req: any, res: any) => {
     - Store message in database with user ID and user ID
     - Send status 201 for successful POST
 */
-messageRouter.post('/reply', async (req, res) => {
+messageRouter.post('/reply', async (req: any, res: any) => {
   if (!req.body.reply) {
     res.sendStatus(400);
   } else {
@@ -94,4 +92,4 @@ messageRouter.post('/reply', async (req, res) => {
   }
 });
 
-module.exports = messageRouter;
+export default messageRouter;
