@@ -25,6 +25,12 @@ const UserPhilosophy = database.define<UserPhilosophyInstance>(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "User", // or Topic if you prefer, but string with table name is common
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",   
     },
     category: {
       type: DataTypes.ENUM('Philosophy', 'Psychology', 'Economics', 'PoliticalTheory', 'Morals', 
