@@ -47,7 +47,7 @@ export default function ArgumentForm() {
         rows={5}
         value={argument}
         onChange={(e) => setArgument(e.target.value)}
-        className="w-full p-3 border bg-cstmwhite text-cstmblack border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full p-3 border bg-cstmwhite text-cstmblack border-gray-300 dark:bg-cstmblack dark:text-cstmwhite rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         placeholder="Type your argument here..."
       ></textarea>
       <button
@@ -73,7 +73,7 @@ export default function ArgumentForm() {
             <p className="mb-4">{aiResponse.factCheckedStatement}</p>
             <div>
               <button
-                className="mt-2 text-white px-4 py-2 rounded mr-2 bg-blue-primary hover:bg-red-primary"
+                className="mt-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
                 onClick={() => { setAiResponse(null); }}
               >
                 Back
