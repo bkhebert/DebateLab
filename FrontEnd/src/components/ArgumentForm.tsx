@@ -22,8 +22,13 @@ export default function ArgumentForm() {
   };
 
     const aiFactChecker = (argument: string) => {
-    axios.post(`${baseURL}/api/ai/fact`, {
-      message: argument,
+    axios.post(`${baseURL}/api/ai/fact`, 
+      { "message": argument },
+       {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
     })
       .then(({ data }) => {
         setAiResponse(data);
