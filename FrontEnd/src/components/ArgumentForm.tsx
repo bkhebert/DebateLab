@@ -72,7 +72,7 @@ export default function ArgumentForm() {
         // AI Response
         aiResponse &&
           <div className="mt-4 mb-4">
-            <h1 className="text-xl font-bold mb-4">Updated Reply to Post</h1>
+            <h1 className="text-xl font-bold mb-4">Refactored Message</h1>
             <p className="mb-4">{aiResponse.factCheckedMessage}</p>
             <h1 className="text-xl font-bold mb-4">Reason for Change</h1>
             <p className="mb-4">{aiResponse.factCheckedStatement}</p>
