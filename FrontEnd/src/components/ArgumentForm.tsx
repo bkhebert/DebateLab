@@ -37,7 +37,7 @@ export default function ArgumentForm() {
   return (
     <>
     <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-xl mx-auto">
-      <label htmlFor="argument" className="block text-lg font-medium text-gray-800">
+      <label htmlFor="argument" className="block text-lg font-medium">
         Enter your argument for analysis:
       </label>
       <textarea
@@ -46,12 +46,12 @@ export default function ArgumentForm() {
         rows={5}
         value={argument}
         onChange={(e) => setArgument(e.target.value)}
-        className="w-full p-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full p-3 border bg-cstmwhite text-cstmblack border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         placeholder="Type your argument here..."
       ></textarea>
       <button
         type="submit"
-        className="px-6 py-2 bg-primarydark text-white rounded-xl hover:bg-primary transition"
+        className="px-6 py-2 bg-cstmdarkaccent border-cstmbackground text-white rounded-xl hover:bg-primary transition"
       >
         Analyze
       </button>

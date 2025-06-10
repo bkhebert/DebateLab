@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Appeal to Authority",
+    "definition": "Arguing something is true because an authority figure believes it, without presenting actual evidence.",
+    "example": "\"It must be true\u2014Dr. Smith said so, and she's a scientist.\""
+  },
+  {
+    "name": "Appeal to Ignorance",
+    "definition": "Claiming something is true because it hasn't been proven false, or vice versa.",
+    "example": "\"No one has proven aliens don\u2019t exist, so they must be real.\""
+  },
+  {
+    "name": "Appeal to Pity",
+    "definition": "Attempting to persuade using emotion\u2014specifically sympathy\u2014rather than valid logic.",
+    "example": "\"You should give me an A\u2014if I fail this class, I\u2019ll lose my scholarship.\""
+  },
+  {
+    "name": "Appeal to Emotion",
+    "definition": "Manipulating an emotional response in place of a valid or compelling argument.",
+    "example": "\"If you care about your children, you\u2019ll support this new policy.\""
+  },
+  {
+    "name": "Straw Man Fallacy",
+    "definition": "Misrepresenting or exaggerating someone\u2019s argument to make it easier to attack.",
+    "example": "\"She wants to reduce military spending\u2014clearly, she wants to leave us defenseless.\""
+  },
+  {
+    "name": "Slippery Slope Fallacy",
+    "definition": "Arguing that one small step will inevitably lead to a chain of related (negative) events.",
+    "example": "\"If we allow students to redo assignments, soon they\u2019ll expect to retake entire classes.\""
+  },
+  {
+    "name": "Genetic Fallacy",
+    "definition": "Judging something as good or bad based on its origin rather than its current meaning or context.",
+    "example": "\"That idea came from a corrupt politician, so it must be wrong.\""
+  },
+  {
+    "name": "False Dilemma",
+    "definition": "Presenting only two choices when more options exist.",
+    "example": "\"You\u2019re either with us or against us.\""
+  },
+  {
+    "name": "Causation Fallacy",
+    "definition": "Assuming that because two things occur together, one caused the other.",
+    "example": "\"Since I started wearing these socks, I haven\u2019t lost a game\u2014so they must be lucky.\""
+  },
+  {
+    "name": "Equivocation",
+    "definition": "Using ambiguous language to mislead or misrepresent the truth.",
+    "example": "\"A feather is light. What is light cannot be dark. So a feather cannot be dark.\""
+  },
+  {
+    "name": "Hasty Generalizations",
+    "definition": "Drawing a conclusion based on insufficient or non-representative evidence.",
+    "example": "\"I met two rude New Yorkers, so all New Yorkers must be rude.\""
+  }
+]
