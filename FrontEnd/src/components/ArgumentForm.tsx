@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import baseURL from "../constants/constant";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -22,7 +22,7 @@ export default function ArgumentForm() {
   };
 
     const aiFactChecker = (argument: string) => {
-    axios.post('http://localhost:3000/api/ai/fact', {
+    axios.post(`${baseURL}/api/ai/fact`, {
       message: argument,
     })
       .then(({ data }) => {
