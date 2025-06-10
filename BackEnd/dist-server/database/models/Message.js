@@ -19,7 +19,7 @@ const Message = database.define("Message", {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "Users", // or User if you prefer
+            model: "User", // or User if you prefer
             key: "id",
         },
         onUpdate: "CASCADE",
