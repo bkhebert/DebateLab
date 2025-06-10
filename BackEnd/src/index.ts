@@ -5,19 +5,20 @@ import sequelize from "./database/db.js";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
 
-
 dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173', // Explicit origin
+  origin: process.env.NODE_DEV ? 'http://localhost:5173' : [ process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW ], // Explicit origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
+app.set('trust proxy', 1);
 
 app.get("/", (req, res) => {
   res.send("Hello from DebateLab backend");
