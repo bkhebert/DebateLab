@@ -1,12 +1,13 @@
 import { Router }  from 'express';
 import { GoogleGenAI }  from '@google/genai';
+import rateLimitOnePerDay from '../middleware/rateLimit.js';
 import dotenv from "dotenv";
 dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEN_AI_KEY });
 
 const aiRouter = Router();
 
-aiRouter.post('/fact', async (req: any, res: any) => {
+aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
   console.log('ai Router post to /fact')
   if (!req.body.message) {
     res.sendStatus(400); // There must be a message on the request body.
