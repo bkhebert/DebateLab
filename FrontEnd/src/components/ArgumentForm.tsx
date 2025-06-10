@@ -42,7 +42,7 @@ export default function ArgumentForm() {
 
   return (
     <>
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-xl mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
       <label htmlFor="argument" className="block text-lg font-medium">
         Enter your argument for analysis:
       </label>

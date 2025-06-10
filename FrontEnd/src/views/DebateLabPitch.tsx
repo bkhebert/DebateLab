@@ -33,12 +33,10 @@ const DebateLabPitch = () => {
 
   return (
     <div className="flex flex-grow bg-red z-40">
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-cstmwhite p-6">
+    <div className="min-h-screen bg-gradient-to-br from-cstmdarkaccent/80 to-primarydark/80 text-cstmwhite p-6 rounded-xl">
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-400 via-yellow-300 to-blue-400">
-          DebateLab
-        </h1>
+       <img src="/debatelabfull.png" alt="DebateLab Logo" className="w-96 mx-auto bg-cstmneutral/70 rounded-md" />
         <p className="text-xl md:text-2xl mb-12 italic text-gray-300">
           "The antidote to the age of disinformation"
         </p>

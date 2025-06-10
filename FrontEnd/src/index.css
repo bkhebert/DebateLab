@@ -27,7 +27,7 @@ a:hover {
 }
 
 body {
- @apply bg-cstmwhite text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
+ @apply bg-cstmneutral text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
   margin: 0;
   display: flex;
   place-items: center;
