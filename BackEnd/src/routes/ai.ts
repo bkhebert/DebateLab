@@ -53,15 +53,22 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
           Message: ${req.body.message}
         `,
       });
+
+      console.log('the returned text from ai')
+      console.log(text);
       if(typeof text !== 'string'){
         console.error('text is not a string');
         console.log(text);
         return res.sendStatus(500);
       }
       const splitText = text.split('*****');
+      console.log('text has been split');
+      console.log(splitText);
       let factCheckedMessage = splitText[2].slice(1, -2);
       let factCheckedStatement = splitText[4].slice(1, -1);
-
+      console.log('fact checked message', factCheckedMessage);
+      console.log('fact checked statement', factCheckedStatement);
+      console.log('sending to the front end...')
       res.status(200).send({ factCheckedMessage, factCheckedStatement });
     } catch (error) {
       console.error('Failed to POST /api/ai/fact ', error);

@@ -27,6 +27,7 @@ export default function ArgumentForm() {
     })
       .then(({ data }) => {
         setAiResponse(data);
+        console.log('fact checked data has returned and set to aiRESPOnse')
         console.log(data);
       })
       .catch((error) => {
@@ -75,14 +76,14 @@ export default function ArgumentForm() {
                 className="mt-2 text-white px-4 py-2 rounded mr-2 bg-blue-primary hover:bg-red-primary"
                 onClick={() => { setAiResponse(null); }}
               >
-                Back to the Drawing Board
+                Back
               </button>
-              <button
+              {/* <button
                 className="mt-2 text-white px-4 py-2 rounded bg-blue-primary hover:bg-red-primary"
                 
               >
                 Submit Updated Reply
-              </button>
+              </button> */}
             </div>
           </div>
         }
