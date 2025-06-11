@@ -12,68 +12,74 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
   if (!req.body.message) {
     res.sendStatus(400); // There must be a message on the request body.
   } else {
-    try {
-      const { text } = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
-        contents: 
-        `Below you will find a message that needs to be fact checked.
-        While trying keep the message as close to the original as you can,
-        check the message false information, and if it does have incorrect information,
-        rewrite it to contain the correct information while keeping message as close
-        to the original as possible.
-
-        Follow these rules when fact checking:
-        - Check for fallacious arguments, things that violate the 'RIFUT' rule in logic:
-          - R: Reasonable
-            - By reasonable, I mean 'non fallacious'.
-          - I: Independent of the Claim
-          - F: Free of Dubious Assumption
-          - U: Unambiguous
-          - T: True
-        - Check for logical fallacies like:
-          - Appeal to authority
-          - Appeal to ignorance
-          - Appeal to pity
-          - Appeal to emotion
-          - Straw man fallacy
-          - Slippery slope fallacy
-          - Genetic fallacy
-          - False dilemma
-          - Causation fallacy
-          - Equivocation
-          - Hasty Generalizations
-
-        I want the response structured in two parts using "(1) Rewritten Message" and "(2) Explanation of Change" as the labels:
-        (1) The rewritten message if it needed to be rewritten while keeping the intent of the message.
-        (2) If certain parts were changed, explain why.
-
-        Please use no formatting in your response, which means you should not use bold, italics, or different font sizes.
-
-        Place five "*" before and after each label, "(1) Rewritten Message" and "(2) Explanation of Change".
-          Message: ${req.body.message}
-        `,
-      });
-
-      console.log('the returned text from ai')
-      console.log(text);
-      if(typeof text !== 'string'){
-        console.error('text is not a string');
-        console.log(text);
-        return res.sendStatus(500);
-      }
-      const splitText = text.split('*****');
-      console.log('text has been split');
-      console.log(splitText);
-      let factCheckedMessage = splitText[2].slice(1, -2);
-      let factCheckedStatement = splitText[4].slice(1, -1);
-      console.log('fact checked message', factCheckedMessage);
-      console.log('fact checked statement', factCheckedStatement);
-      console.log('sending to the front end...')
-      res.status(200).send({ factCheckedMessage, factCheckedStatement });
-    } catch (error) {
-      console.error('Failed to POST /api/ai/fact ', error);
-      res.sendStatus(500);
+    if(process.env.TEST_AI){
+      return res.status(200).send({ 
+        "factCheckedMessage": "this message is fact checked", 
+        "factCheckedStatement": "this statement is factchecked"
+       })
     }
+    // try {
+    //   const { text } = await ai.models.generateContent({
+    //     model: 'gemini-2.0-flash',
+    //     contents: 
+    //     `Below you will find a message that needs to be fact checked.
+    //     While trying keep the message as close to the original as you can,
+    //     check the message false information, and if it does have incorrect information,
+    //     rewrite it to contain the correct information while keeping message as close
+    //     to the original as possible.
+
+    //     Follow these rules when fact checking:
+    //     - Check for fallacious arguments, things that violate the 'RIFUT' rule in logic:
+    //       - R: Reasonable
+    //         - By reasonable, I mean 'non fallacious'.
+    //       - I: Independent of the Claim
+    //       - F: Free of Dubious Assumption
+    //       - U: Unambiguous
+    //       - T: True
+    //     - Check for logical fallacies like:
+    //       - Appeal to authority
+    //       - Appeal to ignorance
+    //       - Appeal to pity
+    //       - Appeal to emotion
+    //       - Straw man fallacy
+    //       - Slippery slope fallacy
+    //       - Genetic fallacy
+    //       - False dilemma
+    //       - Causation fallacy
+    //       - Equivocation
+    //       - Hasty Generalizations
+
+    //     I want the response structured in two parts using "(1) Rewritten Message" and "(2) Explanation of Change" as the labels:
+    //     (1) The rewritten message if it needed to be rewritten while keeping the intent of the message.
+    //     (2) If certain parts were changed, explain why.
+
+    //     Please use no formatting in your response, which means you should not use bold, italics, or different font sizes.
+
+    //     Place five "*" before and after each label, "(1) Rewritten Message" and "(2) Explanation of Change".
+    //       Message: ${req.body.message}
+    //     `,
+    //   });
+
+    //   console.log('the returned text from ai')
+    //   console.log(text);
+    //   if(typeof text !== 'string'){
+    //     console.error('text is not a string');
+    //     console.log(text);
+    //     return res.sendStatus(500);
+    //   }
+    //   const splitText = text.split('*****');
+    //   console.log('text has been split');
+    //   console.log(splitText);
+    //   let factCheckedMessage = splitText[2].slice(1, -2);
+    //   let factCheckedStatement = splitText[4].slice(1, -1);
+    //   console.log('fact checked message', factCheckedMessage);
+    //   console.log('fact checked statement', factCheckedStatement);
+    //   console.log('sending to the front end...')
+    //   res.status(200).send({ factCheckedMessage, factCheckedStatement });
+    // } catch (error) {
+    //   console.error('Failed to POST /api/ai/fact ', error);
+    //   res.sendStatus(500);
+    // }
   }
 });
 

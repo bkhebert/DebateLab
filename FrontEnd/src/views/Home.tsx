@@ -3,7 +3,7 @@ import ArgumentForm from "../components/ArgumentForm";
 function Home() {
  return (
   <div className=''>
-    <div className="flex flex-col bg-red-500">
+    <div className="flex flex-col">
 
       
       <div className="text-center mt-6 md:mt-32 w-full">
@@ -11,13 +11,13 @@ function Home() {
           <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-64 md:w-80 mx-auto" />
         </div>
       </div>
-        <p className="mt-1 font-mono text-lg italic">
+        <p className="mt-1 font-mono text-center text-lg italic">
           A.I. Reasonability Checker
         </p>
       
     </div>
         <ArgumentForm />
-      <div className="flex justify-center md:mt-12 bg-yellow-500/30">
+      <div className="flex justify-center mt-4 md:mt-12 bg-yellow-500/30">
           {/* <a href='/About'>About</a> */}
       <a
         href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"

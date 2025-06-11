@@ -56,11 +56,9 @@ export default function ArgumentForm() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-green-300/50">
+    <div className="p-2">
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
-      <label htmlFor="argument" className="block font-exo text-lg">
-      
-      </label>
+
        {/* <div className="relative w-full max-w-md mx-auto mt-10 bg-red-500">
       <textarea
         id="argument"
@@ -84,7 +82,7 @@ export default function ArgumentForm() {
           relative 
           w-full 
           max-w-md mx-auto 
-          mt-10 
+          mt-1
           bg-cstmwhite 
           text-cstmblack
           dark:bg-cstmblack dark:text-cstmwhite
@@ -109,8 +107,8 @@ export default function ArgumentForm() {
           text-cstmblack
           dark:text-cstmwhite
           p-4
-          pr-2  /* enough padding for the button */
-          mb-8
+          pr-8  /* enough padding for the button */
+          mb-10
           placeholder:text-cstmgray
           focus:outline-none
           transition-all
@@ -124,16 +122,16 @@ export default function ArgumentForm() {
         type="submit"
         className="
           absolute
-          bottom-3
-          right-3
+          bottom-1
+          right-1
           text-primarylight
-          hover:text-cstmgreen
-          bg-transparent
-          rounded-md
-          p-1
+          hover:text-cstmprimary
+          bg-cstmdarkaccent
+          rounded-full
+          p-2
           focus:outline-none
           focus:ring-2
-          focus:ring-cstmblue
+          focus:ring-cstmwhite
           transition-colors
           duration-150
           ease-in-out
@@ -153,9 +151,9 @@ export default function ArgumentForm() {
     {
         // AI Response
         aiResponse &&
-          <div className="mt-4 mb-4">
-            <h1 className="text-xl font-bold mb-4">Refactored Message</h1>
-            <p className="mb-4">{aiResponse.factCheckedMessage}</p>
+          <div className="mt-4 mb-4 bg-green-300/50">
+            <h1 className="text-xl font-bold mb-4 text-center">Refactored Message</h1>
+            <p className="mb-4 text-center">{aiResponse.factCheckedMessage}</p>
             <h1 className="text-xl font-bold mb-4">Reason for Change</h1>
             <p className="mb-4">{aiResponse.factCheckedStatement}</p>
             <div>
