@@ -43,7 +43,7 @@ export default function ArgumentForm() {
   return (
     <>
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
-      <label htmlFor="argument" className="block text-lg font-medium">
+      <label htmlFor="argument" className="block font-exo text-lg">
         Enter your argument for analysis:
       </label>
       <textarea

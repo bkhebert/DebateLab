@@ -24,6 +24,7 @@ export default {
     },
     fontFamily: {
          mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+         exo: ['"Exo 2"', 'ui-sans-serif', 'system-ui']
       },
     },
   },
