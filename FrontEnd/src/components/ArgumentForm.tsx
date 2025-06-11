@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
+import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -10,6 +11,8 @@ export default function ArgumentForm() {
   const [argument, setArgument] = useState("");
   const [aiResponse, setAiResponse] = useState<FactCheckResponse | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [text, setText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,6 +24,18 @@ export default function ArgumentForm() {
 
   };
 
+  // Auto expand textarea height up to 4 rows
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    setArgument(e.target.value)
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // reset height
+      const maxHeight = 4 * 24; // approx 4 rows * 24px line-height
+      const newHeight = Math.min(textareaRef.current.scrollHeight, maxHeight);
+      textareaRef.current.style.height = `${newHeight}px`;
+      textareaRef.current.style.overflowY = textareaRef.current.scrollHeight > maxHeight ? "auto" : "hidden";
+    }
+  };
     const aiFactChecker = (argument: string) => {
     axios.post(`${baseURL}/api/ai/fact`, 
       { "message": argument },
@@ -46,21 +61,88 @@ export default function ArgumentForm() {
       <label htmlFor="argument" className="block font-exo text-lg">
         Enter your argument for analysis:
       </label>
+       {/* <div className="relative w-full max-w-md mx-auto mt-10 bg-red-500">
       <textarea
         id="argument"
         name="argument"
         rows={5}
         value={argument}
         onChange={(e) => setArgument(e.target.value)}
-        className="w-full p-3 border bg-cstmwhite text-cstmblack border-gray-300 dark:bg-cstmblack dark:text-cstmwhite rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full p-3 font-exo border bg-cstmwhite text-cstmblack border-gray-300 dark:bg-cstmblack dark:text-cstmwhite rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         placeholder="Type your argument here..."
       ></textarea>
       <button
         type="submit"
-        className="px-6 py-2 bg-cstmdarkaccent border-cstmbackground text-white rounded-xl hover:bg-primary transition"
+        className="absolute bottom-3 right-3  bg-cstmdarkaccent/80 border-cstmbackground text-white rounded-full hover:bg-primary transition"
       >
-        Analyze
+        
+      <FaPaperPlane size={15} />
       </button>
+      </div> */}
+      {/* INPUT AREA, ADJUSTABLE */}
+      <div className="
+          relative 
+          w-full 
+          max-w-md mx-auto 
+          mt-10 
+          bg-cstmwhite 
+          text-cstmblack
+          dark:bg-cstmblack dark:text-cstmwhite
+          rounded-lg
+          border
+          border-cstmgray ">
+      <textarea
+        id="argument"
+        name="argument"
+        ref={textareaRef}
+        rows={1}
+        placeholder="Type your argument here..."
+        value={argument}
+        onChange={handleChange}
+        className="
+        font-exo
+          w-full
+          resize-none
+          rounded-lg
+          outline-none
+          bg-transparent
+          text-cstmblack
+          dark:text-cstmwhite
+          p-4
+          pr-2  /* enough padding for the button */
+          mb-8
+          placeholder:text-cstmgray
+          focus:outline-none
+          transition-all
+          duration-150
+          ease-in-out
+          overflow-y-hidden
+        "
+      />
+
+      <button
+        type="submit"
+        className="
+          absolute
+          bottom-3
+          right-3
+          text-primary
+          hover:text-cstmgreen
+          bg-transparent
+          rounded-md
+          p-1
+          focus:outline-none
+          focus:ring-2
+          focus:ring-cstmblue
+          transition-colors
+          duration-150
+          ease-in-out
+        "
+        aria-label="Analyze"
+      >
+        <FaPaperPlane size={20} />
+      </button>
+    </div>
 
       {submitted && (
         <div className="mt-4 text-green-600 font-semibold">
