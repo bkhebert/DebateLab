@@ -56,10 +56,10 @@ export default function ArgumentForm() {
   };
 
   return (
-    <>
+    <div className="flex flex-col h-full bg-green-300/50">
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
       <label htmlFor="argument" className="block font-exo text-lg">
-        Enter your argument for analysis:
+      
       </label>
        {/* <div className="relative w-full max-w-md mx-auto mt-10 bg-red-500">
       <textarea
@@ -96,7 +96,7 @@ export default function ArgumentForm() {
         name="argument"
         ref={textareaRef}
         rows={1}
-        placeholder="Type your argument here..."
+        placeholder="Type your argument for analysis here..."
         value={argument}
         onChange={handleChange}
         className="
@@ -126,7 +126,7 @@ export default function ArgumentForm() {
           absolute
           bottom-3
           right-3
-          text-primary
+          text-primarylight
           hover:text-cstmgreen
           bg-transparent
           rounded-md
@@ -174,6 +174,6 @@ export default function ArgumentForm() {
             </div>
           </div>
         }
-        </>
+        </div>
   );
 }

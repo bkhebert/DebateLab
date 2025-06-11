@@ -11,6 +11,7 @@ export default {
       colors: {
       primary: '#6813F1',
       primarydark: '#21133C',
+      primarylight: '#A128E3',
       cstmbackground: '#191229',
       cstmdarkaccent: '#412476',
       cstmgold: '#FFD700',

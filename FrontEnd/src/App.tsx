@@ -3,9 +3,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from './views/Home';
 import DebateLabPitch from './views/DebateLabPitch';
-import { useEffect, useState } from 'react';
 import { DarkModeProvider } from './contexts/DarkModeContext';
-import { useDarkMode } from './contexts/useDarkMode';
 import DarkModeToggle from './components/DarkModeToggle';
 
 function App() {
@@ -20,7 +18,7 @@ function App() {
   return (
      <>
            <DarkModeProvider>
-           <div className="flex justify-end p-4">
+           <div className="flex justify-end p-1">
               <DarkModeToggle/>
            </div>
      <BrowserRouter>
