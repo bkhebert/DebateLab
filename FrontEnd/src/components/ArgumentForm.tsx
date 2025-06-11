@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
 import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
@@ -13,6 +13,11 @@ export default function ArgumentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [ progressBar, setProgressBar] = useState(0);
+  const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
+  const [ progressReached, setProgressReached] = useState(false);
+  const progIntervalRef = useRef(null);
+  const progRef = useRef({ value: 0});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +41,46 @@ export default function ArgumentForm() {
       textareaRef.current.style.overflowY = textareaRef.current.scrollHeight > maxHeight ? "auto" : "hidden";
     }
   };
+
+    useEffect(() => {
+
+    if(!progressReached){
+    progIntervalRef.current = setInterval(() => {
+      const p = progRef.current;
+     
+      if(p.value === 25){
+        setProgressBarColor('text-yellow-500')
+      }
+      if(p.value === 60){
+        setProgressBarColor('text-green-500')
+      }
+
+
+      if(p.value < 75) {
+        p.value += 1
+        
+      }
+
+      setProgressBar(p.value)
+      if(p.value === 75){
+
+        setProgressReached(true);
+        setProgressBarColor('text-cyan-500')
+      }
+    }, 300);
+  }
+
+    if(progressReached){
+      clearInterval(progIntervalRef.current);
+    
+    }
+
+    return (() => {
+      clearInterval(progIntervalRef.current);
+    });
+
+  }, [progressReached])
+
     const aiFactChecker = (argument: string) => {
     axios.post(`${baseURL}/api/ai/fact`, 
       { "message": argument },
@@ -151,11 +196,28 @@ export default function ArgumentForm() {
     {
         // AI Response
         aiResponse &&
-          <div className="mt-4 mb-4 bg-green-300/50">
+          <div className="flex grid grid-cols-2 mt-4 mb-4 bg-green-300/50">
+            <div>
+              <div className="relative size-40" >
+                <svg className="rotate-[135deg] size-full" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-white" strokeWidth="1" strokeDasharray="75 100"></circle>
+                  <circle cx="18" cy="18" r="16" fill="none" className={`stroke-current ${progressBarColor}`} strokeWidth="2" strokeDasharray={`${Math.floor(progRef.current.value)} 100`}></circle>
+                </svg>
+
+                <div className="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                  <span className="text-2xl font-semibold text-blue-50">{Math.floor(progRef.current.value / .75)} %</span>
+                  <span className="text-cyan-50 font-bold block">completed</span>
+                </div>
+            </div>
+            </div>
+            <div className="col-span-2">
             <h1 className="text-xl font-bold mb-4 text-center">Refactored Message</h1>
             <p className="mb-4 text-center">{aiResponse.factCheckedMessage}</p>
+            </div>
+            <div className="col-span-2 md:col-span-1">
             <h1 className="text-xl font-bold mb-4">Reason for Change</h1>
             <p className="mb-4">{aiResponse.factCheckedStatement}</p>
+            </div>
             <div>
               <button
                 className="mt-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"

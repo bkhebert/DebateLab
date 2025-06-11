@@ -6,7 +6,7 @@ function Home() {
     <div className="flex flex-col">
 
       
-      <div className="text-center mt-6 md:mt-32 w-full">
+      <div className="text-center mt-6 md:mt-44 w-full">
         <div className="inline-block bg-cstmblack p-4 rounded-xl">
           <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-64 md:w-80 mx-auto" />
         </div>
