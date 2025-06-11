@@ -10,7 +10,7 @@ function Home() {
           <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-64 md:w-80 mx-auto" />
         </div>
         <ArgumentForm />
-        <p className="text-lg italic">
+        <p className="font-mono text-lg italic">
           Instant facts for every opinion
         </p>
       </div>

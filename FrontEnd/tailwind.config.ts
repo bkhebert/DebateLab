@@ -20,9 +20,11 @@ export default {
       cstmblack: '#111016',
       cstmneutral: '#E0E0E3',
       cstmblue: '#00D9FF',
-      cstmwhite: '#F7F6F9',
-
+      cstmwhite: '#F7F6F9', 
     },
+    fontFamily: {
+         mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
     },
   },
   plugins: [],
