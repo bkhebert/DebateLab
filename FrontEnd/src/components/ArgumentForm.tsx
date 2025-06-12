@@ -4,6 +4,7 @@ import baseURL from "../constants/constant";
 import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
 import GaugeComponent from "./GaugeComponent";
 import FallacyCountComponent from "./FallacyCountComponent";
+import FallacyList from "./FallacyList";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -150,13 +151,7 @@ export default function ArgumentForm() {
               <FallacyCountComponent />
               </div>
               <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite">
-            <div className="col-span-2">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono">Logical Fallacies</h1>
-            <ul>
-            <li className="mb-4 text-center">{aiResponse.factCheckedMessage}</li>
-            <li className="mb-4 text-center">{aiResponse.factCheckedMessage}</li>
-            </ul>
-            </div>
+              <FallacyList arrayOfFallacies={['fallacy one', 'fallacy two']} />
             <div className="col-span-2">
             <h1 className="text-xl font-bold mb-4 text-center font-mono">Original Message</h1>
             <p className="mb-4 text-center">{argument}</p>
