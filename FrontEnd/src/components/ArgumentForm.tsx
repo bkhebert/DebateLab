@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
 import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
+import GaugeComponent from "./GaugeComponent";
+import FallacyCountComponent from "./FallacyCountComponent";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -13,12 +15,12 @@ export default function ArgumentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [ progressBar, setProgressBar] = useState(0);
-  const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
-  const [ progressReached, setProgressReached] = useState(false);
-  const progIntervalRef = useRef(null);
-  const progRef = useRef({ value: 0});
-
+  // const [ progressBar, setProgressBar] = useState(0);
+  // const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
+  // const [ progressReached, setProgressReached] = useState(false);
+  // const progIntervalRef = useRef(null);
+  // const progRef = useRef({ value: 0});
+  const [percentage, setPercentage] = useState(75);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!argument.trim()) return;
@@ -41,45 +43,6 @@ export default function ArgumentForm() {
       textareaRef.current.style.overflowY = textareaRef.current.scrollHeight > maxHeight ? "auto" : "hidden";
     }
   };
-
-    useEffect(() => {
-
-    if(!progressReached){
-    progIntervalRef.current = setInterval(() => {
-      const p = progRef.current;
-     
-      if(p.value === 25){
-        setProgressBarColor('text-yellow-500')
-      }
-      if(p.value === 60){
-        setProgressBarColor('text-green-500')
-      }
-
-
-      if(p.value < 75) {
-        p.value += 1
-        
-      }
-
-      setProgressBar(p.value)
-      if(p.value === 75){
-
-        setProgressReached(true);
-        setProgressBarColor('text-cyan-500')
-      }
-    }, 300);
-  }
-
-    if(progressReached){
-      clearInterval(progIntervalRef.current);
-    
-    }
-
-    return (() => {
-      clearInterval(progIntervalRef.current);
-    });
-
-  }, [progressReached])
 
     const aiFactChecker = (argument: string) => {
     axios.post(`${baseURL}/api/ai/fact`, 
@@ -104,26 +67,8 @@ export default function ArgumentForm() {
     <div className="p-2">
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
 
-       {/* <div className="relative w-full max-w-md mx-auto mt-10 bg-red-500">
-      <textarea
-        id="argument"
-        name="argument"
-        rows={5}
-        value={argument}
-        onChange={(e) => setArgument(e.target.value)}
-        className="w-full p-3 font-exo border bg-cstmwhite text-cstmblack border-gray-300 dark:bg-cstmblack dark:text-cstmwhite rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        placeholder="Type your argument here..."
-      ></textarea>
-      <button
-        type="submit"
-        className="absolute bottom-3 right-3  bg-cstmdarkaccent/80 border-cstmbackground text-white rounded-full hover:bg-primary transition"
-      >
-        
-      <FaPaperPlane size={15} />
-      </button>
-      </div> */}
       {/* INPUT AREA, ADJUSTABLE */}
-      <div className="
+     { !aiResponse && <div className="
           relative 
           w-full 
           max-w-md mx-auto 
@@ -185,10 +130,10 @@ export default function ArgumentForm() {
       >
         <FaPaperPlane size={20} />
       </button>
-    </div>
+    </div> }
 
       {submitted && (
-        <div className="mt-4 text-green-600 font-semibold">
+        <div className="mt-4 text-cstmblack dark:text-cstmwhite text-center font-semibold font-exo">
           Argument submitted for analysis!
         </div>
       )}
@@ -196,41 +141,43 @@ export default function ArgumentForm() {
     {
         // AI Response
         aiResponse &&
-          <div className="flex grid grid-cols-2 mt-4 mb-4 bg-green-300/50">
+          <div className="flex grid grid-cols-2 mt-4 mb-4 bg-primarylight/70 dark:bg-primarylight/50 rounded-lg">
             <div>
-              <div className="relative size-40" >
-                <svg className="rotate-[135deg] size-full" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-white" strokeWidth="1" strokeDasharray="75 100"></circle>
-                  <circle cx="18" cy="18" r="16" fill="none" className={`stroke-current ${progressBarColor}`} strokeWidth="2" strokeDasharray={`${Math.floor(progRef.current.value)} 100`}></circle>
-                </svg>
-
-                <div className="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                  <span className="text-2xl font-semibold text-blue-50">{Math.floor(progRef.current.value / .75)} %</span>
-                  <span className="text-cyan-50 font-bold block">completed</span>
-                </div>
+              <GaugeComponent percentage={percentage}/>
             </div>
+            <div>
+
+              <FallacyCountComponent />
+              </div>
+              <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite">
+            <div className="col-span-2">
+            <h1 className="text-xl font-bold mb-4 text-center font-mono">Logical Fallacies</h1>
+            <ul>
+            <li className="mb-4 text-center">{aiResponse.factCheckedMessage}</li>
+            <li className="mb-4 text-center">{aiResponse.factCheckedMessage}</li>
+            </ul>
             </div>
             <div className="col-span-2">
-            <h1 className="text-xl font-bold mb-4 text-center">Refactored Message</h1>
+            <h1 className="text-xl font-bold mb-4 text-center font-mono">Original Message</h1>
+            <p className="mb-4 text-center">{argument}</p>
+            </div>
+            <div className="col-span-2">
+            <h1 className="text-xl font-bold mb-4 text-center font-mono">Refactored Message</h1>
             <p className="mb-4 text-center">{aiResponse.factCheckedMessage}</p>
             </div>
-            <div className="col-span-2 md:col-span-1">
-            <h1 className="text-xl font-bold mb-4">Reason for Change</h1>
-            <p className="mb-4">{aiResponse.factCheckedStatement}</p>
+            <div className="col-span-2 md:col-span-1 font-mono">
+            <h1 className="text-xl font-bold mb-4 text-center font-mono">Reason for Change</h1>
+            <p className="mb-4 text-center">{aiResponse.factCheckedStatement}</p>
             </div>
-            <div>
+            
+            </div>
+            <div className="col-span-2 flex justify-center">
               <button
-                className="mt-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
+                className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
                 onClick={() => { setAiResponse(null); }}
               >
                 Back
               </button>
-              {/* <button
-                className="mt-2 text-white px-4 py-2 rounded bg-blue-primary hover:bg-red-primary"
-                
-              >
-                Submit Updated Reply
-              </button> */}
             </div>
           </div>
         }
