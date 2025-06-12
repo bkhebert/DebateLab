@@ -91,7 +91,6 @@ await Fallacy.findOrCreate({
   for (const fallacy of listOfFallacies) {
     await increaseFallacy(fallacy.toLowerCase(), data);
   }
-
   const percentage = await getPercentageOfFallacy(listOfFallacies, data);
 
   console.log('sending to the front end...', percentage);

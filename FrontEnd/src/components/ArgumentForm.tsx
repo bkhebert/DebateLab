@@ -5,9 +5,11 @@ import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
 import GaugeComponent from "./GaugeComponent";
 import FallacyCountComponent from "./FallacyCountComponent";
 import FallacyList from "./FallacyList";
+import { FaTable } from "react-icons/fa";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
+  listOfFallacies: string[];
 };
 
 export default function ArgumentForm() {
@@ -15,6 +17,7 @@ export default function ArgumentForm() {
   const [aiResponse, setAiResponse] = useState<FactCheckResponse | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [text, setText] = useState("");
+  const [fallacyCount, setFallacyCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   // const [ progressBar, setProgressBar] = useState(0);
   // const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
@@ -58,6 +61,8 @@ export default function ArgumentForm() {
         setAiResponse(data);
         console.log('fact checked data has returned and set to aiRESPOnse')
         console.log(data);
+        setPercentage(data.percentage);
+        setFallacyCount(data.listOfFallacies.length);
       })
       .catch((error) => {
         console.error('Failed to fact check with AI: ', error);
@@ -148,10 +153,10 @@ export default function ArgumentForm() {
             </div>
             <div>
 
-              <FallacyCountComponent />
+              <FallacyCountComponent fallacyCount={fallacyCount}/>
               </div>
               <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite">
-              <FallacyList arrayOfFallacies={['fallacy one', 'fallacy two']} />
+              <FallacyList arrayOfFallacies={aiResponse.listOfFallacies} />
             <div className="col-span-2">
             <h1 className="text-xl font-bold mb-4 text-center font-mono">Original Message</h1>
             <p className="mb-4 text-center">{argument}</p>

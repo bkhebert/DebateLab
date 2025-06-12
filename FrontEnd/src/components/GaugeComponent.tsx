@@ -27,7 +27,7 @@ export default function GaugeComponent({percentage}) {
         }
   
         setProgressBar(p.value)
-        if(p.value === 75){ // This number must be changed to determine the total % of the gauge once filled. 75 is 100%
+        if(p.value === Math.floor(percentage * 0.75)){ // This number must be changed to determine the total % of the gauge once filled. 75 is 100%
   
           setProgressReached(true);
           setProgressBarColor('text-cyan-500')
