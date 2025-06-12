@@ -17,7 +17,7 @@ function Home() {
       
     </div>
         <ArgumentForm />
-      <div className="flex justify-center mt-4 md:mt-12 bg-yellow-500/30">
+      <div className="flex justify-center mt-4 md:mt-12">
           {/* <a href='/About'>About</a> */}
       <a
         href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"

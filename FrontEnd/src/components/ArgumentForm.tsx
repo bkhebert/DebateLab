@@ -159,26 +159,26 @@ export default function ArgumentForm() {
         // AI Response
         aiResponse &&
           <div className="flex grid grid-cols-2 mt-4 mb-4 bg-cstmneutral/70 dark:bg-primarylight/50 rounded-lg border border-primary">
-            <div>
+            <div className="flex mx-auto">
               <GaugeComponent percentage={percentage}/>
             </div>
             <div>
 
               <FallacyCountComponent fallacyCount={fallacyCount}/>
               </div>
-              <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite">
+              <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite rounded-md">
               <FallacyList arrayOfFallacies={aiResponse.listOfFallacies} />
             <div className="col-span-2">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono">Original Message</h1>
-            <p className="mb-4 text-center">{argument}</p>
+            <h1 className="text-xl font-bold mt-2 mb-4 text-center font-mono text-cstmred md:text-2xl">Original Message</h1>
+            <p className="p-4 text-center text-xs italic text-red-200 md:text-xl">{argument}</p>
             </div>
             <div className="col-span-2">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono">Refactored Message</h1>
-            <p className="mb-4 text-center">{aiResponse.factCheckedMessage}</p>
+            <h1 className="text-xl font-bold mb-4 text-center font-mono text-cstmgreen md:text-2xl">Refactored Message</h1>
+            <p className="p-4 text-center italic text-xs text-cstmgreen md:text-xl">{aiResponse.factCheckedMessage}</p>
             </div>
             <div className="col-span-2 md:col-span-1 font-mono">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono">Reason for Change</h1>
-            <p className="mb-4 text-center">{aiResponse.factCheckedStatement}</p>
+            <h1 className="text-xl font-bold mb-4 text-center font-mono md:text-2xl">Reason for Change</h1>
+            <p className="mb-4 text-center md:text-xl">{aiResponse.factCheckedStatement}</p>
             </div>
             
             </div>

@@ -12,6 +12,7 @@ export default {
       primary: '#6813F1',
       primarydark: '#21133C',
       primarylight: '#A128E3',
+      primaryglow: '#D8ABF4',
       cstmbackground: '#191229',
       cstmdarkaccent: '#412476',
       cstmgold: '#FFD700',

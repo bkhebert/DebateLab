@@ -54,8 +54,8 @@ export default function GaugeComponent({percentage}) {
                 </svg>
 
                 <div className="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                  <span className="text-2xl font-semibold text-cstmblack dark:text-cstmwhite font-mono">{Math.floor(progRef.current.value / .75)} %</span>
-                  <span className="text-cstmblack dark:text-cstmwhite font-bold block font-mono">Similar Arguments</span>
+                  <span className="text-2xl font-semibold text-cstmblack dark:text-primaryglow font-mono">{Math.floor(progRef.current.value / .75)} %</span>
+                  <span className="text-cstmblack dark:text-primaryglow font-bold block font-mono">Similar Arguments</span>
                 </div>
             </div>
   )
