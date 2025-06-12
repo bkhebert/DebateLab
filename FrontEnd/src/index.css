@@ -29,7 +29,7 @@ a:hover {
 }
 
 body {
-@apply bg-cstmwhite text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
+@apply bg-cstmneutral text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
 }
 
 h1 {
