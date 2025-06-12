@@ -14,13 +14,14 @@ type FactCheckResponse = {
 };
 
 export default function ArgumentForm() {
+  const MAX_CHAR_LIMIT = 500;
   const [argument, setArgument] = useState("");
   const [aiResponse, setAiResponse] = useState<FactCheckResponse | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [text, setText] = useState("");
   const [fallacyCount, setFallacyCount] = useState(0);
    const [isLoading, setIsLoading] = useState(false);
-
+  const [limitColor, setLimitColor] = useState('text-cstmred')
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   // const [ progressBar, setProgressBar] = useState(0);
   // const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
@@ -40,8 +41,20 @@ export default function ArgumentForm() {
 
   // Auto expand textarea height up to 4 rows
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+
+    if (newText.length > MAX_CHAR_LIMIT) return;
     setText(e.target.value);
     setArgument(e.target.value)
+  // Set color thresholds
+  if (newText.length > 420) {
+    setLimitColor("text-cstmred"); // Very close to max
+  } else if (newText.length > 250) {
+    setLimitColor("text-primary"); // Midway
+  } else {
+    setLimitColor("text-cstmgray"); // Default
+  }
+
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"; // reset height
       const maxHeight = 4 * 24; // approx 4 rows * 24px line-height
@@ -109,7 +122,7 @@ export default function ArgumentForm() {
           dark:text-cstmwhite
           p-4
           pr-8  /* enough padding for the button */
-          mb-10
+          
           placeholder:text-cstmgray
           focus:outline-none
           transition-all
@@ -118,16 +131,18 @@ export default function ArgumentForm() {
           overflow-y-hidden
         "
       />
-
+      <p className={`text-xs text-center mx-auto pt-8 bg-primarydark/10 ${limitColor}`}>
+        {argument.length}/{MAX_CHAR_LIMIT} characters
+      </p>
       <button
         type="submit"
-        className="
+        className={`
           absolute
           bottom-1
           right-1
           text-primarylight
           hover:text-cstmprimary
-          bg-cstmdarkaccent
+          bg-cstmdarkaccent/90
           rounded-full
           p-2
           focus:outline-none
@@ -136,8 +151,10 @@ export default function ArgumentForm() {
           transition-colors
           duration-150
           ease-in-out
-        "
+          ${argument.length > MAX_CHAR_LIMIT ? "opacity-50 cursor-not-allowed" : ""}
+        `}
         aria-label="Analyze"
+         disabled={argument.length > MAX_CHAR_LIMIT}
       >
         <FaPaperPlane size={20} />
       </button>
