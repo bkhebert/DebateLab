@@ -52,37 +52,47 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
           - Equivocation
           - Hasty Generalization
 
-        I want the response structured in three parts using "(1) Rewritten Message" and "(2) Explanation of Change" and "(3) List of Fallacies Found" as the labels:
-        (1) The rewritten message if it needed to be rewritten while keeping the intent of the message.
-        (2) If certain parts were changed, explain why.
-        (3) All fallacies that were found in your check. Write this list of found fallacies as if they are strings in an array. If no fallacy is found, put an empty array here "[]" I intend to map through this array so don't add extra formatting or parenthesis.
-        Example: ["Appeal to Authority", "Straw man fallacy", "False dilemma", "Hasty generalization", "Slippery slope fallacy"]
+          I will need three things. 
+          (1) The rewritten message if it needed to be rewritten while keeping the intent of the message.
+          (2) If certain parts were changed, explain why.
+          (3) All fallacies that were found in your check. Write this list 
+          of found fallacies as if they are strings in an array. If no fallacy 
+          is found, put an empty array here "[]" I intend to map 
+          through this array so don't add extra formatting or parenthesis.
 
-        Please use no formatting in your response, which means you should not use bold, italics, or different font sizes.
-
-        Place five "*" before and after each label, "(1) Rewritten Message" and "(2) Explanation of Change".
+          Please send back your analysis in the form of a parseable JSON string that I can pass into JSON.parse(), and get back an object shaped like this:
+          {
+          rewrittenMessage: "your rewritten message"
+          explanation: "your explanation of changes"
+          allFallacies: ["Appeal to Authority", "Straw man fallacy", "False dilemma", "Hasty generalization", "Slippery slope fallacy"]
+          }
+          Ensure the keys in this object match exactly as written.
           Message: ${req.body.message}
         `,
-      });
-
-      console.log('the returned text from ai')
-      console.log(text);
-      if(typeof text !== 'string'){
-        console.error('text is not a string');
-        console.log(text);
-        return res.sendStatus(500);
-      }
-      const splitText = text.split('*****');
-      console.log('text has been split');
-      console.log(splitText);
-      let factCheckedMessage = splitText[2].slice(1, -2);
-      let factCheckedStatement = splitText[4].slice(1, -1);
-      let listOfFallacies = normalizeToArray(splitText[6].slice(1, -1));
-      console.log('fact checked message', factCheckedMessage);
-      console.log('fact checked statement', factCheckedStatement);
-      console.log('lilst of fallacies', listOfFallacies)
-      console.log('type of list', typeof listOfFallacies)
-      console.log('increasing fallacies in the database...');
+            });
+            console.log('the returned text from ai');
+            console.log(text);
+            if (typeof text !== 'string') {
+                console.error('text is not a string');
+                console.log(text);
+                return res.sendStatus(500);
+            }
+            //const splitText = text.split('*****');
+            //console.log('text has been split');
+            //console.log(splitText);
+            // let factCheckedMessage = splitText[2].slice(1, -2);
+            // let factCheckedStatement = splitText[4].slice(1, -1);
+            // let listOfFallacies = normalizeToArray(splitText[6].slice(1, -1));
+            const parsedText = JSON.parse(text.slice(7, -3));
+            console.log(parsedText);
+            let factCheckedMessage = parsedText.rewrittenMessage;
+            console.log('fact checked message', factCheckedMessage);
+            let factCheckedStatement = parsedText.explanation;
+            console.log('fact checked statement', factCheckedStatement);
+            let listOfFallacies = normalizeToArray(parsedText.allFallacies);
+            console.log('lilst of fallacies', listOfFallacies);
+            console.log('type of list', typeof listOfFallacies);
+            console.log('increasing fallacies in the database...');
 await Fallacy.findOrCreate({
   where: {
     title: "Admin"

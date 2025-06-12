@@ -6,6 +6,7 @@ import GaugeComponent from "./GaugeComponent";
 import FallacyCountComponent from "./FallacyCountComponent";
 import FallacyList from "./FallacyList";
 import { FaTable } from "react-icons/fa";
+import { Loader } from "lucide-react";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -18,6 +19,8 @@ export default function ArgumentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [text, setText] = useState("");
   const [fallacyCount, setFallacyCount] = useState(0);
+   const [isLoading, setIsLoading] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   // const [ progressBar, setProgressBar] = useState(0);
   // const [ progressBarColor, setProgressBarColor] = useState("text-red-500");
@@ -48,7 +51,8 @@ export default function ArgumentForm() {
     }
   };
 
-    const aiFactChecker = (argument: string) => {
+  const aiFactChecker = (argument: string) => {
+    setIsLoading(true);
     axios.post(`${baseURL}/api/ai/fact`, 
       { "message": argument },
        {
@@ -63,6 +67,7 @@ export default function ArgumentForm() {
         console.log(data);
         setPercentage(data.percentage);
         setFallacyCount(data.listOfFallacies.length);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Failed to fact check with AI: ', error);
@@ -74,7 +79,7 @@ export default function ArgumentForm() {
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
 
       {/* INPUT AREA, ADJUSTABLE */}
-     { !aiResponse && <div className="
+     { !aiResponse && !isLoading && <div className="
           relative 
           w-full 
           max-w-md mx-auto 
@@ -143,6 +148,12 @@ export default function ArgumentForm() {
           Argument submitted for analysis!
         </div>
       )}
+      {
+        isLoading &&
+        <div className="flex justify-center items-center h-64">
+          <Loader className="w-12 h-12 text-blue-primary animate-spin" />
+        </div>
+      }
     </form>
     {
         // AI Response
