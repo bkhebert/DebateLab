@@ -1,6 +1,9 @@
 import { Router }  from 'express';
 import { GoogleGenAI }  from '@google/genai';
 import rateLimitOnePerDay from '../middleware/rateLimit.js';
+import normalizeToArray from '../utils/normalizeToArray.js';
+import { getPercentageOfFallacy, increaseFallacy } from '../utils/fallacycounter.js';
+import Fallacy from '../database/models/Fallacy.js';
 import dotenv from "dotenv";
 dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEN_AI_KEY });
@@ -47,12 +50,13 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
           - False dilemma
           - Causation fallacy
           - Equivocation
-          - Hasty Generalizations
+          - Hasty Generalization
 
         I want the response structured in three parts using "(1) Rewritten Message" and "(2) Explanation of Change" and "(3) List of Fallacies Found" as the labels:
         (1) The rewritten message if it needed to be rewritten while keeping the intent of the message.
         (2) If certain parts were changed, explain why.
-        (3) All fallacies that were found in your check. Write this list of found fallacies as if they are strings in an array. If no fallacy is found, put an empty array here "[]"
+        (3) All fallacies that were found in your check. Write this list of found fallacies as if they are strings in an array. If no fallacy is found, put an empty array here "[]" I intend to map through this array so don't add extra formatting or parenthesis.
+        Example: ["Appeal to Authority", "Straw man fallacy", "False dilemma", "Hasty generalization", "Slippery slope fallacy"]
 
         Please use no formatting in your response, which means you should not use bold, italics, or different font sizes.
 
@@ -73,11 +77,29 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
       console.log(splitText);
       let factCheckedMessage = splitText[2].slice(1, -2);
       let factCheckedStatement = splitText[4].slice(1, -1);
-      let listOfFallacies = splitText[6].slice(1, -1)
+      let listOfFallacies = normalizeToArray(splitText[6].slice(1, -1));
       console.log('fact checked message', factCheckedMessage);
       console.log('fact checked statement', factCheckedStatement);
-      console.log('sending to the front end...')
-      res.status(200).send({ factCheckedMessage, factCheckedStatement, listOfFallacies });
+      console.log('lilst of fallacies', listOfFallacies)
+      console.log('type of list', typeof listOfFallacies)
+      console.log('increasing fallacies in the database...');
+await Fallacy.findOrCreate({
+  where: {
+    title: "Admin"
+  }
+}).then(async ([data, created]) => {
+  for (const fallacy of listOfFallacies) {
+    await increaseFallacy(fallacy.toLowerCase(), data);
+  }
+
+  const percentage = await getPercentageOfFallacy(listOfFallacies, data);
+
+  console.log('sending to the front end...', percentage);
+  res.status(200).send({ factCheckedMessage, factCheckedStatement, listOfFallacies, percentage });
+});
+
+
+      
     } catch (error) {
       console.error('Failed to POST /api/ai/fact ', error);
       res.sendStatus(500);

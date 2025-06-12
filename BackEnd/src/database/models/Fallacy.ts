@@ -3,17 +3,20 @@ import database from '../db.js';
 
 interface FallacyAttributes {
   id?: number; // Auto-incremented by Sequelize
-  AppealToAuthority: number;
-  AppealtoIgnorance: number;
-  AppealtoPity: number;
-  AppealtoEmotion: number;
-  StrawManFallacy: number;
-  SlipperySlopeFallacy: number;
-  GeneticFallacy: number;
-  FalseDilemma: number;
-  CausationFallacy: number;
-  Equivocation: number;
-  HastyGeneralizations: number;
+  title: string;
+  appealtoauthority: number;
+  appealtoignorance: number;
+  appealtopity: number;
+  appealtoemotion: number;
+  strawmanfallacy: number;
+  slipperyslopefallacy: number;
+  geneticfallacy: number;
+  falsedilemma: number;
+  causationfallacy: number;
+  equivocation: number;
+  hastygeneralization: number;
+  unknown: number;
+  total: number;
 }
 
 interface FallacyInstance extends Model<FallacyAttributes>, FallacyAttributes {}
@@ -21,50 +24,75 @@ interface FallacyInstance extends Model<FallacyAttributes>, FallacyAttributes {}
 const Fallacy = database.define<FallacyInstance>(
   'Fallacy',
   {
-    AppealToAuthority: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    },
-    AppealtoIgnorance: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    },
-    AppealtoPity: {
-      type: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
-    AppealtoEmotion: {
+    appealtoauthority: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    StrawManFallacy: {
+    appealtoignorance: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    SlipperySlopeFallacy: {
+    appealtopity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    },
+    appealtoemotion: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    GeneticFallacy: {
+    strawmanfallacy: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    FalseDilemma: {
+    slipperyslopefallacy: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    CausationFallacy: {
+    geneticfallacy: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    Equivocation: {
+    falsedilemma: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
-    HastyGeneralizations: {
+    causationfallacy: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
     },
+    equivocation: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+    },
+    hastygeneralization: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+    },
+    unknown: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    },
+    total: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    }
   },
   {
     tableName: 'Fallacy', // Explicitly specify table name
