@@ -158,7 +158,7 @@ export default function ArgumentForm() {
     {
         // AI Response
         aiResponse &&
-          <div className="flex grid grid-cols-2 mt-4 mb-4 bg-primarylight/70 dark:bg-primarylight/50 rounded-lg">
+          <div className="flex grid grid-cols-2 mt-4 mb-4 bg-cstmneutral/70 dark:bg-primarylight/50 rounded-lg border border-primary">
             <div>
               <GaugeComponent percentage={percentage}/>
             </div>
