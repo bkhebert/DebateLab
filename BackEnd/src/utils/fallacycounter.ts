@@ -1,6 +1,6 @@
 import e from "express";
 import Fallacy from "../database/models/Fallacy";
-import fallacies from "./fallacies.json" assert { type: 'json' }; 
+import fallacies from "./fallacies.json" with { type: 'json' }; 
 // Increases the fallacy
 const increaseFallacy = async (fallacyName, FallacyTable) => {
   let fallacyNameNoSpace = fallacyName.replaceAll(' ', '');
