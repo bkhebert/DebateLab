@@ -5,9 +5,26 @@ import Home from './views/Home';
 import DebateLabPitch from './views/DebateLabPitch';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import DarkModeToggle from './components/DarkModeToggle';
-
+import Header from './components/Header';
+import { useState } from 'react';
 function App() {
 
+const [user, setUser] = useState({ name: 'John Doe' });
+  
+  const navItems = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/contact', label: 'Contact' },
+    { path: '/products', label: 'Products' },
+  ];
+
+  const handleLogin = () => {
+    setUser({ name: 'John Doe' });
+  };
+
+  const handleLogout = () => {
+    setUser({ name: 'John Doe' });
+  };
   // const [darkMode, setDarkMode] = useState(false);
 
   // // useEffect(() => {
@@ -17,10 +34,9 @@ function App() {
   // // }, [darkMode])
   return (
      <>
-           <DarkModeProvider>
-           <div className="flex justify-end p-1">
-              <DarkModeToggle/>
-           </div>
+   <DarkModeProvider>
+      
+      <Header/>
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Home />}/>
