@@ -8,19 +8,33 @@ const HamburgerMenu = () => {
     <div className="lg:hidden flex items-center ml-1">
       <button
         onClick={() => setOpen(!open)}
-        className="rounded-lg p-2 bg-primarylight border border-double border-4 border-primarydark focus:outline-none focus:ring-2 focus:ring-cstmblack"
+        className="rounded-lg p-2 bg-primarylight border border-double border-4 border-primarydark dark:border-cstmneutral focus:outline-none focus:ring-2 focus:ring-cstmblack"
       >
-        {open ? <X size={24} /> : <Menu size={20} />}
+        {open ? <X size={18} /> : <Menu size={18} />}
       </button>
 
       {/* Dropdown menu */}
       {open && (
         <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50">
           <ul className="flex flex-col text-left text-sm text-cstmblack">
-            <li className="p-3 hover:bg-gray-100 cursor-pointer">Home</li>
-            <li className="p-3 hover:bg-gray-100 cursor-pointer">Analyze</li>
-            <li className="p-3 hover:bg-gray-100 cursor-pointer">Debates</li>
-            <li className="p-3 hover:bg-gray-100 cursor-pointer">Login</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Home</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Analyze</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Debates</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Log in</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Sign up</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer">
+            <div className="flex justify-center mt-4 md:mt-12">
+          {/* <a href='/About'>About</a> */}
+      <a
+        href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-yellow-400/80 hover:bg-cstmgold text-cstmblack font-bold py-2 px-4 rounded"
+      >
+        Donate via PayPal
+      </a>
+      </div>
+            </li>
           </ul>
         </div>
       )}

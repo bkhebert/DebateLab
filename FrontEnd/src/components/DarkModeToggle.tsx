@@ -12,9 +12,9 @@ const DarkModeToggle = () => {
       aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {darkMode ? (
-        <FaSun className="w-7 h-7" />
+        <FaSun className="w-6 h-6" />
       ) : (
-        <FaMoon className="w-7 h-7" />
+        <FaMoon className="w-6 h-6" />
       )}
     </button>
   );
