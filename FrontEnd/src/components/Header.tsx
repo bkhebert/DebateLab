@@ -6,15 +6,24 @@ const Header = () => {
       <div className="grid grid-cols-3">
       <HamburgerMenu /> {/* 👈 Now mobile only */}
  
-      <div className="col-span-2 mt-2 mb-2 ml-2 md:mt-44 w-full h-full">
-        <div className="bg-cstmblack/85 rounded-lg w-full">
-          <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-96 md:w-80 mx-auto" />
+      <div className="col-span-2 mt-2 mb-2 ml-2 w-full">
+        <div className="bg-cstmblack/85 rounded-lg w-full  max-w-[100px] ">
+          <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-96 max-w-[100px] md:w-80 mx-auto lg:ml-1" />
         </div>
 
       </div>
       </div>
-      <div></div>
+      <div>
+      </div>
+      <div className="lg:grid lg:grid-cols-3">
+        <div className="hidden lg:flex"></div>
+        <div className="hidden lg:flex"></div>
+      <div className="grid grid-cols-3">
+        <p className="invisible lg:visible mr-1 mx-auto my-auto">Log in</p>
+        <p className="invisible lg:visible mx-auto my-auto">Sign up</p>
       <DarkModeToggle/>
+      </div>
+      </div>
       </div>
   )
 }
