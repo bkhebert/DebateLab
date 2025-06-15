@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path'; // Needed for proper aliases
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), ],
   build: {
     outDir: 'dist',
     sourcemap: false, // disable for production

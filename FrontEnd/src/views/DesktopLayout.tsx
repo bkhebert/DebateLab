@@ -1,10 +1,7 @@
 import { Separator } from "../components/ui/Separator";
 import AnalyzerCard from "../components/AnalyzerCard";
 import Feed from "../components/Feed";
-import { Link } from "react-router-dom";
 import { IconCloudDemo } from "../components/ui/IconCloudDemo";
-import { BoxReveal } from "../components/ui/BoxReveal";
-import { Button } from "../components/ui/Button";
 import MagicBoxIntro from "../components/MagicBoxIntro";
 
 const DesktopLayout = () => {
