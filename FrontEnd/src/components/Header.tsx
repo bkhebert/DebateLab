@@ -19,8 +19,8 @@ const Header = () => {
         <div className="hidden lg:flex"></div>
         <div className="hidden lg:flex"></div>
       <div className="grid grid-cols-3">
-        <p className="invisible lg:visible mr-1 mx-auto my-auto">Log in</p>
-        <p className="invisible lg:visible mx-auto my-auto">Sign up</p>
+        <p className="hidden lg:flex mr-1 mx-auto my-auto">Log in</p>
+        <p className="hidden lg:flex mx-auto my-auto">Sign up</p>
       <DarkModeToggle/>
       </div>
       </div>

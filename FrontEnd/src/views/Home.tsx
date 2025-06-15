@@ -6,12 +6,12 @@ function Home() {
     <div className="flex flex-col">
 
       
-      <div className="text-center mt-6 md:mt-44 w-full">
-        <div className="inline-block bg-cstmblack p-4 rounded-xl">
-          <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-64 md:w-80 mx-auto" />
+      <div className="text-center mt-3 md:mt-44 w-full">
+        <div className="inline-block bg-cstmblack p-1 rounded-xl dark:border-solid dark:border-2 dark:border-primarylight/80 md:border-cstmwhite">
+          <img src="/debatelabwhite.png" alt="DebateLab Logo" className="w-32 md:w-80 mx-auto" />
         </div>
       </div>
-        <p className="mt-1 font-mono text-center text-lg italic">
+        <p className="mb-2 font-mono text-center text-lg italic font-bold">
           A.I. Reasonability Checker
         </p>
       
@@ -25,7 +25,7 @@ function Home() {
         rel="noopener noreferrer"
         className="bg-yellow-400/80 hover:bg-cstmgold text-cstmblack font-bold py-2 px-4 rounded"
       >
-        Donate via PayPal
+        Analyze
       </a>
       </div>
     </div>
