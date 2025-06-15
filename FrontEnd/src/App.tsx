@@ -9,8 +9,9 @@ import Header from './components/Header';
 import { AuthProvider } from './contexts/AuthContext';
 import { useState } from 'react';
 import Logout from "./views/Logout";
-import SignIn from "./views/SignIn";
-import SignUp from "./views/SignUp";
+import SignIn from './views/Signin';
+import SignUp from './views/SignUp';
+
 function App() {
 
   return (
