@@ -10,8 +10,8 @@ const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
   return (
     <div className="rounded-md bg-cstmdarkaccent mx-4 my-4">
 
-      <div className="grid grid-cols-3">
-        <div className="col-start-2 text-center mt-3 md:mt-44 w-full">
+      <div className="grid grid-cols-3 lg:mt-10">
+        <div className="col-start-2 text-center mt-3 lg:mt-10 w-full">
           <div className="inline-block bg-cstmblack p-1 rounded-xl dark:border-solid dark:border-2 dark:border-primarylight/80 md:border-cstmwhite">
             <img
               src="/debatelabwhite.png"

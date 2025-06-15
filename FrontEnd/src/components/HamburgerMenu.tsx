@@ -5,7 +5,7 @@ const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="lg:hidden flex items-center ml-1">
+    <div className="relative lg:hidden flex items-center ml-1">
       <button
         onClick={() => setOpen(!open)}
         className="rounded-lg p-2 bg-primarylight border border-double border-4 border-primarydark dark:border-cstmneutral focus:outline-none focus:ring-2 focus:ring-cstmblack"
