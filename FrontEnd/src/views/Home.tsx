@@ -8,7 +8,16 @@ function Home() {
   }
  return (
   <div className=''>
-    <button onClick={toggleAnalyzer}>show analyzer</button>
+    <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-cstmwhite rounded-xl shadow-sm border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
+     onClick={toggleAnalyzer}
+>
+  <img
+    src="/public/anonprofile.png"
+    alt="Profile"
+    className="w-10 h-10 rounded-full object-cover"
+  />
+  <span className="text-gray-500">Enter any argument for analysis...</span>
+</div>
     {showAnalyzer && 
     <div className='absolute top-0 right-0 left-0 bg-cstmblack/50 h-full'>
     <AnalyzerCard  closeModal={() => setShowAnalyzer(false)}/>
