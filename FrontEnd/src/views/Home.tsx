@@ -1,5 +1,17 @@
 import { useState, useEffect } from "react";
 import AnalyzerCard from "../components/AnalyzerCard";
+import { Separator } from "../components/ui/Separator";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/Card";
+import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft"
+import Feed from "../components/Feed";
 
 function Home() {
   const [showAnalyzer, setShowAnalyzer] = useState(false);
@@ -36,6 +48,8 @@ function Home() {
         Analyze
       </a>
       </div>
+      <Separator className="mt-2 mb-2 bg-cstmblack"/>
+      <Feed/>
     </div>
   )
 }
