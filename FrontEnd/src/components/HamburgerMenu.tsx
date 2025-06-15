@@ -15,14 +15,18 @@ const HamburgerMenu = () => {
 
       {/* Dropdown menu */}
       {open && (
-        <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50">
+        <div 
+        onClick={()=> {setOpen(false)}}
+        className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50">
           <nav className="flex flex-col text-left text-sm text-cstmblack">
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Home</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            <Link to="/">Home</Link></li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Analyze</li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Debates</li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             <Link to="/signIn">Log in</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2"><Link to="/signUp">Sign up</Link></li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            <Link to="/signUp">Sign up</Link></li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer">
             <div className="flex justify-center mt-4 md:mt-12">
           {/* <a href='/About'>About</a> */}
