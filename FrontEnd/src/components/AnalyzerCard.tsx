@@ -8,7 +8,7 @@ const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
 
 
   return (
-    <div className="rounded-md bg-cstmdarkaccent mx-4 my-4">
+    <div className="rounded-md bg-primary  mx-4 my-4">
 
       <div className="grid grid-cols-3 lg:mt-10">
         <div className="col-start-2 text-center mt-3 lg:mt-10 w-full">
@@ -22,7 +22,7 @@ const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
         </div>
       <div className="mx-auto mr-1 ">
         <button 
-        className="rounded rounded-full bg-cstmblack/80 m-1 text-sm"
+        className="rounded rounded-full bg-primary dark:bg-cstmblack/80 m-1 text-sm"
         onClick={closeModal}
         >X</button>
       </div>
