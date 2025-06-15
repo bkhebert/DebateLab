@@ -21,8 +21,8 @@ const MagicBoxIntro = () => {
           <span className="text-[#A128E3]">A.I.</span>
         </h2>
           <h2 className="text-xl md:text-2xl text-center italic text-gray-700 mt-1">
-    End Widespread Ignorance.
-  </h2>
+          End Widespread Ignorance.
+        </h2>
       </BoxReveal>
  
       <BoxReveal boxColor={"#2B354B"} duration={0.5}>
@@ -52,12 +52,12 @@ const MagicBoxIntro = () => {
       <BoxReveal boxColor={"#A128E3"} duration={0.5}>
         <div className="mt-2 flex flex-col sm:flex-row gap-4">
         <Link to="/signup">
-          <Button className="bg-[#5046e6] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <Button className="bg-primarylight text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
             Sign up & Join the Debate
           </Button>
         </Link>
         <Link to="/demo">
-          <Button className="bg-[#5046e6] border border-cstmblack text-cstmblack px-8 py-3 rounded-full hover:bg-gray-50 transition-all">
+          <Button className="bg-primarylight border border-cstmblack text-cstmwhite px-8 py-3 rounded-full hover:bg-gray-50 transition-all">
             Explore
           </Button>
         </Link>
