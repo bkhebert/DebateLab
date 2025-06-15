@@ -6,43 +6,28 @@ import DebateLabPitch from './views/DebateLabPitch';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import DarkModeToggle from './components/DarkModeToggle';
 import Header from './components/Header';
+import { AuthProvider } from './contexts/AuthContext';
 import { useState } from 'react';
+import Logout from "./views/Logout";
+import SignIn from "./views/SignIn";
+import SignUp from "./views/SignUp";
 function App() {
 
-const [user, setUser] = useState({ name: 'John Doe' });
-  
-  const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/contact', label: 'Contact' },
-    { path: '/products', label: 'Products' },
-  ];
-
-  const handleLogin = () => {
-    setUser({ name: 'John Doe' });
-  };
-
-  const handleLogout = () => {
-    setUser({ name: 'John Doe' });
-  };
-  // const [darkMode, setDarkMode] = useState(false);
-
-  // // useEffect(() => {
-  // //   if(darkMode){
-  // //     document.documentElement.classList.toggle('dark');
-  // //   }
-  // // }, [darkMode])
   return (
      <>
    <DarkModeProvider>
-      
+      <AuthProvider>
       <Header/>
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Home />}/>
+      <Route path="/logout" element={<Logout />}/>
       <Route path="/About" element={<DebateLabPitch />}/>
+      <Route path="/signIn" element={<SignIn />} />
+      <Route path="/signUp" element={<SignUp />} />
      </Routes>
      </BrowserRouter>
+     </AuthProvider>
      </DarkModeProvider>
      </>
   )
