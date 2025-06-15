@@ -1,9 +1,19 @@
-
+import { useState, useEffect } from "react";
 import AnalyzerCard from "../components/AnalyzerCard";
 function Home() {
+  const [showAnalyzer, setShowAnalyzer] = useState(false);
+
+  const toggleAnalyzer = () => {
+    setShowAnalyzer(!showAnalyzer);
+  }
  return (
   <div className=''>
-    <AnalyzerCard />
+    <button onClick={toggleAnalyzer}>show analyzer</button>
+    {showAnalyzer && 
+    <div className='absolute top-0 right-0 left-0 bg-cstmblack/50 h-full'>
+    <AnalyzerCard  closeModal={() => setShowAnalyzer(false)}/>
+    </div>
+    }
       <div className="flex justify-center mt-4 md:mt-12">
           {/* <a href='/About'>About</a> */}
       <a

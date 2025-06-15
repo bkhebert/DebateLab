@@ -88,7 +88,7 @@ export default function ArgumentForm() {
   };
 
   return (
-    <div className="p-2">
+    <div className="p-1">
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
 
       {/* INPUT AREA, ADJUSTABLE */}
@@ -107,7 +107,7 @@ export default function ArgumentForm() {
         id="argument"
         name="argument"
         ref={textareaRef}
-        rows={1}
+        rows={4}
         placeholder="Type your argument for analysis here..."
         value={argument}
         onChange={handleChange}
@@ -122,7 +122,7 @@ export default function ArgumentForm() {
           dark:text-cstmwhite
           p-4
           pr-8  /* enough padding for the button */
-          
+          text-lg
           placeholder:text-cstmgray
           focus:outline-none
           transition-all
