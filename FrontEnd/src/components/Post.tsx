@@ -3,7 +3,7 @@ import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft
 
 const Post = ({userName}) => {
   return (
-        <div className="mx-3 p-2 mb-2 rounded-md border border-black p-3">
+        <div className="mx-3 p-2 mb-2 rounded-md border border-black p-3 md:w-full lg:w-3/4">
         <div className="">
           <div className="grid grid-cols-8 grid-rows-2 bg-cstmwhite">
             <div className="col-span-1 row-span-2 flex justify-center">
@@ -17,15 +17,15 @@ const Post = ({userName}) => {
   </div>
   <div className="col-span-7 italic ml-2 text-sm">Date</div>
   
-  <div className="col-span-8 text-xs grid grid-cols-4 bg-yellow-500">
-    <div className="bg-green-100  px-2 py-0.5 mx-0.5 rounded-md">Tags</div>
+  <div className="col-span-8 text-xs grid grid-cols-4">
+    <div className="  px-2 py-0.5 mx-0.5 rounded-md">Tags</div>
     </div>
   </div>
         <Separator className="bg-black/50  mt-1"/>
         <div className="grid grid-cols-4 auto-rows-auto text-xs mt-2">
-        <div className="col-span-1 flex py-auto bg-white">
-          <div className="bg-red-300 my-auto">Fallacies: 7</div>
-        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto bg-red-400"/>
+        <div className="col-span-1 flex py-auto">
+          <div className="my-auto">Fallacies: 7</div>
+        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto"/>
         </div>
 
         <div className="my-auto mx-auto">Fallacy 1</div>

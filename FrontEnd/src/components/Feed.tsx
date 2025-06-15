@@ -4,9 +4,9 @@ const Feed = () => {
   const [postNumber, setPostNumber] = useState([
     'tag1', 'awef', 'fdsaf', 'gfsd', 'trew', 'uytr', 'opoiu'])
   
-  return(<div>
+  return(<div className="">
     { postNumber.map((userInfo) => (
-      <Post userName={userInfo}/>
+      <div className="flex justify-center"><Post userName={userInfo}/></div>
     ))}
   </div>)
 }
