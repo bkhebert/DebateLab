@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AnalyzerCard from "../components/AnalyzerCard";
+
 function Home() {
   const [showAnalyzer, setShowAnalyzer] = useState(false);
 
@@ -8,6 +9,7 @@ function Home() {
   }
  return (
   <div className=''>
+
     <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-cstmwhite rounded-xl shadow-sm border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
      onClick={toggleAnalyzer}
 >

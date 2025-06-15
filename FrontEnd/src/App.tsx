@@ -1,6 +1,6 @@
 
 import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './views/Home';
 import DebateLabPitch from './views/DebateLabPitch';
 import { DarkModeProvider } from './contexts/DarkModeContext';
@@ -18,8 +18,8 @@ function App() {
      <>
    <DarkModeProvider>
       <AuthProvider>
-      <Header/>
      <BrowserRouter>
+      <Header/>
      <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/logout" element={<Logout />}/>
