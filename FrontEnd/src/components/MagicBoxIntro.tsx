@@ -54,12 +54,12 @@ const MagicBoxIntro = () => {
       <BoxReveal boxColor={"#A128E3"} duration={0.5}>
         <div className="mt-2 flex flex-col sm:flex-row gap-4  p-8">
         <Link to="/signup">
-          <Rainbowbutton className="text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-2000 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <Rainbowbutton className="text-white px-8 py-3 bg-primary rounded-full hover:bg-opacity-90 transition-all duration-2000 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
             Sign up & Join the Debate
           </Rainbowbutton>
         </Link>
         <Link to="/demo">
-          <ShimmerButton>
+          <ShimmerButton className="bg-primary">
             Explore
           </ShimmerButton>
         </Link>

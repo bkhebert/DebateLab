@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
-import { FaPaperPlane } from '@react-icons/all-files/fa/FaPaperPlane';
+import { FaArrowRight } from '@react-icons/all-files/fa/FaArrowRight';
 import GaugeComponent from "./GaugeComponent";
 import FallacyCountComponent from "./FallacyCountComponent";
 import FallacyList from "./FallacyList";
 import { FaTable } from "react-icons/fa";
 import { Loader } from "lucide-react";
+import { ShimmerButton } from "./ui/ShimmerButton";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -134,7 +135,7 @@ export default function ArgumentForm() {
       <p className={`text-xs text-center mx-auto pt-8 bg-primarydark/10 ${limitColor}`}>
         {argument.length}/{MAX_CHAR_LIMIT} characters
       </p>
-      <button
+      <ShimmerButton
         type="submit"
         className={`
           absolute
@@ -156,8 +157,8 @@ export default function ArgumentForm() {
         aria-label="Analyze"
          disabled={argument.length > MAX_CHAR_LIMIT}
       >
-        <FaPaperPlane size={20} />
-      </button>
+        <FaArrowRight size={20} />
+      </ShimmerButton>
     </div> }
 
       {submitted && (
