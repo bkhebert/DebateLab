@@ -49,7 +49,7 @@ export default function ProfileBeliefs() {
   const [beliefsState, setBeliefsState] = useState<{ [sub: string]: string }>({});
 
   return (
-    <div className="py-2 px-6 max-w-6xl mx-auto">
+    <div className="px-6 max-w-6xl mx-auto">
       {selectedParent === null && (
         <>
           <h1 className="text-4xl font-bold text-center mb-1">Add your beliefs</h1>
@@ -97,9 +97,7 @@ export default function ProfileBeliefs() {
           onSave={(text) => setBeliefsState(prev => ({ ...prev, [selectedSub]: text }))}
         />
       )}
-      <div className="flex justify-center mt-1">
-      <button className="flex justify-center bg-primary text-white">Save</button>
-      </div>
+
     </div>
   );
 }

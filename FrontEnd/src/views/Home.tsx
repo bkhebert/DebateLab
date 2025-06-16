@@ -14,37 +14,23 @@ import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft
 import Feed from "../components/Feed";
 import MobileLayout from "../components/MobileLayout";
 import DesktopLayout from "./DesktopLayout";
-function Home() {
+function Home({user}) {
 
-  const user = false;
-
+console.log(user)
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 h-screen">
+    <div>
       {/* Left Sidebar */}
-{user &&  <aside className="hidden lg:block lg:col-span-2 border-r border-gray-200 p-4 bg-cstmwhite h-screen overflow-y-auto">
-    <nav className="space-y-4 text-sm text-gray-700">
-      <a href="#" className="block hover:text-black">Home</a>
-      <a href="#" className="block hover:text-black">Profile</a>
-      <a href="#" className="block hover:text-black">Settings</a>
-      <a href="#" className="block hover:text-black">Logout</a>
-    </nav>
-  </aside>}
-  <div className="hidden lg:block col-span-12 w-full">
+
+
+  { !user && <div className="lg:block">
   <DesktopLayout />
   </div>
-    <div className="lg:hidden">
+  }
+   <div className={`${user ? "lg:hidden" : "hidden" }`}>
     <MobileLayout/>
     </div>
       {/* Right Sidebar */}
-    {user &&   <aside className="hidden lg:block lg:col-span-2 border-l border-gray-200 p-4 bg-cstmwhite h-screen overflow-y-auto">
-        <h2 className="text-sm font-semibold text-gray-800 mb-2">Trending Topics</h2>
-        <ul className="text-xs text-gray-600 space-y-2">
-          <li>#FreeSpeech</li>
-          <li>#LogicalFallacies</li>
-          <li>#Philosophy</li>
-          <li>#Politics</li>
-        </ul>
-      </aside> }
+
     </div>
   );
 }

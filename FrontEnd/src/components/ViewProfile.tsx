@@ -14,6 +14,7 @@ interface UserProfileModalProps {
   beliefs: Belief[];
 }
 
+
 const UserProfileModal: React.FC<UserProfileModalProps> = ({
   onClose,
   image,
