@@ -16,6 +16,7 @@ import Profile from './views/Profile';
 import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
 import AnalyzerCard from './components/AnalyzerCard';
+import Debates from './views/Debates';
 function App() {
 
 
@@ -38,6 +39,7 @@ function App() {
       <Route path="/onboarding" element={<Onboarding/>} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/analyzer" element={<AnalyzerCard closeModal={null}/>} />
+      <Route path="/debates" element={<Debates />} />
      </Routes>
      </div>
       <RightSideBar />

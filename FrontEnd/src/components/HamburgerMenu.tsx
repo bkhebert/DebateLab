@@ -22,6 +22,8 @@ const HamburgerMenu = () => {
           <nav className="flex flex-col text-left text-sm text-cstmblack">
             <Link to="/"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             Home</li></Link>
+            { user ? <Link to="/profile"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            Profile</li></Link> : null}
            <Link to="/analyzer"> <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             Analyze</li></Link>
             <Link to="/debates"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">

@@ -5,6 +5,7 @@ import { Input } from '../components/ui/Input';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import useAuth from '../contexts/useAuth';
+import DisclaimerCard from '../components/Disclaimer';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -54,7 +55,8 @@ const SignUp = () => {
                 <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
                   <div className="text-center mb-6">
                     <h2 className="text-xl font-bold text-slate-900 mb-2">Create Your Account</h2>
-                    <p className="text-slate-600">Start your free trial today</p>
+                    <p className="text-slate-600">The best way to use this app is to be honest about who you are and what you believe in. </p>
+                    
                   </div>
 
                   <div className="space-y-6">
