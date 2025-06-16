@@ -59,7 +59,7 @@ const MagicBoxIntro = () => {
           </Rainbowbutton>
         </Link>
         <Link to="/demo">
-          <ShimmerButton className="bg-primary">
+          <ShimmerButton className="text-white bg-primary dark:text-white">
             Explore
           </ShimmerButton>
         </Link>

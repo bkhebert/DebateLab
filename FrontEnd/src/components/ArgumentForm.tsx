@@ -157,7 +157,7 @@ export default function ArgumentForm() {
         aria-label="Analyze"
          disabled={argument.length > MAX_CHAR_LIMIT}
       >
-        <FaArrowRight size={20} />
+        <FaArrowRight className="text-cstmwhite"size={20} />
       </ShimmerButton>
     </div> }
 

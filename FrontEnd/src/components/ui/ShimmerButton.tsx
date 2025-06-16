@@ -69,23 +69,23 @@ export const ShimmerButton = React.forwardRef<
           className={cn(
             "insert-0 absolute size-full",
 
-            "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#ffffff1f]",
+            "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#412476]",
 
             // transition
             "transform-gpu transition-all duration-300 ease-in-out",
 
             // on hover
-            "group-hover:shadow-[inset_0_-6px_10px_#ffffff3f]",
+            "group-hover:shadow-[inset_0_-6px_10px_#A128E3]",
 
-            // on click
-            "group-active:shadow-[inset_0_-10px_10px_#ffffff3f]",
+            // on click#A128E3
+            "group-active:shadow-[inset_0_-10px_10px_#D8ABF4]",
           )}
         />
 
         {/* backdrop */}
         <div
           className={cn(
-            "absolute -z-20 [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]",
+            "absolute -z-20 [background:#1E142E] [border-radius:var(--radius)] [inset:var(--cut)]",
           )}
         />
       </button>
