@@ -12,12 +12,12 @@ const DesktopLayout = () => {
   return (
    
 
-      <div className="relative bg-blue-400">
+      <div className="relative">
         <div className="absolute top-2 left-3/7 opacity-20">
         <IconCloudDemo />
         </div>
   {/* Top section: Intro + Analyzer */}
-  <div className="grid grid-cols-1 lg:grid-cols-9 gap-8 p-6 lg:p-12 max-w-90vw mx-auto bg-yellow-500">
+  <div className="grid grid-cols-1 lg:grid-cols-9 gap-8 p-6 lg:p-12 max-w-90vw mx-auto">
     {/* Left 2/3: Intro content */}
     <div className="lg:col-span-5 flex flex-col justify-center space-y-6">
      <MagicBoxIntro/>
@@ -27,7 +27,7 @@ const DesktopLayout = () => {
     </div>
 
     {/* Right 1/3: Try it now card */}
-    <div className="relative col-span-4 bg-red-500">
+    <div className="relative col-span-4">
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <Marquee3D>
         </Marquee3D>
