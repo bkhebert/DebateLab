@@ -13,9 +13,10 @@ import SignIn from './views/Signin';
 import SignUp from './views/SignUp';
 import Onboarding from './views/Onboaring';
 import Profile from './views/Profile';
+
 function App() {
 
-  const user = true;
+
   return (
      <>
    <DarkModeProvider>
@@ -34,7 +35,7 @@ function App() {
   </aside>
   <div className="col-span-8">
      <Routes>
-      <Route path="/" element={<Home user={user} />}/>
+      <Route path="/" element={<Home />}/>
       <Route path="/logout" element={<Logout />}/>
       <Route path="/About" element={<DebateLabPitch />}/>
       <Route path="/signIn" element={<SignIn />} />

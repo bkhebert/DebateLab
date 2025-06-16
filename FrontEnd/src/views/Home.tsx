@@ -14,10 +14,14 @@ import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft
 import Feed from "../components/Feed";
 import MobileLayout from "../components/MobileLayout";
 import DesktopLayout from "./DesktopLayout";
-function Home({user}) {
+import useAuth from "../contexts/useAuth";
+function Home() {
 
-console.log(user)
-  return (
+  const {user} = useAuth();
+console.log(JSON.stringify(user));
+  
+
+return (
     <div>
       {/* Left Sidebar */}
 
