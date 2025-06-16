@@ -5,7 +5,7 @@ interface MessageAttributes {
   id?: number; // Auto-incremented by Sequelize
   content: string | null;
   topicId: number;
-  userId: number;
+  userId: number | string;
 }
 
 interface MessageInstance extends Model<MessageAttributes>, MessageAttributes {}
@@ -14,7 +14,7 @@ const Message = database.define<MessageInstance>(
   "Message",
   {
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     topicId: {
@@ -28,7 +28,7 @@ const Message = database.define<MessageInstance>(
       onDelete: "CASCADE",
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER || DataTypes.STRING,
       allowNull: false,
       references: {
         model: "User", // or User if you prefer
