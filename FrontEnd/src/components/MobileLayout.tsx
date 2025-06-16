@@ -3,7 +3,7 @@ import Feed from "./Feed"
 import { Separator } from "@radix-ui/react-separator"
 import { useState } from "react";
 
-const MobileLayout = () => {
+const MobileLayout = ({topic}) => {
     const [showAnalyzer, setShowAnalyzer] = useState(false);
   const toggleAnalyzer = () => setShowAnalyzer(!showAnalyzer);
   return (
@@ -17,12 +17,13 @@ const MobileLayout = () => {
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
           />
-          <span className="text-gray-500 text-sm">Enter an argument for analysis here...</span>
+          { !topic && <span className="text-gray-500 text-sm">Enter an argument for analysis here...</span>}
+           { topic && <span className="text-gray-500 text-sm">Submit a post for debate in {topic}?</span>}
         </div>
 
         {showAnalyzer && (
           <div className='absolute top-0 right-0 left-0 bg-cstmblack/50 h-full z-50'>
-            <AnalyzerCard closeModal={() => setShowAnalyzer(false)} />
+            <AnalyzerCard closeModal={() => setShowAnalyzer(false)} topic={topic}/>
           </div>
         )}
 
@@ -35,10 +36,10 @@ const MobileLayout = () => {
            <div className="flex justify-center mt-3">
           <button className="bg-white text-primary border-solid border-primary">Choose A Debate Topic</button>
         </div>
-        <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent Debates</h6>
+        <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent debates{topic? ` on ${topic}`: ""}</h6>
         
         {/* Feed (scrollable) */}
-        <Feed />
+        <Feed topic={topic} />
       </main>
   )
 }

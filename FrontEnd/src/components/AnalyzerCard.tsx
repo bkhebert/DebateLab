@@ -2,11 +2,12 @@ import ArgumentForm from "./ArgumentForm";
 
 type AnalyzerCardProps = {
   closeModal: () => void | null;
+  topic?: string,
 };
 
-const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
+const AnalyzerCard = ({closeModal, topic }: AnalyzerCardProps) => {
 
-
+  console.log(topic)
   return (
     <div className="rounded-md lg:rounded-sm bg-primarylight/50  mx-4 my-4">
 
@@ -35,7 +36,7 @@ const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
           A.I. Reasonability Checker
         </p>
          
-      <ArgumentForm />
+      <ArgumentForm topic={topic}/>
     </div>
   );
 };

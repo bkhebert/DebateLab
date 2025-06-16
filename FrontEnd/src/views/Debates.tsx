@@ -1,5 +1,6 @@
 import DisclaimerCard from "../components/Disclaimer"
 import { useState } from "react";
+import ProfileBeliefs from "../components/ProfileBeliefs";
 const Debates = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
 
@@ -30,6 +31,8 @@ const Debates = () => {
         </div>
     </div>
     }
+    <ProfileBeliefs isSelectingTopics={true}/>
+   <div className="text-center text-primary"> The best way to use this app is to be honest about who you are and what you believe in.</div>
     </div>
   )
 }

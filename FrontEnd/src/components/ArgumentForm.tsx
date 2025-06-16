@@ -14,7 +14,7 @@ type FactCheckResponse = {
   listOfFallacies: string[];
 };
 
-export default function ArgumentForm() {
+export default function ArgumentForm({topic}) {
   const MAX_CHAR_LIMIT = 500;
   const [argument, setArgument] = useState("");
   const [aiResponse, setAiResponse] = useState<FactCheckResponse | null>(null);
@@ -109,7 +109,7 @@ export default function ArgumentForm() {
         name="argument"
         ref={textareaRef}
         rows={4}
-        placeholder="Type your argument for analysis here..."
+        placeholder={`Type your argument ${topic ? `on ${topic} for` :"for"}  analysis here...`}
         value={argument}
         onChange={handleChange}
         className="

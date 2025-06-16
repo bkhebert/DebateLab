@@ -67,7 +67,7 @@ setSchoolOfThought(!schoolOfThought);
       { ( showTags || showBeliefs || schoolOfThought) && 
       <button className="bg-primary/80 p-2 m-2 rounded-md" onClick={toggleMenu}>Return To Edit Profile</button>}
       </div>
-{   showBeliefs && <ProfileBeliefs/>}
+{   showBeliefs && <ProfileBeliefs isSelectingTopics={false}/>}
 {   showTags && <TagSelector />}
 { schoolOfThought && <SchoolOfThoughts/>}
 { showProfileView && <UserProfileModal image={infoNeeded.img} tags={infoNeeded.tags} beliefs={infoNeeded.beliefs} onClose={toggleProfileView} />}
