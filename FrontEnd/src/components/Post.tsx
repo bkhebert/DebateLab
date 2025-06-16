@@ -1,16 +1,34 @@
 import { Separator } from "./ui/Separator";
 import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft";
+import { useState } from "react";
+import UserProfileModal from "./ViewProfile";
 
+const infoNeeded = {
+  img: '/anonprofile.png',
+  tags: ['pro-life', 'environmentalist'],
+  beliefs: [{
+    category: 'Philosophy',
+    subCategory: 'Ontology',
+    description: 'there is no god',
+  }],
+
+}
 const Post = ({userName}) => {
+  const [showProfileView, setShowProfileView] = useState(false);
+  
+  const handleClick = () => {
+    setShowProfileView(!showProfileView);
+  }
   return (
         <div className="mx-3 p-2 mb-2 rounded-md border border-black p-3 md:w-full lg:w-3/4">
-        <div className="">
+  {   !showProfileView &&  ( <div className="">
           <div className="grid grid-cols-8 grid-rows-2 bg-cstmwhite">
             <div className="col-span-1 row-span-2 flex justify-center">
             <img
     src="/public/anonprofile.png"
     alt="Profile"
     className="w-10 h-10 rounded-full object-cover mx-auto"
+    onClick={handleClick}
   /></div>
   <div className="col-span-7 font-bold ml-2">
     <div>{userName}</div>
@@ -34,7 +52,10 @@ const Post = ({userName}) => {
         <Separator className="bg-black/50  mt-1"/>
         <div className="mx-3 text-center max-w-2xl">
           The Users Argument and it can be as long as they want it to be The Users Argument and it can be as long as they want it to be The Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to be</div>
-        </div>
+        </div>)}
+        {showProfileView && (
+          <UserProfileModal image={infoNeeded.img} tags={infoNeeded.tags} beliefs={infoNeeded.beliefs} onClose={handleClick}/>
+        )}
         <Separator className="bg-black/50 mt-1"/>
         <div className="flex justify-center pt-2">
           <button className="p-2 py-1 bg-primarylight/80 text-black">DEBATE</button>

@@ -49,11 +49,15 @@ export default function ProfileBeliefs() {
   const [beliefsState, setBeliefsState] = useState<{ [sub: string]: string }>({});
 
   return (
-    <div className="py-12 px-6 max-w-6xl mx-auto">
-      {!selectedParent && (
+    <div className="py-2 px-6 max-w-6xl mx-auto">
+      {selectedParent === null && (
         <>
-          <h1 className="text-4xl font-bold text-center mb-10">Choose a Belief Category</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h1 className="text-4xl font-bold text-center mb-1">Add your beliefs</h1>
+<p className="text-xs mb-2 italic">
+  This section may take time. It’s no small task to sit with oneself and carve out truths you stand by in a world as ambiguous as ours. But take comfort—your answers aren’t final. You can revise, reflect, evolve. No A.I. will interpret your beliefs here; they are valid because they are yours. Share them not for approval, but for understanding—so others may glimpse who you are in this brief and shifting moment of being.
+</p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {beliefs.map((belief, i) => (
               <BeliefCard
                 key={belief.title}
@@ -93,6 +97,9 @@ export default function ProfileBeliefs() {
           onSave={(text) => setBeliefsState(prev => ({ ...prev, [selectedSub]: text }))}
         />
       )}
+      <div className="flex justify-center mt-1">
+      <button className="flex justify-center bg-primary text-white">Save</button>
+      </div>
     </div>
   );
 }

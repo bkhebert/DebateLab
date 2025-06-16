@@ -12,7 +12,7 @@ import Logout from "./views/Logout";
 import SignIn from './views/Signin';
 import SignUp from './views/SignUp';
 import Onboarding from './views/Onboaring';
-
+import Profile from './views/Profile';
 function App() {
 
   return (
@@ -28,6 +28,7 @@ function App() {
       <Route path="/signIn" element={<SignIn />} />
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/onboarding" element={<Onboarding/>} />
+      <Route path="/profile" element={<Profile />} />
      </Routes>
      </BrowserRouter>
      </AuthProvider>
