@@ -30,7 +30,7 @@ const HamburgerMenu = () => {
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             <Link to="/signUp">Sign up</Link></li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer">
-            <div className="flex justify-center mt-4 md:mt-12">
+            <div className="flex justify-center">
           {/* <a href='/About'>About</a> */}
       <a
         href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"
