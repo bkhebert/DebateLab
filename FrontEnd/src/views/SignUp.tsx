@@ -38,7 +38,7 @@ const SignUp = () => {
       const success = await signup(email, password);
       if (success) {
         console.log("✅ Account created and logged in");
-        navigate('/');
+        navigate('/onboarding');
       } else {
         setError("Failed to create account. Email may already exist.");
       }

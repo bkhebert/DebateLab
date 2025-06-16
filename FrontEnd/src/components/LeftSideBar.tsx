@@ -9,7 +9,8 @@ const LeftSideBar = () => {
     <nav className="space-y-4 text-sm text-gray-700">
       <a href="/" className="block hover:text-black">Home</a>
       { user ? <a href="/profile" className="block hover:text-black">Profile</a> : null}
-      <a href="#" className="block hover:text-black">Settings</a>
+      { user ? null :  <a href="/signUp" className="block hover:text-black">Sign Up</a> }
+      { user ? null : <a href="/signIn" className="block hover:text-black">Log In</a> }
       { user ? <a href="/logout" className="block hover:text-black">Logout</a> : null}
     </nav>
   </aside>

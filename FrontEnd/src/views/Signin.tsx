@@ -32,7 +32,7 @@ const SignIn = () => {
 const [form, setForm] = useState<FormState>({ email: "", password: "" });
     useEffect(() => {
     if (user) {
-      navigate('/onboarding');
+      navigate('/');
     }
   }, [user, navigate]);
 
