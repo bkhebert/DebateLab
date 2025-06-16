@@ -4,7 +4,7 @@ import cors from "cors";
 import sequelize from "./database/db.js";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
-
+import { jwtAuthRouter } from "./jwtAuth/jwtAuthRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api', apiRouter);
+app.use('/jwt/auth', jwtAuthRouter);
 
 app.listen(PORT, async () => {
   if (process.env.SKIP_DB === 'true') {

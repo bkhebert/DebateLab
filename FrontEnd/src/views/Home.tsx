@@ -22,11 +22,11 @@ console.log(user)
       {/* Left Sidebar */}
 
 
-  { !user && <div className="lg:block">
+  { !user && <div className="hidden lg:block">
   <DesktopLayout />
   </div>
   }
-   <div className={`${user ? "" : "hidden" }`}>
+   <div className={`${user ? "" : "lg:hidden" }`}>
     <MobileLayout/>
     </div>
       {/* Right Sidebar */}

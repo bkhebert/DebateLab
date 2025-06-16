@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
+import { jwtAuthRouter } from "./jwtAuth/jwtAuthRoutes.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
     res.send("Hello from DebateLab backend");
 });
 app.use('/api', apiRouter);
+app.use('/jwt/auth', jwtAuthRouter);
 app.listen(PORT, async () => {
     if (process.env.SKIP_DB === 'true') {
         console.log('⚠️ Skipping database sync due to SKIP_DB=true');
