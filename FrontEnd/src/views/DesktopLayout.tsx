@@ -4,6 +4,7 @@ import Feed from "../components/Feed";
 import { IconCloudDemo } from "../components/ui/IconCloudDemo";
 import MagicBoxIntro from "../components/MagicBoxIntro";
 import { Marquee3D } from "../components/3DFeed";
+import { HorizontalFeed } from "../components/HorizontalFeed";
 const DesktopLayout = () => {
   const handleclose = () => {
     return null;
@@ -47,7 +48,7 @@ const DesktopLayout = () => {
       </h2>
       <div className="space-y-6">
         
-        <Feed /> 
+        <HorizontalFeed /> 
       </div>
     </div>
   </div>
