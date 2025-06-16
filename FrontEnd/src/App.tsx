@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Logout from "./views/Logout";
 import SignIn from './views/Signin';
 import SignUp from './views/SignUp';
+import Onboarding from './views/Onboaring';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/About" element={<DebateLabPitch />}/>
       <Route path="/signIn" element={<SignIn />} />
       <Route path="/signUp" element={<SignUp />} />
+      <Route path="/onboarding" element={<Onboarding/>} />
      </Routes>
      </BrowserRouter>
      </AuthProvider>
