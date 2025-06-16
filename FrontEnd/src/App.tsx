@@ -15,7 +15,7 @@ import Onboarding from './views/Onboaring';
 import Profile from './views/Profile';
 function App() {
 
-  const user = true;
+  const user = false;
   return (
      <>
    <DarkModeProvider>
