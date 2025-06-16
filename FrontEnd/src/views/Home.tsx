@@ -26,7 +26,7 @@ console.log(user)
   <DesktopLayout />
   </div>
   }
-   <div className={`${user ? "lg:hidden" : "hidden" }`}>
+   <div className={`${user ? "" : "hidden" }`}>
     <MobileLayout/>
     </div>
       {/* Right Sidebar */}
