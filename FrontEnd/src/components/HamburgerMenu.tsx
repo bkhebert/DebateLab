@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // Optional: swap with your preferred icon lib
 import { Link } from "react-router-dom";
+import useAuth from "../contexts/useAuth";
 const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
-
+  const { user } = useAuth();
   return (
     <div className="relative lg:hidden flex items-center ml-1">
       <button
@@ -19,16 +20,18 @@ const HamburgerMenu = () => {
         onClick={()=> {setOpen(false)}}
         className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50">
           <nav className="flex flex-col text-left text-sm text-cstmblack">
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
-            <Link to="/">Home</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
-            <Link to="/analyze">Analyze</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
-            <Link to="/debates">Debates</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
-            <Link to="/signIn">Log in</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
-            <Link to="/signUp">Sign up</Link></li>
+            <Link to="/"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            Home</li></Link>
+           <Link to="/analyzer"> <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            Analyze</li></Link>
+            <Link to="/debates"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            Debates</li></Link>
+            { user ? null :  <Link to="/signIn"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+           Log in</li></Link>}
+            { user ? null :  <Link to="/signUp"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+           Sign up</li></Link>}
+            { user ?<Link to="/logout"> <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            Log out</li></Link> : null}
             <li className="p-4 hover:bg-gray-100 cursor-pointer">
             <div className="flex justify-center">
           {/* <a href='/About'>About</a> */}
