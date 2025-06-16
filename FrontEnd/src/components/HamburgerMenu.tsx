@@ -21,8 +21,10 @@ const HamburgerMenu = () => {
           <nav className="flex flex-col text-left text-sm text-cstmblack">
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             <Link to="/">Home</Link></li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Analyze</li>
-            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">Debates</li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            <Link to="/analyze">Analyze</Link></li>
+            <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            <Link to="/debates">Debates</Link></li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
             <Link to="/signIn">Log in</Link></li>
             <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">

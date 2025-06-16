@@ -15,6 +15,7 @@ import Onboarding from './views/Onboaring';
 import Profile from './views/Profile';
 import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
+import AnalyzerCard from './components/AnalyzerCard';
 function App() {
 
 
@@ -36,6 +37,7 @@ function App() {
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/onboarding" element={<Onboarding/>} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/analyzer" element={<AnalyzerCard closeModal={null}/>} />
      </Routes>
      </div>
       <RightSideBar />

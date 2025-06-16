@@ -1,7 +1,7 @@
 import ArgumentForm from "./ArgumentForm";
 
 type AnalyzerCardProps = {
-  closeModal: () => void;
+  closeModal: () => void | null;
 };
 
 const AnalyzerCard = ({closeModal}: AnalyzerCardProps) => {
