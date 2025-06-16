@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "../../lib/utils";
 import { rainbowButtonVariants } from "./RainbowButton";
-import { RainbowButtonProps } from "./RainbowButton";
+import { Slot } from "@radix-ui/react-slot";
 import type { VariantProps } from "class-variance-authority";
 
 interface RainbowButtonProps

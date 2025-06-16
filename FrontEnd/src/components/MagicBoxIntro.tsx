@@ -1,8 +1,8 @@
 import { BoxReveal } from "./ui/BoxReveal";
 import { Button } from "./ui/Button";
 import { Link } from "react-router-dom";
-import RainbowButton from "./ui/Rainbow";
-
+import { Rainbowbutton } from "./ui/rainbowbutton";
+import { ShimmerButton } from "./ui/ShimmerButton";
 const MagicBoxIntro = () => {
 
   return (
@@ -52,16 +52,16 @@ const MagicBoxIntro = () => {
       </BoxReveal>
  
       <BoxReveal boxColor={"#A128E3"} duration={0.5}>
-        <div className="mt-2 flex flex-col sm:flex-row gap-4">
+        <div className="mt-2 flex flex-col sm:flex-row gap-4  p-8">
         <Link to="/signup">
-          <RainbowButton className="text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <Rainbowbutton className="text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-2000 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
             Sign up & Join the Debate
-          </RainbowButton>
+          </Rainbowbutton>
         </Link>
         <Link to="/demo">
-          <RainbowButton className="text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <ShimmerButton>
             Explore
-          </RainbowButton>
+          </ShimmerButton>
         </Link>
       </div>
       </BoxReveal>

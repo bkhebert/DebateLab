@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import * as tanim from "tailwindcss-animate"
+import animate from 'tailwindcss-animate'
 
 export default {
   content: [
@@ -9,12 +9,7 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
-                "color-1": "hsl(var(--color-1))",
-        "color-2": "hsl(var(--color-2))",
-        "color-3": "hsl(var(--color-3))",
-        "color-4": "hsl(var(--color-4))",
-        "color-5": "hsl(var(--color-5))",
+      colors: {    
       primary: '#6813F1',
       primarydark: '#1E142E',
       primarylight: '#A128E3',
@@ -64,11 +59,11 @@ export default {
             animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        rainbow: "rainbow var(--speed, 2s) infinite linear",
+        rainbow: "rainbow var(--speed, 4s) infinite linear",
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
         "spin-slow": "spin 1s linear infinite",
       },
     },
   },
-  plugins: [tanim],
+  plugins: [animate],
 } satisfies Config
