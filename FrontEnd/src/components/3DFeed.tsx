@@ -1,6 +1,7 @@
 import { cn } from "../lib/utils";
 import { Marquee } from "./ui/Marquee";
-
+import MiniPost from "./MiniPost";
+import { useState } from "react";
 const reviews = [
   {
     name: "Jack",
@@ -63,6 +64,8 @@ const ReviewCard = ({
 };
  
 export function Marquee3D() {
+    const [miniPostNumber, setMiniPostNumber] = useState([
+      'tag1', 'awef', 'fdsaf', 'gfsd', 'trew', 'uytr', 'opoiu'])
   return (
     <div className="relative flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
       <div
@@ -73,9 +76,9 @@ export function Marquee3D() {
         }}
       >
         <Marquee pauseOnHover vertical className="[--duration:20s]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review.username} {...review} />
-          ))}
+                  { miniPostNumber.map((userInfo) => (
+            <MiniPost username={userInfo} img="/anonprofile.png" date="Date" body="I argue about something here asdfadsfadfsadsf"/>
+           ))}
         </Marquee>
         <Marquee reverse pauseOnHover className="[--duration:20s]" vertical>
           {secondRow.map((review) => (

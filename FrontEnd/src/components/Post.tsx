@@ -32,8 +32,8 @@ const Post = ({userName}) => {
         <div className="my-auto mx-auto">Fallacy 2</div>
         </div>
         <Separator className="bg-black/50  mt-1"/>
-        <div className="mx-3 overflow-x-visible">
-          The Users Argument</div>
+        <div className="mx-3 text-center max-w-2xl">
+          The Users Argument and it can be as long as they want it to be The Users Argument and it can be as long as they want it to be The Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to beThe Users Argument and it can be as long as they want it to be</div>
         </div>
         <Separator className="bg-black/50 mt-1"/>
         <div className="flex justify-center pt-2">
