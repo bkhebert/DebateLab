@@ -118,9 +118,9 @@ export default function TagSelector() {
   return (
     <div>
        
-          <div className="max-h-[20vh] bg-cstmneutral/90 overflow-y-auto mb-1 md:mb-2 lg:mb-4 rounded-xl dark:bg-gradient-to-b dark:from-zinc-900 to-purple-950 p-4 shadow-xl border border-purple-700">
+          <div className="max-h-[20vh] bg-cstmneutral/90 overflow-y-auto mb-1 md:mb-2 lg:mb-4 rounded-xl dark:bg-gradient-to-b from-zinc-900 to-purple-950 p-4 shadow-xl border border-purple-700">
 
-      <h2 className="text-2xl font-bold text-covenantDark bg-cstmwhite/70 dark:text-purple-200 mb-4 text-center">Selected Tags</h2>
+      <h2 className="text-2xl font-bold text-covenantDark bg-cstmwhite/70 dark:text-cstmblack dark:bg-cstmgreen mb-4 text-center">Selected Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
           tag.isSelected ? <Tag key={tag.color} tag={tag} updateView={updateView} icon={icons[tag.icon]}/> : <></>
@@ -129,7 +129,7 @@ export default function TagSelector() {
     </div>
     <div className="mt-2 md:mt-4 lg:mt-6 mx-auto max-h-[80vh] overflow-y-auto rounded-xl bg-cstmneutral/70 dark:bg-gradient-to-b from-zinc-900 to-purple-950 p-4 shadow-xl border border-purple-700">
 
-      <h2 className="text-2xl font-bold bg-white/50  text-covenantDark dark:text-purple-200 mb-4 text-center">Select Your Tags</h2>
+      <h2 className="text-2xl font-bold bg-white/50  text-covenantDark dark:text-purple-200 dark:bg-black/50 mb-4 text-center">Select Your Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
           tag.isSelected ? <></> : <Tag key={tag.color} tag={tag} updateView={updateView} icon={icons[tag.icon]}/>

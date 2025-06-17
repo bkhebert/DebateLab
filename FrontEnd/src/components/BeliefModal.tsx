@@ -16,14 +16,14 @@ export function BeliefModal({ isOpen, onClose, title, onSave, description }: Bel
   return (
     <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <Dialog.Panel className="bg-white rounded-xl max-w-lg w-full p-6 shadow-xl">
-        <Dialog.Title className="text-xl font-bold mb-4 text-center">Describe your belief on "{title}"</Dialog.Title>
+        <Dialog.Title className="text-xl font-bold mb-4 text-center dark:text-black">Describe your belief on "{title}"</Dialog.Title>
         { description && <div>
           <h4 className="text-center">Current Belief:</h4>
           <p className="text-center">{description}</p>
         </div>}
         <textarea
           maxLength={1000}
-          className="w-full border border-gray-300 rounded-md p-3 mb-4 h-40 resize-none"
+          className="dark:text-black w-full border border-gray-300 rounded-md p-3 mb-4 h-40 resize-none"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />

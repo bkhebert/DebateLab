@@ -51,7 +51,7 @@ const ReplyForm = ({ messageId, onReplyPosted }: ReplyFormProps) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Write your reply..."
-          className="flex-1 p-2 border rounded-l text-sm"
+          className="flex-1 p-2 border rounded-l text-sm dark:text-black"
           disabled={isSubmitting}
         />
         <button

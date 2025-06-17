@@ -52,74 +52,74 @@ const SignUp = () => {
   };
 
   return (   <div className="max-w-sm mx-auto mb-10 md:mt-10">
-                <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 dark:bg-cstmdarkaccent dark:text-white">
                   <div className="text-center mb-6">
-                    <h2 className="text-xl font-bold text-slate-900 mb-2">Create Your Account</h2>
-                    <p className="text-slate-600">The best way to use this app is to be honest about who you are and what you believe in. </p>
+                    <h2 className="text-xl font-bold text-slate-900 mb-2 dark:text-white">Create Your Account</h2>
+                    <p className="text-slate-600 dark:text-white">The best way to use this app is to be honest about who you are and what you believe in. </p>
                     
                   </div>
 
                   <div className="space-y-6">
                     {error && (
-                      <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                      <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm dark:text-cstmred">
                         {error}
                       </div>
                     )}
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-slate-900 font-medium">Email Address</Label>
+                      <Label htmlFor="email" className="text-slate-900 font-medium dark:text-white">Email Address</Label>
                       <Input  
                         type="email"
                         id="email"
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12  dark:text-white border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
                         disabled={isSubmitting}
                       />
                     </div>
    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-slate-900 font-medium">Username</Label>
+                      <Label htmlFor="email" className="text-slate-900 font-medium dark:text-white">Username</Label>
                       <Input  
                         type="username"
                         id="username"
                         placeholder="bigbrainmansplain"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="w-full h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12 border-slate-300 focus:border-blue-500 dark:bg-primary focus:ring-blue-500"
                         disabled={isSubmitting}
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="password" className="text-slate-900 font-medium">Password</Label>
+                    <div className="space-y-2 dark:text-white">
+                      <Label htmlFor="password" className="text-slate-900 font-medium dark:text-white">Password</Label>
                       <Input
                         type="password"
                         id="password"
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12 border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
                         disabled={isSubmitting}
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword" className="text-slate-900 font-medium">Confirm Password</Label>
+                      <Label htmlFor="confirmPassword" className="text-slate-900 font-medium dark:text-white">Confirm Password</Label>
                       <Input
                         type="password"
                         id="confirmPassword"
                         placeholder="••••••••"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12 border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
                         disabled={isSubmitting}
                         onKeyPress={(e) => e.key === 'Enter' && handleSignUp()}
                       />
                     </div>
 
-                    <div className="space-y-4 pt-2">
+                    <div className="space-y-4 pt-2 dark:text-white">
                       <Button 
-                        className="w-full bg-covenantLight hover:bg-primary text-white font-semibold py-3 h-12 rounded-xl"
+                        className="w-full bg-covenantLight hover:bg-primary dark:bg-neonBlue text-white font-semibold py-3 h-12 rounded-xl"
                         onClick={handleSignUp}
                         disabled={isSubmitting}
                       >

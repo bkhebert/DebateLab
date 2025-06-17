@@ -12,7 +12,7 @@ const DesktopLayout = () => {
   return (
    
 
-      <div className="relative">
+      <div className="relative text-white">
         <div className="absolute top-1 left-1/4 opacity-20">
         <IconCloudDemo />
         </div>
@@ -41,9 +41,9 @@ const DesktopLayout = () => {
   </div>
 
   {/* Feed section */}
-  <div className="px-6 lg:px-12 py-12 bg-gray-50">
+  <div className="px-6 lg:px-12 py-12 bg-gray-50 dark:bg-primarydark/50">
     <div className="max-w-7xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
+      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-6">
         Recent Debates & Analyzed Arguments
       </h2>
       <div className="space-y-6">

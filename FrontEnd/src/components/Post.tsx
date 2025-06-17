@@ -67,9 +67,9 @@ const submitReply = async (parentReplyId = null) => {
       return formatDistanceToNow(new Date(isoString), { addSuffix: true })
   }
   return (
-        <div className="mx-3 p-2 mb-2 rounded border border-2 border-black/30 bg-white p-3 md:w-full lg:w-3/4">
+        <div className="dark:bg-primary/60 mx-3 p-2 mb-2 rounded border border-2 border-black/30 bg-white p-3 md:w-full lg:w-3/4">
   {   !showProfileView &&  ( <div className="">
-          <div className="grid grid-cols-8 grid-rows-2 rounded-full bg-white">
+          <div className="grid grid-cols-8 grid-rows-2 rounded-full bg-white dark:bg-primarylight/70">
             <div className="col-span-1 row-span-2 flex justify-center">
             <img
     src="/public/anonprofile.png"
@@ -104,22 +104,23 @@ const submitReply = async (parentReplyId = null) => {
         </div>
         {postInfo.content.fallacies.map((fallacy) => (
           <div className="my-auto mx-auto text-black rounded text-center px-2">
-             <div className="my-auto border border-2 border-black/20 mx-auto bg-red-400/80 text-black rounded text-center px-2">
+             <div className="my-auto border border-2 border-black/20 mx-auto bg-red-400/80 dark:bg-cstmred text-black rounded text-center px-2">
             {fallacy}</div>
             </div>
         ))}
         
         </div>
         <Separator className="bg-black/30 mb-1  mt-1"/>
-        <div className={`mx-3 text-center max-w-2xl bg-white rounded ${postInfo.content.argument.length < 150 ? 'p-8 text-2xl' : 'p-2 text-sm'}`}>
-          {postInfo.content.argument}</div>
+        <div className="flex justify-center dark:bg-cstmdarkaccent">
+        <div className={`mx-3 text-center max-w-2xl bg-white rounded dark:bg-primarydark text-primaryglow/95 ${postInfo.content.argument.length < 150 ? 'p-8 text-2xl' : 'p-2 text-sm'}`}>
+          {postInfo.content.argument}</div></div>
         </div>)}
         {showProfileView && (
           <UserProfileModal username={postInfo.author ? postInfo.author.username : "anon"} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author ? postInfo.author.school : "This user is anonymous"} beliefs={postInfo.author ? postInfo.author.philosophies : [{category: "anon", subtopic: 'anon', description: 'anon'}]} onClose={handleClick}/>
         )}
         <Separator className="bg-black/30 mb-1 mt-1"/>
        <div className={'flex justify-center my-3'}> <button
-  className="p-2 py-1 bg-primarylight/80 text-black rounded border border-2 border-primary/50"
+  className="p-2 py-1 bg-primarylight/80 text-black rounded border border-2 border-primary/50 dark:bg-neonBlue/90"
   onClick={() => setShowReplyForm(!showReplyForm)}
 >
   DEBATE
@@ -128,7 +129,7 @@ const submitReply = async (parentReplyId = null) => {
   <div className="mt-4 pl-4 border-l-2 border-gray-300">
     {postInfo.Replies.slice().reverse().map((reply) => (
       <div key={reply.id} className="mb-2">
-        <div className="text-sm font-semibold">{reply.author?.username || 'anon'}:</div>
+        <div className="text-sm font-semibold text-neonBlue">{reply.author?.username || 'anon'}:</div>
         <div className="text-sm mb-1">{reply.content}</div>
 
         {reply.children?.length > 0 && (
@@ -157,7 +158,7 @@ const submitReply = async (parentReplyId = null) => {
         {showReplyForm && (
   <div className="flex flex-col items-center mt-2">
     <textarea
-      className="w-full p-1 border rounded"
+      className="w-full p-1 border rounded dark:text-primaryglow dark:bg-black"
       value={replyText}
       onChange={(e) => setReplyText(e.target.value)}
       placeholder="Write your reply..."
