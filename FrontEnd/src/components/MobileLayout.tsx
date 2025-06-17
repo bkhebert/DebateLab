@@ -23,7 +23,7 @@ const MobileLayout = ({topic}) => {
         <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm shadow-primary border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
           onClick={toggleAnalyzer}>
           <img
-            src="/public/anonprofile.png"
+            src="/anonprofile.png"
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
           />

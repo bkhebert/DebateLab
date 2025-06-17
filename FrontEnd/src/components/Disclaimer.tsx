@@ -10,13 +10,13 @@ const DisclaimerCard = () => {
         </h2>
       </div>
       <p className="mb-2">
-        Welcome to <span className="text-white font-semibold">[Your Site Name]</span>, a platform dedicated to open speech, rational debate, and philosophical inquiry.
+        Welcome to <span className="text-white font-semibold">DebateLab</span>, a platform dedicated to open speech, rational debate, and philosophical inquiry.
       </p>
       <p className="mb-2">
         This site encourages the free exchange of ideas—even controversial, uncomfortable, or unpopular ones. Our AI tools are designed to surface logical fallacies and foster critical thought.
       </p>
       <p className="mb-2">
-        <span className="text-red-400 font-bold">⚠︎ Views expressed by users do not represent those of [Your Site Name].</span>
+        <span className="text-red-400 font-bold">⚠︎ Views expressed by users do not represent those of DebateLab.</span>
       </p>
       <p className="mb-2">
         Content may be offensive, triggering, or objectionable. You are solely responsible for your participation.

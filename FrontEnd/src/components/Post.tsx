@@ -72,7 +72,7 @@ const submitReply = async (parentReplyId = null) => {
           <div className="grid grid-cols-8 grid-rows-2 rounded-full bg-white dark:bg-primarylight/70">
             <div className="col-span-1 row-span-2 flex justify-center">
             <img
-    src="/public/anonprofile.png"
+    src="/anonprofile.png"
     alt="Profile"
     className="w-10 h-10 rounded-full object-cover mx-auto"
     onClick={handleClick}
