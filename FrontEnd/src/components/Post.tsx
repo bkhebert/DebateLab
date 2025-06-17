@@ -87,7 +87,7 @@ const Post = ({postInfo}) => {
           {postInfo.content.argument}</div>
         </div>)}
         {showProfileView && (
-          <UserProfileModal username={postInfo.author.username} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} beliefs={postInfo.author.philosophies} onClose={handleClick}/>
+          <UserProfileModal username={postInfo.author.username} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author.school} beliefs={postInfo.author.philosophies} onClose={handleClick}/>
         )}
         <Separator className="bg-black/50 mt-1"/>
         <div className="flex justify-center pt-2">

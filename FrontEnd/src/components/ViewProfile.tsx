@@ -13,6 +13,7 @@ interface UserProfileModalProps {
   tags: string[];
   beliefs: Belief[];
   username: string;
+  school:string;
 }
 
 
@@ -22,6 +23,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
   tags,
   beliefs,
   username,
+  school,
 }) => {
   console.log(beliefs)
   return (
@@ -46,6 +48,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
 
           <div className="flex-1">
+            <h2 className="text-center">{school}</h2>
             <h2 className="text-3xl font-bold mb-2 text-violet-200">{username}</h2>
 
             <div className="mb-4 flex flex-wrap gap-2">
@@ -60,6 +63,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
 
             <div className="mt-6">
+
               <h3 className="text-xl font-semibold mb-3 border-b border-violet-500 pb-1">
                 Beliefs
               </h3>

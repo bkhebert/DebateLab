@@ -18,6 +18,8 @@ interface UserAttributes {
   school: string | null,
   createdAt?: Date; // Added by Sequelize
   updatedAt?: Date; // Added by Sequelize
+  philosophies?: any;
+  PoliticalView?: any;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 
