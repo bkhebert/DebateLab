@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 
 interface Belief {
   category: string;
-  subCategory: string;
+  subtopic: string;
   description: string;
 }
 
@@ -12,6 +12,7 @@ interface UserProfileModalProps {
   image: string;
   tags: string[];
   beliefs: Belief[];
+  username: string;
 }
 
 
@@ -20,7 +21,9 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
   image,
   tags,
   beliefs,
+  username,
 }) => {
+  console.log(beliefs)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
       <div className="relative w-full max-w-3xl mx-auto p-6 rounded-2xl shadow-2xl border border-violet-600 bg-gradient-to-br from-[#3b0a56] via-[#4b117a] to-[#250044] text-white">
@@ -43,7 +46,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
 
           <div className="flex-1">
-            <h2 className="text-3xl font-bold mb-2 text-violet-200">User Profile</h2>
+            <h2 className="text-3xl font-bold mb-2 text-violet-200">{username}</h2>
 
             <div className="mb-4 flex flex-wrap gap-2">
               {tags.map((tag, idx) => (
@@ -67,7 +70,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                     className="p-4 bg-[#4c1c7b] rounded-lg border border-violet-600 shadow-md"
                   >
                     <p className="text-sm text-violet-300 mb-1 uppercase tracking-wide">
-                      {belief.category} → {belief.subCategory}
+                      {belief.category} → {belief.subtopic}
                     </p>
                     <p className="text-sm text-violet-100">
                       {belief.description.length > 0 ? belief.description : "No description provided."}

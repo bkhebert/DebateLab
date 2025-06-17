@@ -6,7 +6,8 @@ interface ReplyAttributes {
   content: string | null;
   userId: number;
   messageId: number;
-  fallacies: string | null
+  fallacies?: string | null
+  parentReplyId?: number | null;
 }
 
 interface ReplyInstance extends Model<ReplyAttributes>, ReplyAttributes {}
@@ -15,7 +16,7 @@ const Reply = database.define<ReplyInstance>(
   'Reply',
   {
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     userId: {
@@ -29,7 +30,7 @@ const Reply = database.define<ReplyInstance>(
       onDelete: "CASCADE",      
     },
     fallacies: {
-    type: DataTypes.STRING,
+    type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
       messageId: {
@@ -41,7 +42,13 @@ const Reply = database.define<ReplyInstance>(
       },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
-      }
+      },
+      parentReplyId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: { model: 'Reply', key: 'id' },
+  },
+  
   },
   {
     tableName: 'Reply', // Explicitly specify table name

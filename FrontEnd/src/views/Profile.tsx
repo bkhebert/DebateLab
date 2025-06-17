@@ -2,6 +2,7 @@ import ProfileBeliefs from "../components/ProfileBeliefs";
 import TagSelector from "../components/TagSelector";
 import { useState } from "react";
 import SchoolOfThoughts from "../components/SchoolOfThoughts";
+import useAuth from "../contexts/useAuth";
 const infoNeeded = {
   img: '/anonprofile.png',
   tags: ['pro-life', 'environmentalist'],
@@ -19,6 +20,8 @@ const Profile = () => {
   const [showTags, setShowTags] = useState(false);
    const [showProfileView, setShowProfileView] = useState(false);
    const [schoolOfThought, setSchoolOfThought] = useState(false);
+   const { user } = useAuth();
+  console.log(JSON.stringify(user))
    const handleClick = () => {
      setShowProfileView(!showProfileView);
    }

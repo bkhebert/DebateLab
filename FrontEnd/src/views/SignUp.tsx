@@ -15,9 +15,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-
+  const[username, setUsername] = useState('');
   const handleSignUp = async () => {
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword || !username) {
       setError("Please fill in all fields");
       return;
     }
@@ -36,7 +36,7 @@ const SignUp = () => {
     setError("");
 
     try {
-      const success = await signup(email, password);
+      const success = await signup(email, password, username);
       if (success) {
         console.log("✅ Account created and logged in");
         navigate('/onboarding');
@@ -78,7 +78,18 @@ const SignUp = () => {
                         disabled={isSubmitting}
                       />
                     </div>
-
+   <div className="space-y-2">
+                      <Label htmlFor="email" className="text-slate-900 font-medium">Username</Label>
+                      <Input  
+                        type="username"
+                        id="username"
+                        placeholder="bigbrainmansplain"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        disabled={isSubmitting}
+                      />
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="password" className="text-slate-900 font-medium">Password</Label>
                       <Input

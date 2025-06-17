@@ -28,13 +28,14 @@ export const jwtAuthRouter = express.Router();
  */
 jwtAuthRouter.post("/signup", async (req: any, res: any) => {
   try {
-    const { email, password } = req.body as {
+    const { email, password, username } = req.body as {
       email: string;
       password: string;
+      username: string;
     };
 
     // 1) Basic validation
-    if (!email || !password) {
+    if (!email || !password || !username) {
       return res
         .status(400)
         .json({ error: "Email and password are both required" });
@@ -60,6 +61,7 @@ jwtAuthRouter.post("/signup", async (req: any, res: any) => {
     const newUser = await User.create({
       email,
       password: hashed,
+      username: username,
       tokenVersion: 0,
       email_verified: false,
     });
@@ -73,6 +75,8 @@ jwtAuthRouter.post("/signup", async (req: any, res: any) => {
       user: {
         id: newUser.id,
         email: newUser.email,
+        school: newUser.school,
+        username: newUser.username
       },
       accessToken,
     });
@@ -135,6 +139,8 @@ jwtAuthRouter.post("/signin", async (req: any, res: any) => {
       user: {
         id: user.id,
         email: user.email,
+        school: user.school,
+        username: user.username,
       },
       accessToken,
     });

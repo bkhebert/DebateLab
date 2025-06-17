@@ -2,22 +2,16 @@ import { DataTypes } from "sequelize";
 import database from "../db.js";
 const Message = database.define("Message", {
     content: {
-        type: DataTypes.TEXT,
+        type: DataTypes.JSON,
         allowNull: true,
     },
-    topicId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "Topic", // or Topic if you prefer, but string with table name is common
-            key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+    topic: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     userId: {
         type: DataTypes.INTEGER || DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: "User", // or User if you prefer
             key: "id",

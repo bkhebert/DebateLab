@@ -1,12 +1,12 @@
 import { useState } from "react"
+import { usePosts } from "../hooks/usePosts"
 import Post from "./Post"
-const Feed = ({topic}) => {
-  const [postNumber, setPostNumber] = useState([
-    'tag1', 'awef', 'fdsaf', 'gfsd', 'trew', 'uytr', 'opoiu'])
+const Feed = ({topic}: {topic: string}) => {
+  const posts = usePosts(topic)
   
   return(<div className="">
-    { postNumber.map((userInfo) => (
-      <div className="flex justify-center"><Post userName={topic}/></div>
+    { posts.map((postInfo) => (
+      <div key={postInfo.id}className="flex justify-center"><Post postInfo={postInfo}/></div>
     ))}
   </div>)
 }

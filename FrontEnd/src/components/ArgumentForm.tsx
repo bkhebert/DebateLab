@@ -8,6 +8,7 @@ import FallacyList from "./FallacyList";
 import { FaTable } from "react-icons/fa";
 import { Loader } from "lucide-react";
 import { ShimmerButton } from "./ui/ShimmerButton";
+import useAuth from "../contexts/useAuth";
 type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
@@ -15,7 +16,9 @@ type FactCheckResponse = {
 };
 
 export default function ArgumentForm({topic}) {
+  
   const MAX_CHAR_LIMIT = 500;
+  const { user } = useAuth();
   const [argument, setArgument] = useState("");
   const [aiResponse, setAiResponse] = useState<FactCheckResponse | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -65,12 +68,42 @@ export default function ArgumentForm({topic}) {
     }
   };
 
-  const acceptOriginalPost = () => {
-
+  const acceptOriginalPost = (topic) => {
+    if(topic === null){
+      topic = "The Great Conversation";
+    }
+    axios.post(`${baseURL}/api/message/`,  {
+      content: {
+        argument,
+        fallacies: aiResponse.listOfFallacies.length > 0 ? aiResponse.listOfFallacies : [],
+        user,
+      },
+        topic,
+        userId: user? user.id : null,
+    }).then((result) => {
+      console.log('success' , result);
+    }).catch((err) => {
+      console.error(err);
+    })
   }
 
-  const acceptRevisedPost = () => {
-    
+  const acceptRevisedPost = (topic) => {
+    if(topic === null){
+      topic = "The Great Conversation";
+    }
+        axios.post(`${baseURL}/api/message/`,  {
+      content: {
+        argument,
+        fallacies: [],
+        user,
+      },
+        topic,
+        userId: user? user.id : null,
+    }).then((result) => {
+      console.log('success' , result);
+    }).catch((err) => {
+      console.error(err);
+    })
   }
   const aiFactChecker = (argument: string) => {
     setIsLoading(true);
@@ -216,13 +249,13 @@ export default function ArgumentForm({topic}) {
               </button>
               <button
                 className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
-                onClick={() => { acceptOriginalPost(null); }}
+                onClick={() => { acceptOriginalPost(topic); }}
               >
                 Accept Original Post
               </button>
               <button
                 className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
-                onClick={() => { acceptRevisedPost(null); }}
+                onClick={() => { acceptRevisedPost(topic); }}
               >
                 Accept Revised Post
               </button>
