@@ -58,6 +58,30 @@ export default function TagSelector() {
   useEffect(() => {
     getAllTags();
   }, []);
+
+    const updateView = (chosenTag) => {
+      console.log(chosenTag)
+    chosenTag.isSelected = !chosenTag.isSelected;
+    axios.post(`${baseURL}/api/politicalPhilosophy/UpdateView`, {
+      body: {
+        views: chosenTag,
+        topic: chosenTag.columnName,
+      }
+    }, {
+  headers: {
+    'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
+    'Content-Type': 'application/json'
+  }
+})
+    .then(() => {
+      console.log('post req sent')
+      getAllTags();
+    })
+    .catch((err) => {
+      console.error('error submitting new view', err)
+    })
+  }
+
   const getAllTags = () => {
     axios.get(`${baseURL}/api/politicalPhilosophy/getTopics`, {
   headers: {
@@ -101,7 +125,7 @@ export default function TagSelector() {
       <h2 className="text-2xl font-bold text-purple-200 mb-4 text-center">Selected Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
-          tag.isSelected ? <Tag tag={tag}/> : <></>
+          tag.isSelected ? <Tag tag={tag} updateView={updateView}/> : <></>
         ))}
       </div>
     </div>
@@ -110,7 +134,7 @@ export default function TagSelector() {
       <h2 className="text-2xl font-bold text-purple-200 mb-4 text-center">Select Your Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
-          tag.isSelected ? <></> : <Tag tag={tag}/>
+          tag.isSelected ? <></> : <Tag tag={tag} updateView={updateView}/>
         ))}
       </div>
     </div>
