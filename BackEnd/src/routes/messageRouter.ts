@@ -19,7 +19,7 @@ messageRouter.post('/', async (req: any, res: any) => {
     if (!message.content || !message.topicId) { // Check for content & topicId on message object
       res.sendStatus(400);
     } else {
-      message.userId = req.user.id; // Add userId to message object using req.user.id
+      message.userId = req.user ? req.user.id : "anon"; // Add userId to message object using req.user.id
       try {
         await Message.create(message); // Insert message into Messages table
         res.sendStatus(201);
@@ -80,7 +80,7 @@ messageRouter.post('/reply', async (req: any, res: any) => {
     if (!reply.content || !reply.messageId) {
       res.sendStatus(400);
     } else {
-      reply.userId = req.user.id;
+      reply.userId = req.user.id ? req.user.id : "anon";
       try {
         await Reply.create(reply);
         res.sendStatus(201);

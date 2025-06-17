@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc",
-    "start": "node dist-server/index.js",
-    "type-check": "tsc --noEmit"
+    "build": "tsc && npm run seed",
+    "start": "node dist-server/index.js ",
+    "type-check": "tsc --noEmit",
+    "seed": "node dist-server/database/seed/seedAnonymous.js"
   },
   "keywords": [],
   "author": "",

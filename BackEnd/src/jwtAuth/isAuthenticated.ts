@@ -1,7 +1,7 @@
 // jwtAuth/isAuthenticated.ts
 import { Request, Response, NextFunction } from "express";
 import { verifyAccessToken } from "./jwtAuth.js";
-import User from "../database/models/User.js";
+import {User} from "../database/models/index.js";
 
 // export interface AuthenticatedRequest extends Request {
 //   user?: User;

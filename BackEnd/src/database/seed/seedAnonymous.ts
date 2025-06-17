@@ -1,13 +1,16 @@
-import { User } from "../models";
+import { User } from "../models/index.js";
 
 async function createAnonymousUser() {
+  console.log('creating anon...')
   try {
     const [anon, created] = await User.findOrCreate({
-      where: { id: 'anon' },
+      where: { id: 42069 },
       defaults: {
         username: 'Anonymous',
         email: 'anon@system.local',
         password: 'anonymous', // Or hash it, up to you
+        email_verified:  false,
+        tokenVersion: 69,
       },
     });
 
@@ -22,3 +25,4 @@ async function createAnonymousUser() {
 }
 
 createAnonymousUser();
+

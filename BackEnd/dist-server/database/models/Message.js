@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import database from "../db.js";
 const Message = database.define("Message", {
     content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     topicId: {
@@ -16,7 +16,7 @@ const Message = database.define("Message", {
         onDelete: "CASCADE",
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER || DataTypes.STRING,
         allowNull: false,
         references: {
             model: "User", // or User if you prefer

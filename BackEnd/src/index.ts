@@ -5,6 +5,7 @@ import sequelize from "./database/db.js";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
 import { jwtAuthRouter } from "./jwtAuth/jwtAuthRoutes.js";
+
 dotenv.config();
 
 const app = express();
