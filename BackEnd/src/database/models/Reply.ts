@@ -6,6 +6,7 @@ interface ReplyAttributes {
   content: string | null;
   userId: number;
   messageId: number;
+  fallacies: string | null
 }
 
 interface ReplyInstance extends Model<ReplyAttributes>, ReplyAttributes {}
@@ -26,6 +27,10 @@ const Reply = database.define<ReplyInstance>(
       },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",      
+    },
+    fallacies: {
+    type: DataTypes.STRING,
+      allowNull: true,
     },
       messageId: {
         type: DataTypes.INTEGER,

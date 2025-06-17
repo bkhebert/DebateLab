@@ -65,6 +65,13 @@ export default function ArgumentForm({topic}) {
     }
   };
 
+  const acceptOriginalPost = () => {
+
+  }
+
+  const acceptRevisedPost = () => {
+    
+  }
   const aiFactChecker = (argument: string) => {
     setIsLoading(true);
     axios.post(`${baseURL}/api/ai/fact`, 
@@ -206,6 +213,18 @@ export default function ArgumentForm({topic}) {
                 onClick={() => { setAiResponse(null); }}
               >
                 Back
+              </button>
+              <button
+                className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
+                onClick={() => { acceptOriginalPost(null); }}
+              >
+                Accept Original Post
+              </button>
+              <button
+                className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
+                onClick={() => { acceptRevisedPost(null); }}
+              >
+                Accept Revised Post
               </button>
             </div>
           </div>

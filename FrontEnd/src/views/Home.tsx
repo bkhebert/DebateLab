@@ -1,17 +1,3 @@
-import { useState, useEffect } from "react";
-import AnalyzerCard from "../components/AnalyzerCard";
-import { Separator } from "../components/ui/Separator";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/Card";
-import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft"
-import Feed from "../components/Feed";
 import MobileLayout from "../components/MobileLayout";
 import DesktopLayout from "./DesktopLayout";
 import useAuth from "../contexts/useAuth";
