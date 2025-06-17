@@ -5,7 +5,7 @@ interface UserPhilosophyAttributes {
   id?: number;
   userId?: number;
   category: 'Philosophy' | 'Psychology' | 'Economics' | 'PoliticalTheory';
-  school: string;
+  subtopic: string;
   description?: string | null; // Optional elaboration
   keyThinkers?: string[] | null; // Array of names
   createdAt?: Date;
@@ -33,15 +33,16 @@ const UserPhilosophy = database.define<UserPhilosophyInstance>(
       onDelete: "CASCADE",   
     },
     category: {
-      type: DataTypes.ENUM('Philosophy', 'Psychology', 'Economics', 'PoliticalTheory', 'Morals', 
-        'God', 'Love'
+      type: DataTypes.ENUM('Philosophy', 'Psychology', 'Religion & Spirituality', 'Science & Technology', 
+        'Politics(US)', 'Politics(World)'
       ),
+      
       allowNull: false,
     },
-    school: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    subtopic: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
