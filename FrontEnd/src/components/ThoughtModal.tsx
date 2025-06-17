@@ -21,7 +21,8 @@ export function ThoughtModal({ isOpen, onClose, title, description, history, ico
           <Dialog.Title className="text-2xl font-bold mb-2">{title}</Dialog.Title>
           <p className="text-gray-700 mb-4">{description}</p>
           <p className="text-gray-500 text-sm mb-6">{history}</p>
-          <Button onClick={onNext}>Continue to Profile</Button>
+          <button onClick={onClose} className="p-3 m-1 bg-primarydark text-white rounded-full">Not This One</button>
+          <button onClick={onNext} className="p-3 m-1 bg-primarydark text-white rounded-full">Join the School Of {title}</button>
         </div>
       </Dialog.Panel>
     </Dialog>

@@ -2,10 +2,15 @@ import AnalyzerCard from "./AnalyzerCard"
 import Feed from "./Feed"
 import { Separator } from "@radix-ui/react-separator"
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const MobileLayout = ({topic}) => {
     const [showAnalyzer, setShowAnalyzer] = useState(false);
   const toggleAnalyzer = () => setShowAnalyzer(!showAnalyzer);
+  const navigate = useNavigate();
+  const toTopics = () => {
+    console.log('hello')
+    navigate('/debates')
+  }
   return (
         
       <main className="col-span-1 lg:col-span-8 lg:px-4 h-screen overflow-y-auto px-4 pb-16">
@@ -34,7 +39,9 @@ const MobileLayout = ({topic}) => {
      
         <Separator className="mt-2 mb-2 bg-cstmblack" />
            <div className="flex justify-center mt-3">
-          <button className="bg-white text-primary border-solid border-primary">Choose A Debate Topic</button>
+          <button 
+          onClick={toTopics}
+          className="bg-white text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</button>
         </div>
         <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent debates{topic? ` on ${topic}`: ""}</h6>
         
