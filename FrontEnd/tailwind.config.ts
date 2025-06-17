@@ -19,6 +19,10 @@ export default {
   theme: {
     extend: {
       colors: {    
+            covenantDark: '#1a132d',
+    covenantLight: '#3a2a5d',
+    covenantAccent: '#7c4dff',
+    neonBlue: '#00e5ff',
         primary: '#6813F1',
         primarydark: '#1E142E',
         primarylight: '#A128E3',
@@ -34,6 +38,9 @@ export default {
         cstmblue: '#00D9FF',
         cstmwhite: '#F7F6F9', 
       },
+      boxShadow: {
+    glow: '0 0 10px #7c4dff',
+  },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -110,6 +117,7 @@ export default {
       fontFamily: {
         mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
         exo: ['"Exo 2"', 'ui-sans-serif', 'system-ui'],
+         sans: ['Orbitron', 'ui-sans-serif', 'system-ui'],
       },
     },
   },

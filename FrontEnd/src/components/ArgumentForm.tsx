@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
@@ -13,9 +14,10 @@ type FactCheckResponse = {
   factCheckedMessage: string;
   factCheckedStatement: string;
   listOfFallacies: string[];
+  closeModal: any;
 };
 
-export default function ArgumentForm({topic}) {
+export default function ArgumentForm({topic, isDemo, closeModal}) {
   
   const MAX_CHAR_LIMIT = 500;
   const { user } = useAuth();
@@ -82,6 +84,9 @@ export default function ArgumentForm({topic}) {
         userId: user? user.id : null,
     }).then((result) => {
       console.log('success' , result);
+       setAiResponse(null);
+      if(!isDemo)
+        {closeModal();}
     }).catch((err) => {
       console.error(err);
     })
@@ -101,6 +106,10 @@ export default function ArgumentForm({topic}) {
         userId: user? user.id : null,
     }).then((result) => {
       console.log('success' , result);
+      setAiResponse(null);
+      if(!isDemo) {
+      closeModal();
+      }
     }).catch((err) => {
       console.error(err);
     })
@@ -129,21 +138,22 @@ export default function ArgumentForm({topic}) {
   };
 
   return (
-    <div className="p-1">
+    <div className={`p-1 ${isDemo ? 'mt-2' : ''}`}>
+      <div className={`p-1 ${isDemo ? 'overflow-y-scroll max-h-[50vh]' : ''}`}>
     <form onSubmit={handleSubmit} className="space-y-4 sm:p-4 md:p-0 md:m-2">
 
       {/* INPUT AREA, ADJUSTABLE */}
-     { !aiResponse && !isLoading && <div className="
+     { !aiResponse && !isLoading && <div className={`
           relative 
-          w-full 
-          max-w-md mx-auto 
+          ${isDemo ? "w-full" : "w-full max-w-md"}
+           mx-auto 
           mt-1
           bg-cstmwhite 
           text-cstmblack
           dark:bg-cstmblack dark:text-cstmwhite
           rounded-lg
           border
-          border-cstmgray ">
+          border-cstmgray `}>
       <textarea
         id="argument"
         name="argument"
@@ -225,18 +235,18 @@ export default function ArgumentForm({topic}) {
               <FallacyCountComponent fallacyCount={fallacyCount}/>
               </div>
               <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite rounded-md">
-              <FallacyList arrayOfFallacies={aiResponse.listOfFallacies} />
+              <FallacyList arrayOfFallacies={aiResponse.listOfFallacies} isDemo={isDemo} />
             <div className="col-span-2">
-            <h1 className="text-xl font-bold mt-2 mb-4 text-center font-mono text-cstmred md:text-2xl">Original Message</h1>
-            <p className="p-4 text-center text-xs italic text-red-200 md:text-xl">{argument}</p>
+            <h1 className={`text-xl font-bold mt-2 mb-4 text-center font-mono text-cstmred md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Original Message</h1>
+            <p className={`p-4 text-center text-xs italic text-red-200 md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{argument}</p>
             </div>
             <div className="col-span-2">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono text-cstmgreen md:text-2xl">Refactored Message</h1>
-            <p className="p-4 text-center italic text-xs text-cstmgreen md:text-xl">{aiResponse.factCheckedMessage}</p>
+            <h1 className={`text-xl font-bold mb-4 text-center font-mono text-cstmgreen md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Refactored Message</h1>
+            <p className={`p-4 text-center italic text-xs text-cstmgreen md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{aiResponse.factCheckedMessage}</p>
             </div>
             <div className="col-span-2 md:col-span-1 font-mono">
-            <h1 className="text-xl font-bold mb-4 text-center font-mono md:text-2xl">Reason for Change</h1>
-            <p className="mb-4 text-center md:text-xl">{aiResponse.factCheckedStatement}</p>
+            <h1 className={`text-xl font-bold mb-4 text-center font-mono md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Reason for Change</h1>
+            <p className={`mb-4 text-center md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{aiResponse.factCheckedStatement}</p>
             </div>
             
             </div>
@@ -262,6 +272,7 @@ export default function ArgumentForm({topic}) {
             </div>
           </div>
         }
+        </div>
         </div>
   );
 }

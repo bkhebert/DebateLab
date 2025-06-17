@@ -9,7 +9,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-cstmneutral text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
+  @apply bg-white text-cstmblack dark:bg-primarydark dark:text-cstmwhite;
   font-family: 'Exo 2', 'Roboto Mono', monospace;
   line-height: 1.5;
   font-weight: 400;

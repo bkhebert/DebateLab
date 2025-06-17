@@ -49,7 +49,7 @@ const submitReply = async (parentReplyId = null) => {
       body: JSON.stringify({
         content: replyText,
         messageId: postInfo.id,
-        userId: user.id, // get from context/auth
+        userId: user?.id ? user.id : null, // get from context/auth
         parentReplyId: parentReplyId,
       }),
     });
@@ -67,9 +67,9 @@ const submitReply = async (parentReplyId = null) => {
       return formatDistanceToNow(new Date(isoString), { addSuffix: true })
   }
   return (
-        <div className="mx-3 p-2 mb-2 rounded-md border border-black p-3 md:w-full lg:w-3/4">
+        <div className="mx-3 p-2 mb-2 rounded border border-2 border-black/30 bg-white p-3 md:w-full lg:w-3/4">
   {   !showProfileView &&  ( <div className="">
-          <div className="grid grid-cols-8 grid-rows-2 bg-cstmwhite">
+          <div className="grid grid-cols-8 grid-rows-2 rounded-full bg-white">
             <div className="col-span-1 row-span-2 flex justify-center">
             <img
     src="/public/anonprofile.png"
@@ -77,16 +77,18 @@ const submitReply = async (parentReplyId = null) => {
     className="w-10 h-10 rounded-full object-cover mx-auto"
     onClick={handleClick}
   /></div>
-  <div className="col-span-7 font-bold ml-2">
-    <div>{postInfo.author?.username || "anon"}</div>
-  </div>
+  
+     <div className="col-span-7 ml-2 font-bold text-cyan-300 ">
+              {postInfo.author?.username || "anon"}
+            </div>
+
   <div className="col-span-7 italic ml-2 text-sm">{timeAgo(postInfo.createdAt)}</div>
   
   <div className="col-span-8 text-xs grid grid-cols-4">
     {tags.map((tag, index) => (
           <span 
             key={index}
-            className={`px-2 py-0.5 mx-0.5 rounded-md text-center truncate ${tag.color} text-white`}
+            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
             title={tag.label}
           >
             {tag.label}
@@ -94,31 +96,34 @@ const submitReply = async (parentReplyId = null) => {
         ))}
     </div>
   </div>
-        <Separator className="bg-black/50  mt-1"/>
+        <Separator className="bg-black/30 mb-1  mt-1"/>
         <div className="grid grid-cols-4 auto-rows-auto text-xs mt-2">
         <div className="col-span-1 flex py-auto">
-          <div className="my-auto">Fallacies: {postInfo.content.fallacies.length}</div>
-        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto"/>
+          <div className="my-auto font-bold border border-black/20 ">Fallacies: <div className={`border border-2 border-black/30 text-center ${postInfo.content.fallacies.length > 0 ? "text-cstmgreen" : "text-cstmred"} text-cstmred`}>{postInfo.content.fallacies.length}</div></div>
+        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto text-xl rounded-full border border-black"/>
         </div>
         {postInfo.content.fallacies.map((fallacy) => (
-          <div className="my-auto mx-auto bg-red-600 text-black rounded text-centerfont-light">{fallacy}</div>
+          <div className="my-auto mx-auto text-black rounded text-center px-2">
+             <div className="my-auto border border-2 border-black/20 mx-auto bg-red-400/80 text-black rounded text-center px-2">
+            {fallacy}</div>
+            </div>
         ))}
         
         </div>
-        <Separator className="bg-black/50  mt-1"/>
-        <div className="mx-3 text-center max-w-2xl">
+        <Separator className="bg-black/30 mb-1  mt-1"/>
+        <div className={`mx-3 text-center max-w-2xl bg-white rounded ${postInfo.content.argument.length < 150 ? 'p-8 text-2xl' : 'p-2 text-sm'}`}>
           {postInfo.content.argument}</div>
         </div>)}
         {showProfileView && (
-          <UserProfileModal username={postInfo.author.username} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author.school} beliefs={postInfo.author.philosophies} onClose={handleClick}/>
+          <UserProfileModal username={postInfo.author ? postInfo.author.username : "anon"} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author ? postInfo.author.school : "This user is anonymous"} beliefs={postInfo.author ? postInfo.author.philosophies : [{category: "anon", subtopic: 'anon', description: 'anon'}]} onClose={handleClick}/>
         )}
-        <Separator className="bg-black/50 mt-1"/>
-        <button
-  className="p-2 py-1 bg-primarylight/80 text-black"
+        <Separator className="bg-black/30 mb-1 mt-1"/>
+       <div className={'flex justify-center my-3'}> <button
+  className="p-2 py-1 bg-primarylight/80 text-black rounded border border-2 border-primary/50"
   onClick={() => setShowReplyForm(!showReplyForm)}
 >
   DEBATE
-</button>
+</button></div>
  {postInfo.Replies && postInfo.Replies.length > 0 && (
   <div className="mt-4 pl-4 border-l-2 border-gray-300">
     {postInfo.Replies.slice().reverse().map((reply) => (

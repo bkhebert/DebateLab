@@ -18,9 +18,9 @@ const MobileLayout = ({topic}) => {
   }, [topic])
   return (
         
-      <main className="col-span-1 lg:col-span-8 lg:px-4 h-screen overflow-y-auto px-4 pb-16">
+      <main className="col-span-1 lg:col-span-8 lg:px-4 h-screen overflow-y-auto pb-16">
         {/* Argument Input */}
-        <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-cstmwhite rounded-xl shadow-sm border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
+        <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm shadow-primary border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
           onClick={toggleAnalyzer}>
           <img
             src="/public/anonprofile.png"
@@ -33,7 +33,9 @@ const MobileLayout = ({topic}) => {
 
         {showAnalyzer && (
           <div className='absolute top-0 right-0 left-0 bg-cstmblack/50 h-full z-50'>
-            <AnalyzerCard closeModal={() => setShowAnalyzer(false)} topic={topic}/>
+            <div className="lg:top-4">
+            <AnalyzerCard closeModal={() => setShowAnalyzer(false)} topic={topic} showLogo={true} showExit={true} isDemo={false}/>
+            </div>
           </div>
         )}
 
@@ -43,11 +45,11 @@ const MobileLayout = ({topic}) => {
         </div>
      
         <Separator className="mt-2 mb-2 bg-cstmblack" />
-           <div className="flex justify-center mt-3">
+          { !topic && <div className="flex justify-center mt-3">
           <button 
           onClick={toTopics}
           className="bg-white text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</button>
-        </div>
+        </div>}
         <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent debates{topic? ` on ${topic}`: ""}</h6>
         
         {/* Feed (scrollable) */}

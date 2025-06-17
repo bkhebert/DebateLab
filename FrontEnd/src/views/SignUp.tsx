@@ -51,7 +51,7 @@ const SignUp = () => {
     }
   };
 
-  return (   <div className="max-w-sm mx-auto mb-10">
+  return (   <div className="max-w-sm mx-auto mb-10 md:mt-10">
                 <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
                   <div className="text-center mb-6">
                     <h2 className="text-xl font-bold text-slate-900 mb-2">Create Your Account</h2>
@@ -119,7 +119,7 @@ const SignUp = () => {
 
                     <div className="space-y-4 pt-2">
                       <Button 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 h-12 rounded-xl"
+                        className="w-full bg-covenantLight hover:bg-primary text-white font-semibold py-3 h-12 rounded-xl"
                         onClick={handleSignUp}
                         disabled={isSubmitting}
                       >
@@ -131,9 +131,7 @@ const SignUp = () => {
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-slate-300"></div>
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                          <span className="px-2 bg-white text-slate-500">or continue with</span>
-                        </div>
+
                       </div>
                       
                       {/* <Button
@@ -150,7 +148,7 @@ const SignUp = () => {
 
                 {/* Trust Indicators */}
                 <div className="mt-6 text-center space-y-4">
-                  <p className="text-sm text-slate-500">No credit card required • Cancel anytime</p>
+                
                   <div className="flex justify-center items-center gap-4 text-slate-400">
                     <div className="flex items-center gap-1">
                       <Shield size={14} />

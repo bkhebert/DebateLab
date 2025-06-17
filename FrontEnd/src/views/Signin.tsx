@@ -5,7 +5,7 @@ import { Input } from "../components/ui/Input";
 import useAuth from "../contexts/useAuth";
 import { useNavigate } from "react-router-dom";
 import baseURL from "../constants/constant";
-
+import { Link } from "react-router-dom";
 import { 
   Card,   
   CardAction,
@@ -63,7 +63,7 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
 
   return (
     <div className="flex justify-center mt-5">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm bg-cstmwhite">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>
@@ -75,7 +75,7 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
                     )}
         </CardDescription>
         <CardAction>
-          <Button className="bg-cstmblack text-cstmwhite"variant="link">Sign Up</Button>
+          <Link to="/signUp"><Button className="bg-cstmblack text-cstmwhite"variant="link">Sign Up</Button></Link>
         </CardAction>
       </CardHeader>
       <CardContent>
@@ -113,7 +113,7 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full"
+        <Button type="submit" className="w-full text-white"
         onClick={handleLogin}
         disabled={isSubmitting}>
           <span>{isSubmitting ? 'Signing In...' : 'Sign In'}</span>

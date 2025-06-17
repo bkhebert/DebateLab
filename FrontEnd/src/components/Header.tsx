@@ -1,4 +1,5 @@
 import DarkModeToggle from "./DarkModeToggle";
+import { Link } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 const Header = () => {
   return (
@@ -20,8 +21,8 @@ const Header = () => {
         <div className="hidden lg:flex"></div>
         <div className="hidden lg:flex"></div>
       <div className="grid grid-cols-3">
-        <p className="hidden lg:flex mr-1 mx-auto my-auto">Log in</p>
-        <p className="hidden lg:flex mx-auto my-auto">Sign up</p>
+       <Link to="/signIn"> <p className="hidden lg:flex mr-1 mx-auto mt-2 my-auto text-black">Log in</p></Link>
+        <Link to="/signUp"> <p className="hidden lg:flex mx-auto mt-2 my-auto text-black">Sign up</p></Link>
       <DarkModeToggle/>
       </div>
       </div>

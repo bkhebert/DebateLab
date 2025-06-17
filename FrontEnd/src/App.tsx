@@ -19,6 +19,7 @@ import AnalyzerCard from './components/AnalyzerCard';
 import Debates from './views/Debates';
 import OnboardingTags from './views/onboardingTags';
 import OnboardingBeliefs from './views/onboardingBeliefs';
+import TheGreatConversation from './views/TheGreatConversation';
 function App() {
 
 
@@ -40,10 +41,11 @@ function App() {
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/onboarding" element={<Onboarding/>} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/analyzer" element={<AnalyzerCard closeModal={null}/>} />
+      <Route path="/analyzer" element={<AnalyzerCard closeModal={null} showLogo={true} showExit={false}/>} />
       <Route path="/debates" element={<Debates />} />
       <Route path="/onboarding/beliefs" element={<OnboardingBeliefs />} />
       <Route path="/onboarding/tags" element={<OnboardingTags/>} />
+      <Route path="/thegreatconversation" element={<TheGreatConversation/>}/>
      </Routes>
      </div>
       <RightSideBar />

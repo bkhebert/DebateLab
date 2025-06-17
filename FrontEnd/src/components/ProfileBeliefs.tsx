@@ -8,6 +8,7 @@ import axios from 'axios';
 import baseURL from '../constants/constant';
 import useAuth from '../contexts/useAuth';
 import { tokenManager } from '../utils/tokenManager';
+import { Link } from 'react-router-dom';
 const beliefs = [
   {
     title: 'Science & Technology',
@@ -130,7 +131,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   }
 
   useEffect(() => {
-    if(selectedSub?.subTopic){
+    if(selectedSub?.subTopic && feedtopic){
       feedtopic(selectedSub.subTopic)
     }
   }, [selectedSub, feedtopic])
@@ -173,9 +174,10 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
 </p></div> }
 { isSelectingTopics &&
 <div><h1 className="text-4xl font-bold text-center mb-1">Select A Topic To Debate</h1>
-<p className="text-xs mb-2 italic">
-  
-</p></div>
+
+<p className="text-xs mb-2 italic text-center">
+If you can't find something you like,there is always...  
+</p><Link to={'/thegreatconversation'}><button className="flex justify-center mx-auto p-3 bg-primary m-2 rounded text-white">The Great Conversation</button></Link></div>
 }
          <div 
         className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -211,7 +213,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
                 onClick={() => {
                   setSelectedSub({subTopic: sub.sub, description: sub.description})
                   toggleTopicSelected()
-                  feedtopic(sub.sub)
+
                 }
                 }
               />

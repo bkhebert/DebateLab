@@ -2,6 +2,10 @@ import { cn } from "../lib/utils";
 import { Marquee } from "./ui/Marquee";
 import { useState, useEffect } from "react";
 import Post from "./Post";
+import baseURL from "../constants/constant";
+import axios from "axios";
+import { useAllPosts } from "../hooks/useAllPosts";
+import { Loader } from "lucide-react";
 const reviews = [
   {
     name: "Jack",
@@ -80,34 +84,24 @@ const ReviewCard = ({
 };
  
 export function HorizontalFeed() {
-   const [posts, setPosts] = useState([]);
 
-  const [postNumber, setPostNumber] = useState([
-      'tag1', 'awef', 'fdsaf', 'gfsd', 'trew', 'uytr', 'opoiu']);
- useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const res = await fetch(`${baseURL}/api/messages`);
-        const data = await res.json();
-        setPosts(data); // Assuming this is an array of full postInfo objects
-      } catch (err) {
-        console.error("Failed to fetch messages:", err);
-      }
-    };
-
-    fetchMessages();
-  }, []);
+  const { posts, loading, error } = useAllPosts(); // Destructure the hook's return value
+    
+  if (loading) return <Loader />; // Or <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:20s]">
-        {posts.map((postInfo) => (
-          <Post key={postInfo.id} postInfo={postInfo} />
-        ))}
+         { posts.map((postInfo) => (
+          <div key={postInfo.id} className="flex justify-center">
+<Post postInfo={postInfo}/></div>
+    ))}
       </Marquee>
       <Marquee reverse pauseOnHover className="[--duration:20s]">
-        {posts.map((postInfo) => (
-          <Post key={postInfo.id + "-reverse"} postInfo={postInfo} />
-        ))}
+           { posts.map((postInfo) => (
+             <div key={postInfo.id} className="flex justify-center">
+<Post postInfo={postInfo}/></div>
+    ))}
       </Marquee>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>

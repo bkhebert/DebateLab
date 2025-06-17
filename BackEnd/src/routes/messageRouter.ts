@@ -138,5 +138,94 @@ messageRouter.post('/reply', async (req:any, res:any) => {
     res.sendStatus(500);
   }
 });
+/*
+  GET /api/message/all/recent
+  - Fetch 10 most recent original posts (non-reply messages) across all topics
+  - Include their replies and author metadata
+*/
+messageRouter.get('/all/recent', async (req, res) => {
+  try {
+    const posts = await Message.findAll({
+      where: {
+        // Only get original posts (not replies)
+        // Assuming replies are stored in the Reply table only
+      },
+      include: [
+        {
+          model: User,
+          as: 'author',
+          attributes: ['id', 'username', 'school'],
+          include: [
+            {
+              model: PoliticalView,
+              attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
+            },
+            {
+              model: UserPhilosophy,
+              as: 'philosophies',
+              attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
+              required: false,
+            },
+          ],
+        },
+        {
+          model: Reply,
+          where: { parentReplyId: null }, // Only top-level replies
+          required: false,
+          include: [
+            {
+              model: User,
+              as: 'author',
+              attributes: ['id', 'username', 'school'],
+              include: [
+                {
+                  model: PoliticalView,
+                  attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
+                  required: false,
+                },
+                {
+                  model: UserPhilosophy,
+                  as: 'philosophies',
+                  attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
+                },
+              ],
+            },
+            {
+              model: Reply,
+              as: 'children', // Nested replies
+              include: [
+                {
+                  model: User,
+                  as: 'author',
+                  attributes: ['id', 'username', 'school'],
+                  include: [
+                    {
+                      model: PoliticalView,
+                      attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
+                    },
+                    {
+                      model: UserPhilosophy,
+                      as: 'philosophies',
+                      attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
+                      required: false,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      order: [['createdAt', 'DESC']],
+      limit: 10, // Only get 10 most recent
+    });
+
+    res.json(posts);
+  } catch (error) {
+    console.error('Failed to GET /api/message/all/recent:', error);
+    res.sendStatus(500);
+  }
+});
+
 
 export default messageRouter;

@@ -21,7 +21,7 @@ const Reply = database.define<ReplyInstance>(
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "User", // or Topic if you prefer, but string with table name is common
         key: "id",
@@ -48,7 +48,7 @@ const Reply = database.define<ReplyInstance>(
     allowNull: true,
     references: { model: 'Reply', key: 'id' },
   },
-  
+
   },
   {
     tableName: 'Reply', // Explicitly specify table name

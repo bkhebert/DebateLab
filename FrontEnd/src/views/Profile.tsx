@@ -88,30 +88,43 @@ setSchoolOfThought(!schoolOfThought);
 
   return (
     <div className="">
-      { !showTags && !showBeliefs && !schoolOfThought && 
-      <div className="grid grid-cols-1">
-        <button className="bg-primary/80 p-2 m-2 rounded-md"onClick={toggleBeliefs}>
-          My Beliefs
-        </button>
-        <button  className="bg-primary/80 p-2 m-2 rounded-md"onClick={toggleTags}>
-          Tags
-        </button>
-        <button className="bg-primary/80 p-2 m-2 rounded-md"onClick={toggleSchoolOfThoughtView}>
-          School Of Thought
-        </button>
-        <button className="bg-primary/80 p-2 m-2 rounded-md"onClick={toggleProfileView}>
-          My Profile Card
-        </button>
-        
-      </div> }
+ {!showTags && !showBeliefs && !schoolOfThought && (
+  <div className="grid grid-cols-1 gap-4 px-4 py-6 max-w-md mx-auto">
+    <button
+      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
+      onClick={toggleBeliefs}
+    >
+      👁 My Beliefs
+    </button>
+    <button
+      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
+      onClick={toggleTags}
+    >
+      🏷 Tags
+    </button>
+    <button
+      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
+      onClick={toggleSchoolOfThoughtView}
+    >
+      🧠 School of Thought
+    </button>
+    <button
+      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
+      onClick={toggleProfileView}
+    >
+      🪪 My Profile Card
+    </button>
+  </div>
+)}
        <div className="grid grid-cols-1">
       { ( showTags || showBeliefs || schoolOfThought) && 
-      <button className="bg-primary/80 p-2 m-2 rounded-md" onClick={toggleMenu}>Return To Edit Profile</button>}
+      <button
+      className="font-sans bg-gradient-to-r from-purple-900 mx-2 my-2 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out" onClick={toggleMenu}>Return To Edit Profile</button>}
       </div>
-{   showBeliefs && <ProfileBeliefs isSelectingTopics={false}/>}
+{   showBeliefs && <ProfileBeliefs isSelectingTopics={false} topicChosen={false} feedtopic={false}/>}
 {   showTags && <TagSelector />}
 { schoolOfThought && <SchoolOfThoughts/>}
-{ showProfileView && <UserProfileModal school={user.school} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} beliefs={userDetails.data.philosophies} username={user.username as string} onClose={toggleProfileView} />}
+{ showProfileView && <UserProfileModal school={user.school as string} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} beliefs={userDetails.data.philosophies} username={user.username as string} onClose={toggleProfileView} />}
     </div>
   )
 }

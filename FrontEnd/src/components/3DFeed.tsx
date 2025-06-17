@@ -4,24 +4,48 @@ import MiniPost from "./MiniPost";
 import { useState } from "react";
 const reviews = [
   {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    name: "Sophia",
+    username: "@sophia",
+    body: "True liberty begins where dialogue thrives. Without the freedom to speak, we lose the freedom to think.",
+    img: "https://avatar.vercel.sh/sophia",
   },
   {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
+    name: "Marcus",
+    username: "@marcus",
+    body: "Reason is not a weapon, but a light. We wield it not to defeat, but to illuminate.",
+    img: "https://avatar.vercel.sh/marcus",
   },
   {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
+    name: "Hypatia",
+    username: "@hypatia",
+    body: "Ignorance is not vanquished by silence, but by conversation. Speak, listen, learn — in that order.",
+    img: "https://avatar.vercel.sh/hypatia",
   },
-];
+  {
+    name: "Alain",
+    username: "@alain",
+    body: "Censorship creates an illusion of certainty. But only in freedom does the mind truly sharpen.",
+    img: "https://avatar.vercel.sh/alain",
+  },
+  {
+    name: "Zeno",
+    username: "@zeno",
+    body: "Debate is not division — it is the highest form of respect for another mind’s existence.",
+    img: "https://avatar.vercel.sh/zeno",
+  },
+  {
+    name: "Simone",
+    username: "@simone",
+    body: "To understand is to listen. To grow is to question. To be free is to do both relentlessly.",
+    img: "https://avatar.vercel.sh/simone",
+  },
+  {
+    name: "Galileo",
+    username: "@galileo",
+    body: "They silenced the stars once. Let us not repeat that mistake with each other.",
+    img: "https://avatar.vercel.sh/galileo",
+  }
+]
  
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
