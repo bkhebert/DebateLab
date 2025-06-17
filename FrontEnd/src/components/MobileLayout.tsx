@@ -1,7 +1,7 @@
 import AnalyzerCard from "./AnalyzerCard"
 import Feed from "./Feed"
 import { Separator } from "@radix-ui/react-separator"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const MobileLayout = ({topic}) => {
   console.log(topic)
@@ -12,6 +12,10 @@ const MobileLayout = ({topic}) => {
     console.log('hello')
     navigate('/debates')
   }
+
+  useEffect(() => {
+    
+  }, [topic])
   return (
         
       <main className="col-span-1 lg:col-span-8 lg:px-4 h-screen overflow-y-auto px-4 pb-16">

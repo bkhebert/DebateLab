@@ -84,7 +84,7 @@ const beliefs = [
   }
 ];
 
-export default function ProfileBeliefs({isSelectingTopics}) {
+export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopic}) {
   const [selectedParent, setSelectedParent] = useState<number | null>(null);
   const [selectedSub, setSelectedSub] = useState<{ subTopic: string, description: string } | null>(null);
   const [beliefsState, setBeliefsState] = useState<{ [sub: string]: string }>({});
@@ -92,6 +92,8 @@ export default function ProfileBeliefs({isSelectingTopics}) {
   const { user } = useAuth();
   const toggleTopicSelected = () => {
     setTopicSelected(!topicSelected);
+    if(topicChosen){ topicChosen(selectedSub.subTopic)  }
+    console.log(selectedSub.subTopic, 'chosen topic')
   }
 
   useEffect(() => {
@@ -126,6 +128,12 @@ export default function ProfileBeliefs({isSelectingTopics}) {
       console.error(err)
     })
   }
+
+  useEffect(() => {
+    if(selectedSub?.subTopic){
+      feedtopic(selectedSub.subTopic)
+    }
+  }, [selectedSub, feedtopic])
 
   useEffect(() => {
    if(!isSelectingTopics) {
@@ -202,7 +210,9 @@ export default function ProfileBeliefs({isSelectingTopics}) {
                 icon={beliefs[selectedParent].icon}
                 onClick={() => {
                   setSelectedSub({subTopic: sub.sub, description: sub.description})
-                  toggleTopicSelected()}
+                  toggleTopicSelected()
+                  feedtopic(sub.sub)
+                }
                 }
               />
             ))}
@@ -223,9 +233,7 @@ export default function ProfileBeliefs({isSelectingTopics}) {
           }}
         />
       )}
-      {isSelectingTopics && 
-      <MobileLayout 
-      topic={selectedSub?.subTopic}/>}
+
 
     </div>
   );

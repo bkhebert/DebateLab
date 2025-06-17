@@ -2,7 +2,7 @@ import { AlertTriangle } from "lucide-react"; // Optional icon for dramatic effe
 
 const DisclaimerCard = () => {
   return (
-    <div className="bg-neutral-950 border-2 border-red-700 rounded-md p-5 text-sm text-red-100 font-mono shadow-[0_0_30px_rgba(255,0,0,0.2)]">
+    <div className="bg-neutral-950 border-2 border-red-700 rounded-md sm:p-2 md:p-6 md:mt-40 text-sm text-red-100 font-mono shadow-[0_0_30px_rgba(255,0,0,0.2)]">
       <div className="flex items-center mb-4">
         <AlertTriangle className="text-red-600 mr-2" />
         <h2 className="uppercase tracking-widest text-red-500 text-xs">
@@ -22,13 +22,13 @@ const DisclaimerCard = () => {
         Content may be offensive, triggering, or objectionable. You are solely responsible for your participation.
       </p>
       <p className="mb-2">
-        We do not censor opinions. However, we reserve the right to act against:
+        We do not censor opinions. However, we reserve the right to act against:</p>
         <ul className="list-disc list-inside ml-4 mt-1">
           <li>Calls for violence or harm</li>
           <li>Targeted harassment or doxxing</li>
           <li>Malicious platform misuse</li>
         </ul>
-      </p>
+      
       <p className="mt-4 italic text-red-300">
         Use at your own discretion. Truth is not dictated—but discovered. Let arguments be strong, minds open, and fallacies exposed.
       </p>
