@@ -10,6 +10,10 @@ import { FaBrain } from '@react-icons/all-files/fa/FaBrain'
   import { FaQuestion } from '@react-icons/all-files/fa/FaQuestion';
   import { FaUserSecret } from 'react-icons/fa';
   import { FaUserGraduate } from 'react-icons/fa';
+import axios from 'axios';
+import { tokenManager } from '../utils/tokenManager';
+import baseURL from '../constants/constant';
+import { useNavigate } from 'react-router-dom';
 const schools = [
   {
     title: 'The Rationalists',
@@ -71,10 +75,24 @@ const schools = [
 
 export default function SchoolOfThoughts() {
   const [selected, setSelected] = useState<number | null>(null);
-
+  const navigate = useNavigate();
   const handleNext = () => {
     // Replace this with navigation logic to profile page
-    alert(`Continue with: ${schools[selected!].title}`);
+    // alert(`Are you sure you want to represent the School Of ${schools[selected!].title}?`);
+   axios.post(`${baseURL}/api/schoolsofthought/`, {
+      school: schools[selected!].title
+    }, {
+  headers: {
+    'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
+    'Content-Type': 'application/json'
+  }
+}).then((val) => {
+  console.log('successfully updated the school i think');
+ 
+}).catch((err) => {
+  console.error('failed to puawodji school', err);
+})
+ navigate('/onboarding/tags')
   };
 
   return (
@@ -101,6 +119,7 @@ export default function SchoolOfThoughts() {
           history={schools[selected].history}
           icon={schools[selected].icon}
           onNext={handleNext}
+          
         />
       )}
     </div>

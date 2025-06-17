@@ -17,6 +17,8 @@ import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
 import AnalyzerCard from './components/AnalyzerCard';
 import Debates from './views/Debates';
+import OnboardingTags from './views/onboardingTags';
+import OnboardingBeliefs from './views/onboardingBeliefs';
 function App() {
 
 
@@ -40,6 +42,8 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/analyzer" element={<AnalyzerCard closeModal={null}/>} />
       <Route path="/debates" element={<Debates />} />
+      <Route path="/onboarding/beliefs" element={<OnboardingBeliefs />} />
+      <Route path="/onboarding/tags" element={<OnboardingTags/>} />
      </Routes>
      </div>
       <RightSideBar />

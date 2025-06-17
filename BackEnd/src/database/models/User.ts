@@ -15,13 +15,14 @@ interface UserAttributes {
   email_verification_token: string | null;
   stripeSubscriptionId: string | null;
   stripeCustomerId: string | null;
+  school: string | null,
   createdAt?: Date; // Added by Sequelize
   updatedAt?: Date; // Added by Sequelize
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 
   'id' | 'createdAt' | 'updatedAt' | 'username' | 'password' | 
-  'subscription' | 'philosophy' | 'googleId' | 'services' | 
+  'subscription' | 'philosophy' | 'googleId' | 'services' | 'school' |
   'email_verification_token' | 'stripeSubscriptionId' | 'stripeCustomerId'> {}
 
 
@@ -42,7 +43,7 @@ const User = database.define<UserInstance>(
       type: DataTypes.BOOLEAN || DataTypes.STRING,
       allowNull: true,
     },
-    philosophy: {
+    school: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -84,7 +85,10 @@ const User = database.define<UserInstance>(
     stripeCustomerId: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    philosophy: {
+       type: DataTypes.STRING,
+    },
   },
   
   {

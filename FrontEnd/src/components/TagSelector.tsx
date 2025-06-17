@@ -92,25 +92,23 @@ export default function TagSelector() {
     .then((tagInfo) => {
       console.log('got tags', tagInfo);
       const allTags = [];
-      for(let key in tagInfo.data[0]){
-        console.log(tagInfo.data[0]);
+      for(const key in tagInfo.data[0]){
+
         if(tagInfo.data[0][key] && key !== 'createdAt' && key !== 'updatedAt' && key !== 'email' && key !== 'id'  ){
-           console.log(tagInfo.data[0][key], 'parsing this');
-            console.log(key, 'the key');
+
+
 
             const parsed = JSON.parse(tagInfo.data[0][key]);
-            console.log(parsed, 'parsed object');
+            console.log(parsed.columnName, parsed.color, 'parsed object');
             allTags.push({
               columnName: key,
               label: parsed.label,
-              icon: icons[parsed.icon],
+              icon: parsed.icon,
               color: parsed.color,
               isSelected: parsed.isSelected,
             });
             
-        } else {
-          console.log('skipping for some reason')
-        }
+        } 
         setTags(allTags);
       }
     }) .catch((err) => {
@@ -125,7 +123,7 @@ export default function TagSelector() {
       <h2 className="text-2xl font-bold text-purple-200 mb-4 text-center">Selected Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
-          tag.isSelected ? <Tag tag={tag} updateView={updateView}/> : <></>
+          tag.isSelected ? <Tag key={tag.color} tag={tag} updateView={updateView} icon={icons[tag.icon]}/> : <></>
         ))}
       </div>
     </div>
@@ -134,7 +132,7 @@ export default function TagSelector() {
       <h2 className="text-2xl font-bold text-purple-200 mb-4 text-center">Select Your Tags</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {tags.map((tag) => (
-          tag.isSelected ? <></> : <Tag tag={tag} updateView={updateView}/>
+          tag.isSelected ? <></> : <Tag key={tag.color} tag={tag} updateView={updateView} icon={icons[tag.icon]}/>
         ))}
       </div>
     </div>

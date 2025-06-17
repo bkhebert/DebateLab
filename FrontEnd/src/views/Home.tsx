@@ -31,7 +31,7 @@ return (
   </div>
   }
    <div className={`${user ? "" : "lg:hidden" }`}>
-    <MobileLayout/>
+    <MobileLayout topic={null}/>
     </div>
       {/* Right Sidebar */}
 

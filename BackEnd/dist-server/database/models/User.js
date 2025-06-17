@@ -13,7 +13,7 @@ const User = database.define('User', {
         type: DataTypes.BOOLEAN || DataTypes.STRING,
         allowNull: true,
     },
-    philosophy: {
+    school: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -55,7 +55,10 @@ const User = database.define('User', {
     stripeCustomerId: {
         type: DataTypes.STRING,
         allowNull: true
-    }
+    },
+    philosophy: {
+        type: DataTypes.STRING,
+    },
 }, {
     tableName: 'User', // Explicitly specify table name
     timestamps: true, // Enables createdAt & updatedAt fields
