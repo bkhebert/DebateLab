@@ -1,6 +1,6 @@
 import { cn } from "../lib/utils";
 import { Marquee } from "./ui/Marquee";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Post from "./Post";
 const reviews = [
   {
@@ -80,23 +80,37 @@ const ReviewCard = ({
 };
  
 export function HorizontalFeed() {
+   const [posts, setPosts] = useState([]);
+
   const [postNumber, setPostNumber] = useState([
       'tag1', 'awef', 'fdsaf', 'gfsd', 'trew', 'uytr', 'opoiu']);
+ useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await fetch(`${baseURL}/api/messages`);
+        const data = await res.json();
+        setPosts(data); // Assuming this is an array of full postInfo objects
+      } catch (err) {
+        console.error("Failed to fetch messages:", err);
+      }
+    };
 
+    fetchMessages();
+  }, []);
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-      {/* <Marquee pauseOnHover className="[--duration:20s]">
-        { postNumber.map((userInfo) => (
-            <Post userName={userInfo}/>
-           ))}
+      <Marquee pauseOnHover className="[--duration:20s]">
+        {posts.map((postInfo) => (
+          <Post key={postInfo.id} postInfo={postInfo} />
+        ))}
       </Marquee>
       <Marquee reverse pauseOnHover className="[--duration:20s]">
-        { postNumber.map((userInfo) => (
-            <Post userName={userInfo}/>
-           ))}
+        {posts.map((postInfo) => (
+          <Post key={postInfo.id + "-reverse"} postInfo={postInfo} />
+        ))}
       </Marquee>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div> */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
     </div>
   );
 }

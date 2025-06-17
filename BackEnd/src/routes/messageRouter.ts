@@ -8,13 +8,15 @@ const messageRouter = Router();
     - Create a new message (with optional anonymous user)
 */
 messageRouter.post('/', async (req:any, res:any) => {
-  const { content, topic, userId } = req.body;
-
-  if (!content || !topic) {
+  let { content, topic, userId } = req.body;
+  let backuptopic = "The Great Conversation"
+  if (!content) {
     console.error('Missing content or topic in request body:', req.body);
     return res.sendStatus(400);
   }
-
+  if(!topic){
+    topic = backuptopic
+  }
   try {
     await Message.create({
       content,

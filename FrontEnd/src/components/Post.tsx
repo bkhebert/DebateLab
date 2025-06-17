@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Separator } from "./ui/Separator";
 import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft";
 import { useEffect, useState } from "react";
 import UserProfileModal from "./ViewProfile";
 import { formatDistanceToNow } from 'date-fns';
+import useAuth from "../contexts/useAuth";
+import baseURL from "../constants/constant";
 const infoNeeded = {
   img: '/anonprofile.png',
   tags: ['pro-life', 'environmentalist'],
@@ -13,10 +16,12 @@ const infoNeeded = {
   }],
 
 }
-const Post = ({postInfo}) => {
-  
+const Post = ({ postInfo }: { postInfo: any }) => {
+  const { user } = useAuth();
   const [showProfileView, setShowProfileView] = useState(false);
   const[tags, setTags] = useState([]);
+  const [showReplyForm, setShowReplyForm] = useState(false);
+const [replyText, setReplyText] = useState("");
  useEffect(() => {
   console.log('hello')
     if (!postInfo.author?.PoliticalView) return;
@@ -36,7 +41,25 @@ const Post = ({postInfo}) => {
 
     setTags(selectedTags);
   }, []);
-
+const submitReply = async (parentReplyId = null) => {
+  try {
+    await fetch(`${baseURL}/api/message/reply`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: replyText,
+        messageId: postInfo.id,
+        userId: user.id, // get from context/auth
+        parentReplyId: parentReplyId,
+      }),
+    });
+    setReplyText('');
+    setShowReplyForm(false);
+    // optionally: refresh post or replies
+  } catch (err) {
+    console.error(err);
+  }
+};
   const handleClick = () => {
     setShowProfileView(!showProfileView);
   }
@@ -90,9 +113,58 @@ const Post = ({postInfo}) => {
           <UserProfileModal username={postInfo.author.username} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author.school} beliefs={postInfo.author.philosophies} onClose={handleClick}/>
         )}
         <Separator className="bg-black/50 mt-1"/>
-        <div className="flex justify-center pt-2">
-          <button className="p-2 py-1 bg-primarylight/80 text-black">DEBATE</button>
-        </div>
+        <button
+  className="p-2 py-1 bg-primarylight/80 text-black"
+  onClick={() => setShowReplyForm(!showReplyForm)}
+>
+  DEBATE
+</button>
+ {postInfo.Replies && postInfo.Replies.length > 0 && (
+  <div className="mt-4 pl-4 border-l-2 border-gray-300">
+    {postInfo.Replies.slice().reverse().map((reply) => (
+      <div key={reply.id} className="mb-2">
+        <div className="text-sm font-semibold">{reply.author?.username || 'anon'}:</div>
+        <div className="text-sm mb-1">{reply.content}</div>
+
+        {reply.children?.length > 0 && (
+          <div className="ml-4 border-l pl-2">
+            {reply.children.slice().reverse().map((child) => (
+              <div key={child.id}>
+                <div className="text-sm font-semibold">{child.author?.username || 'anon'}:</div>
+                <div className="text-sm mb-1">{child.content}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <button
+          className="text-xs text-blue-600 hover:underline"
+          onClick={() => {
+            setShowReplyForm(true);
+          }}
+        >
+          Reply
+        </button>
+      </div>
+    ))}
+  </div>
+)}
+        {showReplyForm && (
+  <div className="flex flex-col items-center mt-2">
+    <textarea
+      className="w-full p-1 border rounded"
+      value={replyText}
+      onChange={(e) => setReplyText(e.target.value)}
+      placeholder="Write your reply..."
+    />
+    <button
+      className="mt-1 bg-green-500 text-white px-2 py-1 rounded"
+      onClick={() => submitReply()}
+    >
+      Submit Reply
+    </button>
+  </div>
+)}
         </div>
   )
 }
