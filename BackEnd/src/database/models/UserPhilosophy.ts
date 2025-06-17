@@ -34,7 +34,7 @@ const UserPhilosophy = database.define<UserPhilosophyInstance>(
     },
     category: {
       type: DataTypes.ENUM('Philosophy', 'Psychology', 'Religion & Spirituality', 'Science & Technology', 
-        'Politics(US)', 'Politics(World)'
+        'Politics (US)', 'Politics (World)'
       ),
       
       allowNull: false,

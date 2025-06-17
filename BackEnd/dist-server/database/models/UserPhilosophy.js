@@ -12,10 +12,10 @@ const UserPhilosophy = database.define('UserPhilosophy', {
         onDelete: "CASCADE",
     },
     category: {
-        type: DataTypes.ENUM('Philosophy', 'Psychology', 'Economics', 'PoliticalTheory', 'Morals', 'God', 'Love'),
+        type: DataTypes.ENUM('Philosophy', 'Psychology', 'Religion & Spirituality', 'Science & Technology', 'Politics (US)', 'Politics (World)'),
         allowNull: false,
     },
-    school: {
+    subtopic: {
         type: DataTypes.STRING,
         allowNull: false,
     },

@@ -4,52 +4,92 @@ import { BeliefCard } from './BeliefCard';
 import { SubBeliefCard } from './BeliefCard';
 import { BeliefModal } from './BeliefModal';
 import MobileLayout from './MobileLayout';
-
+import axios from 'axios';
+import baseURL from '../constants/constant';
+import useAuth from '../contexts/useAuth';
+import { tokenManager } from '../utils/tokenManager';
 const beliefs = [
   {
     title: 'Science & Technology',
     icon: <FaFlask />, color: '#3498db',
     subs: [
-      'Physics & Cosmology', 'Artificial Intelligence', 'Biotechnology & Ethics',
-      'Climate Science', 'Futurism & Transhumanism', 'Skepticism & Pseudoscience'
+      {sub: 'Physics & Cosmology', description: ''}, 
+    { sub:  'Artificial Intelligence', description: ''}, 
+    { sub:  'Biotechnology & Ethics', description: ''},
+    { sub:  'Climate Science', description: ''}, 
+    { sub:  'Futurism & Transhumanism', description: ''}, 
+    { sub:  'Skepticism & Pseudoscience', description: ''},
     ]
   },
   {
     title: 'Religion & Spirituality',
     icon: <FaPrayingHands />, color: '#9b59b6',
     subs: [
-      'Comparative Religion', 'Atheism & Secularism', 'Theology & Doctrine',
-      'Mysticism & Esotericism', 'Religious Ethics', 'New Age & Alternative Beliefs'
+   { sub:   'Comparative Religion', description: ''}, 
+   { sub:   'Atheism & Secularism', description: ''}, 
+   { sub:   'Theology & Doctrine', description: ''},
+   { sub:   'Mysticism & Esotericism', description: ''}, 
+   { sub:   'Religious Ethics', description: ''}, 
+   { sub:   'New Age & Alternative Beliefs', description: ''},
     ]
   },
   {
     title: 'Philosophy',
     icon: <FaBook />, color: '#e67e22',
-    subs: ['Ontology', 'Epistemology', 'Ethics & Morality', 'Metaphysics', 'Political Philosophy', 'Philosophy of Mind']
+    subs: [
+   { sub:   'Ontology', description: ''}, 
+   { sub:   'Epistemology', description: ''}, 
+   { sub:   'Ethics & Morality', description: ''}, 
+   { sub:   'Metaphysics', description: ''}, 
+   { sub:   'Political Philosophy', description: ''}, 
+   { sub:   'Philosophy of Mind', description: ''},
+    ]
   },
   {
     title: 'Psychology',
     icon: <FaBrain />, color: '#16a085',
-    subs: ['Cognitive Psychology', 'Behavioral Psychology', 'Neuropsychology', 'Social Psychology', 'Psychoanalysis', 'Evolutionary Psychology']
+    subs: [
+   { sub:   'Cognitive Psychology', description: ''}, 
+
+   { sub:   'Behavioral Psychology', description: ''}, 
+   { sub:   'Neuropsychology', description: ''}, 
+   { sub:   'Social Psychology', description: ''}, 
+   { sub:   'Psychoanalysis', description: ''}, 
+   { sub:   'Evolutionary Psychology', description: ''},
+    ]
   },
   {
     title: 'Politics (US)',
     icon: <FaLandmark />, color: '#c0392b',
-    subs: ['Electoral Politics', 'Constitutional Issues', 'Economic Policy', 'Social Policy (Race, Gender, etc.)', 'Foreign Policy (US-centric)', 'Political Theory (US context)']
+    subs: [
+   { sub:   'Electoral Politics', description: ''}, 
+   { sub:   'Constitutional Issues', description: ''}, 
+   { sub:   'Economic Policy', description: ''}, 
+   { sub:   'Social Policy (Race, Gender, etc.)', description: ''}, 
+   { sub:   'Foreign Policy (US-centric)', description: ''}, 
+   { sub:   'Political Theory (US context)', description: ''},
+    ]
   },
   {
     title: 'Politics (World)',
     icon: <FaGlobe />, color: '#2ecc71',
-    subs: ['International Relations', 'Geopolitics', 'Comparative Government', 'Global Economic Systems', 'Human Rights & NGOs', 'War & Conflict Studies']
+    subs: [
+   { sub:  'International Relations', description: ''}, 
+   { sub:  'Geopolitics', description: ''}, 
+   { sub:  'Comparative Government', description: ''}, 
+   { sub:  'Global Economic Systems', description: ''}, 
+   { sub:  'Human Rights & NGOs', description: ''}, 
+   { sub:  'War & Conflict Studies', description: ''},
+    ]
   }
 ];
 
 export default function ProfileBeliefs({isSelectingTopics}) {
   const [selectedParent, setSelectedParent] = useState<number | null>(null);
-  const [selectedSub, setSelectedSub] = useState<string | null>(null);
+  const [selectedSub, setSelectedSub] = useState<{ subTopic: string, description: string } | null>(null);
   const [beliefsState, setBeliefsState] = useState<{ [sub: string]: string }>({});
   const [topicSelected, setTopicSelected] = useState<boolean>(false);
-
+  const { user } = useAuth();
   const toggleTopicSelected = () => {
     setTopicSelected(!topicSelected);
   }
@@ -58,8 +98,63 @@ export default function ProfileBeliefs({isSelectingTopics}) {
     return () => {
       setTopicSelected(false);
     }
-  },[])
+  },[]);
+
+  const getPhilosophyData = () => {
+    axios.get(`${baseURL}/api/beliefs/getBeliefs`, {
+  headers: {
+    'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
+    'Content-Type': 'application/json'
+  }
+})
+    .then((beliefInfo) => {
+      console.log(beliefInfo.data)
+     beliefInfo.data.forEach((belief) => {
+      for(let i = 0; i < beliefs.length; i++){
+      if(belief.category === beliefs[i].title){
+        for(let q = 0; q < beliefs[i].subs.length; q++){
+          if(beliefs[i].subs[q].sub === belief.subtopic){
+            beliefs[i].subs[q].description = belief.description
+          }
+        }
+      }
+    }
+     })
+      // beliefInfo.data.description;
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+  }
+
+  useEffect(() => {
+   if(!isSelectingTopics) {
+    getPhilosophyData() 
+   }
+  }, [isSelectingTopics])
  
+  const saveBeliefToDatabase = (text: string, selectedSub: string) => {
+    axios.post(`${baseURL}/api/beliefs/updateBelief`, {
+      text,
+      "selectedSub": selectedSub,
+      user,
+      category: beliefs[selectedParent].title
+    }, 
+  {
+  headers: {
+    'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
+    'Content-Type': 'application/json'
+  }
+}
+  ).then(() => {
+    console.log('success!')
+    getPhilosophyData()
+  }).catch((err) => {
+    console.error(err);
+  })
+
+  }
+
   return (
     <div className="px-6 max-w-6xl mx-auto">
       {selectedParent === null && (
@@ -101,12 +196,12 @@ export default function ProfileBeliefs({isSelectingTopics}) {
           <div className={`${(isSelectingTopics && topicSelected) ? "hidden " : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6"} `}>
             {beliefs[selectedParent].subs.map((sub) => (
               <SubBeliefCard
-                key={sub}
-                title={sub}
+                key={sub.sub}
+                title={sub.sub}
                 color={beliefs[selectedParent].color}
                 icon={beliefs[selectedParent].icon}
                 onClick={() => {
-                  setSelectedSub(sub)
+                  setSelectedSub({subTopic: sub.sub, description: sub.description})
                   toggleTopicSelected()}
                 }
               />
@@ -114,18 +209,23 @@ export default function ProfileBeliefs({isSelectingTopics}) {
           </div>
         </>
       )}
-      {selectedSub && <div className={`${(isSelectingTopics && topicSelected) ? "block text-center mb-1 font-semi-bold border border-dashed border-black" : "hidden"}`}>{selectedSub}</div>}
-      {selectedSub && !isSelectingTopics && (
+      {selectedSub?.subTopic && <div className={`${(isSelectingTopics && topicSelected) ? "block text-center mb-1 font-semi-bold border border-dashed border-black" : "hidden"}`}>{selectedSub.subTopic}</div>}
+      {selectedSub?.subTopic && !isSelectingTopics && (
         <BeliefModal
           isOpen={!!selectedSub}
           onClose={() => setSelectedSub(null)}
-          title={selectedSub}
-          onSave={(text) => setBeliefsState(prev => ({ ...prev, [selectedSub]: text }))}
+          title={selectedSub.subTopic}
+          description={selectedSub.description}
+          onSave={(text) => {
+            setBeliefsState(prev => ({ ...prev, [selectedSub.subTopic]: text }))
+            saveBeliefToDatabase(text, selectedSub.subTopic)
+          
+          }}
         />
       )}
       {isSelectingTopics && 
       <MobileLayout 
-      topic={selectedSub}/>}
+      topic={selectedSub?.subTopic}/>}
 
     </div>
   );
