@@ -118,15 +118,20 @@ const submitReply = async (parentReplyId = null) => {
         <div className="grid grid-cols-4 auto-rows-auto text-xs mt-2">
         <div className="col-span-1 flex py-auto">
           <div className="my-auto font-bold border border-black/20 text-black dark:text-cyan">Fallacies: <div className={`border border-2 border-black/30 text-center ${postInfo.content.fallacies.length > 0 ? "text-cstmgreen" : "text-cstmred"} text-cstmred`}>{postInfo.content.fallacies.length}</div></div>
-        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto text-xl rounded-full border border-black"/>
+        <FaBalanceScaleLeft className="mx-auto ml-1 my-auto text-xl rounded-full text-black dark:text-primaryglow border border-black"/>
         </div>
-        {postInfo.content.fallacies.map((fallacy) => (
-          <div className="my-auto mx-auto text-black rounded text-center px-2">
-             <div className="my-auto border border-2 border-black/20 mx-auto bg-red-400/80 dark:bg-cstmred text-black rounded text-center px-2">
-            {fallacy}</div>
-            </div>
-        ))}
-        
+        <div className="col-span-3 px-2 py-1">
+  <div className="flex flex-wrap justify-center gap-2">
+    {postInfo.content.fallacies.map((fallacy, index) => (
+      <div
+        key={index}
+        className="px-2 py-1 text-sm border border-black/20 rounded-full border-2 bg-red-400/80 dark:bg-red-800 text-black dark:text-red-200 dark:border-red-400"
+      >
+        {fallacy}
+      </div>
+    ))}
+  </div>
+</div>
         </div>
         <Separator className="bg-black/30 mb-1  mt-1"/>
         <div className="flex justify-center dark:bg-cstmdarkaccent">
@@ -148,16 +153,18 @@ const submitReply = async (parentReplyId = null) => {
     {postInfo.Replies.slice().reverse().map((reply) => (
       <div key={reply.id} className="mb-2">
         <div className="text-sm font-semibold text-neonBlue">{reply.author?.username || 'anon'}:</div>
-        <div className="grid grid-cols-8">
-                  { !reply.author? <></> : getreplytags(reply.author).map((tag, index) => (
-          <span 
-            key={index}
-            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
-            title={tag.label}
-          >
-            {tag.label}
-          </span>
-        ))}</div>
+<div className="flex flex-wrap gap-1">
+  {reply.author &&
+    getreplytags(reply.author).map((tag, index) => (
+      <span
+        key={index}
+        className={`px-2 py-0.5 text-xs rounded border border-dashed border-white/40 text-white ${tag.color}`}
+        title={tag.label}
+      >
+        {tag.label}
+      </span>
+    ))}
+</div>
         <div className="text-sm mb-1 text-black dark:text-white">{reply.content}</div>
 
         {reply.children?.length > 0 && (
@@ -165,16 +172,18 @@ const submitReply = async (parentReplyId = null) => {
             {reply.children.slice().reverse().map((child) => (
               <div key={child.id}>
                 <div className="text-sm font-semibold text-black dark:text-white">{child.author?.username || 'anon'}:</div>
-                <div className="grid grid-cols-8">
-                  { !child.author? <></> : getreplytags(child.author).map((tag, index) => (
-          <span 
-            key={index}
-            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
-            title={tag.label}
-          >
-            {tag.label}
-          </span>
-        ))}</div>
+              <div className="flex flex-wrap gap-1">
+  {child.author &&
+    getreplytags(child.author).map((tag, index) => (
+      <span
+        key={index}
+        className={`px-2 py-0.5 text-xs rounded border border-dashed border-white/40 text-white ${tag.color}`}
+        title={tag.label}
+      >
+        {tag.label}
+      </span>
+    ))}
+</div>
                 <div className="text-sm mb-1 text-black dark:text-white ">{child.content}</div>
               </div>
             ))}
