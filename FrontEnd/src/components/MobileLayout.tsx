@@ -4,12 +4,12 @@ import { Separator } from "@radix-ui/react-separator"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const MobileLayout = ({topic}) => {
-  console.log(topic)
+
     const [showAnalyzer, setShowAnalyzer] = useState(false);
   const toggleAnalyzer = () => setShowAnalyzer(!showAnalyzer);
   const navigate = useNavigate();
   const toTopics = () => {
-    console.log('hello')
+  
     navigate('/debates')
   }
 

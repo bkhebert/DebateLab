@@ -60,7 +60,7 @@ export default function TagSelector() {
   }, []);
 
     const updateView = (chosenTag) => {
-      console.log(chosenTag)
+
     chosenTag.isSelected = !chosenTag.isSelected;
     axios.post(`${baseURL}/api/politicalPhilosophy/UpdateView`, {
       body: {
@@ -74,7 +74,7 @@ export default function TagSelector() {
   }
 })
     .then(() => {
-      console.log('post req sent')
+     
       getAllTags();
     })
     .catch((err) => {
@@ -90,7 +90,7 @@ export default function TagSelector() {
   }
 })
     .then((tagInfo) => {
-      console.log('got tags', tagInfo);
+    
       const allTags = [];
       for(const key in tagInfo.data[0]){
 
@@ -99,7 +99,7 @@ export default function TagSelector() {
 
 
             const parsed = JSON.parse(tagInfo.data[0][key]);
-            console.log(parsed.columnName, parsed.color, 'parsed object');
+           
             allTags.push({
               columnName: key,
               label: parsed.label,

@@ -4,8 +4,7 @@ import useAuth from "../contexts/useAuth";
 function Home() {
 
   const {user} = useAuth();
-console.log(JSON.stringify(user));
-  
+
 
 return (
     <div>

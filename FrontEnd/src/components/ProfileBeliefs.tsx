@@ -94,7 +94,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   const toggleTopicSelected = () => {
     setTopicSelected(!topicSelected);
     if(topicChosen){ topicChosen(selectedSub.subTopic)  }
-    console.log(selectedSub.subTopic, 'chosen topic')
+
   }
 
   useEffect(() => {

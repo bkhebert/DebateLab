@@ -23,12 +23,12 @@ const Post = ({ postInfo }: { postInfo: any }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
 const [replyText, setReplyText] = useState("");
  useEffect(() => {
-  console.log('hello')
+  
     if (!postInfo.author?.PoliticalView) return;
 
     const selectedTags = Object.values(postInfo.author.PoliticalView)
       .reduce<{label: string, color: string}[]>((acc, viewString) => {
-        console.log(acc)
+       
         try {
           const view = JSON.parse(viewString as string);
           return view.isSelected 

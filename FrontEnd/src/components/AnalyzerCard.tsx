@@ -10,7 +10,6 @@ type AnalyzerCardProps = {
 
 const AnalyzerCard = ({closeModal, topic, showLogo, isDemo, showExit}: AnalyzerCardProps) => {
 
-  console.log(topic)
   return (
     <div className={`rounded-md lg:rounded-sm bg-primarylight/70  mx-4 my-4 lg:mt-36 `}>
 

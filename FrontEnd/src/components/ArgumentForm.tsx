@@ -40,7 +40,7 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
     if (!argument.trim()) return;
     aiFactChecker(argument.trim());
     // You can send the argument to your backend here.
-    console.log("Submitted argument:", argument);
+
     setSubmitted(true);
 
   };
@@ -83,7 +83,7 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
         topic,
         userId: user? user.id : null,
     }).then((result) => {
-      console.log('success' , result);
+
        setAiResponse(null);
       if(!isDemo)
         {closeModal();}
@@ -105,7 +105,7 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
         topic,
         userId: user? user.id : null,
     }).then((result) => {
-      console.log('success' , result);
+      
       setAiResponse(null);
       if(!isDemo) {
       closeModal();
@@ -126,8 +126,6 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
     })
       .then(({ data }) => {
         setAiResponse(data);
-        console.log('fact checked data has returned and set to aiRESPOnse')
-        console.log(data);
         setPercentage(data.percentage);
         setFallacyCount(data.listOfFallacies.length);
         setIsLoading(false);

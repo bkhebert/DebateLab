@@ -11,7 +11,7 @@ export function usePosts(topic?: string) {
     axios.get(`${baseURL}/api/message/${resolvedTopic}`)
       .then((res) =>{ 
         setPosts(res.data)  
-        console.log(res.data)})
+       })
       .catch((err) => console.error("Failed to fetch posts:", err));
   }, [topic]);
 

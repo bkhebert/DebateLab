@@ -67,11 +67,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       });
 
       if (response.ok) {
-        console.log('response is ok for login');
+        
         const data = await response.json();
         tokenManager.setToken(data.accessToken);
         setUser(data.user);
-        console.log(data.user)
+      
         return true;
       } else {
         const error = await response.json();
@@ -95,11 +95,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       });
 
       if (response.ok) {
-        console.log('response is ok for signup user')
+
         const data = await response.json();
         tokenManager.setToken(data.accessToken);
         setUser(data.user);
-        console.log(data.user);
+       
         return true;
       } else {
         const error = await response.json();

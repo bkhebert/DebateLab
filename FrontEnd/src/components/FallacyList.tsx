@@ -1,7 +1,7 @@
 import fallacies from "../assets/fallacies.json" with { type: 'json' }; 
 
 export default function FallacyList({arrayOfFallacies, isDemo}){
-  console.log(arrayOfFallacies)
+
   return<>
       <div className="col-span-2">
       <h1 className={`text-2xl font-bold mb-2 mt-2 text-center font-mono ${isDemo ? 'lg:text-sm ' : ''}`}>Logical Fallacies</h1>

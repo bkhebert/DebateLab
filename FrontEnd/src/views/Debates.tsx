@@ -5,7 +5,7 @@ import MobileLayout from "../components/MobileLayout";
 const Debates = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [selectedSub, setSelectedSub] = useState(null);
-  console.log(selectedSub)
+  
   const toggleDisclaimer = () => {
     setShowDisclaimer(false);
   }

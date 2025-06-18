@@ -26,7 +26,6 @@ const Profile = () => {
    const { user } = useAuth();
    const [userDetails, setUserDetails] = useState<any>(user);
 
-  console.log(JSON.stringify(user))
    const handleClick = () => {
      setShowProfileView(!showProfileView);
    }
@@ -63,15 +62,14 @@ setSchoolOfThought(!schoolOfThought);
       }
     }
     ).then((userdetails) => {
-      console.log('all the goodies')
-      console.log(userdetails);
+
       setUserDetails(userdetails);
-      console.log('hello')
+
     if (!userdetails.data.politicalViews) return;
 
     const selectedTags = Object.values(userdetails.data.politicalViews)
       .reduce<{label: string, color: string}[]>((acc, viewString) => {
-        console.log(acc)
+     
         try {
           const view = JSON.parse(viewString as string);
           return view.isSelected 

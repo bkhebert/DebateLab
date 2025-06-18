@@ -25,7 +25,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
   username,
   school,
 }) => {
-  console.log(beliefs)
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
       <div className="relative w-full max-w-3xl mx-auto p-6 rounded-2xl shadow-2xl border border-violet-600 bg-gradient-to-br from-[#3b0a56] via-[#4b117a] to-[#250044] text-white">
