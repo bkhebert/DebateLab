@@ -102,16 +102,18 @@ const submitReply = async (parentReplyId = null) => {
 
   <div className="col-span-7 italic ml-2 text-sm text-black dark:text-white">{timeAgo(postInfo.createdAt)}</div>
   
-  <div className="col-span-8 text-xs grid grid-cols-4">
-    {tags.map((tag, index) => (
-          <span 
-            key={index}
-            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
-            title={tag.label}
-          >
-            {tag.label}
-          </span>
-        ))}
+  <div className="col-span-8 text-xs">
+   <div className="flex flex-wrap gap-1">
+  {tags.map((tag, index) => (
+      <span
+        key={index}
+        className={`px-2 py-0.5 text-xs rounded border border-dashed border-white/40 text-white ${tag.color}`}
+        title={tag.label}
+      >
+        {tag.label}
+      </span>
+    ))}
+</div>
     </div>
   </div>
         <Separator className="bg-black/30 mb-1  mt-1"/>
