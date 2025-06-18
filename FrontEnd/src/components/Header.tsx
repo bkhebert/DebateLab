@@ -21,8 +21,8 @@ const Header = () => {
         <div className="hidden lg:flex"></div>
         <div className="hidden lg:flex"></div>
       <div className="grid grid-cols-3">
-       <Link to="/signIn"> <p className="hidden lg:flex mr-1 mx-auto mt-2 my-auto text-black">Log in</p></Link>
-        <Link to="/signUp"> <p className="hidden lg:flex mx-auto mt-2 my-auto text-black">Sign up</p></Link>
+       <Link to="/signIn"> <p className="hidden lg:flex mr-1 mx-auto mt-2 my-auto text-black dark:text-primaryglow hover:!text-cstmgold">Log in</p></Link>
+        <Link to="/signUp"> <p className="hidden lg:flex mx-auto mt-2 my-auto text-black dark:text-primaryglow hover:!text-cstmgreen">Sign up</p></Link>
       <DarkModeToggle/>
       </div>
       </div>
