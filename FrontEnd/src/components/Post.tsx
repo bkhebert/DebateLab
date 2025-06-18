@@ -207,7 +207,7 @@ const submitReply = async (parentReplyId = null) => {
         {showReplyForm && (
   <div className="flex flex-col items-center mt-2">
     <textarea
-      className="w-full p-1 border rounded dark:text-primaryglow dark:bg-black"
+      className="w-full p-1 border rounded text-black dark:text-primaryglow dark:bg-black"
       value={replyText}
       onChange={(e) => setReplyText(e.target.value)}
       placeholder="Write your reply..."
