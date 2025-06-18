@@ -99,7 +99,7 @@ const submitReply = async (parentReplyId = null) => {
         <Separator className="bg-black/30 mb-1  mt-1"/>
         <div className="grid grid-cols-4 auto-rows-auto text-xs mt-2">
         <div className="col-span-1 flex py-auto">
-          <div className="my-auto font-bold border border-black/20 ">Fallacies: <div className={`border border-2 border-black/30 text-center ${postInfo.content.fallacies.length > 0 ? "text-cstmgreen" : "text-cstmred"} text-cstmred`}>{postInfo.content.fallacies.length}</div></div>
+          <div className="my-auto font-bold border border-black/20 text-black dark:text-cyan">Fallacies: <div className={`border border-2 border-black/30 text-center ${postInfo.content.fallacies.length > 0 ? "text-cstmgreen" : "text-cstmred"} text-cstmred`}>{postInfo.content.fallacies.length}</div></div>
         <FaBalanceScaleLeft className="mx-auto ml-1 my-auto text-xl rounded-full border border-black"/>
         </div>
         {postInfo.content.fallacies.map((fallacy) => (
