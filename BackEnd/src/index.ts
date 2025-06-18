@@ -33,7 +33,7 @@ app.listen(PORT, async () => {
     console.log('⚠️ Skipping database sync due to SKIP_DB=true');
   } else {
     try {
-      await database.sync({alter: true}); // set to alter true
+      await database.sync({force: true}); // set to alter true
       console.log('Successfully connected to the database');
 
 //       const testDB = async () => {

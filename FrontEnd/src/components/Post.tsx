@@ -17,13 +17,14 @@ const infoNeeded = {
 
 }
 const Post = ({ postInfo }: { postInfo: any }) => {
+
   const { user } = useAuth();
   const [showProfileView, setShowProfileView] = useState(false);
   const[tags, setTags] = useState([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
 const [replyText, setReplyText] = useState("");
  useEffect(() => {
-  
+    console.log('hello')
     if (!postInfo.author?.PoliticalView) return;
 
     const selectedTags = Object.values(postInfo.author.PoliticalView)
@@ -41,6 +42,23 @@ const [replyText, setReplyText] = useState("");
 
     setTags(selectedTags);
   }, []);
+
+  const getreplytags = (author) => {
+    const selectedreplytags = Object.values(author.PoliticalView)
+      .reduce<{label: string, color: string}[]>((acc, viewString) => {
+       
+        try {
+          const view = JSON.parse(viewString as string);
+          return view.isSelected 
+            ? [...acc, { label: view.label, color: view.color }] 
+            : acc;
+        } catch {
+          return acc;
+        }
+      }, []);
+
+     return selectedreplytags;
+  }
 const submitReply = async (parentReplyId = null) => {
   try {
     await fetch(`${baseURL}/api/message/reply`, {
@@ -131,7 +149,7 @@ const submitReply = async (parentReplyId = null) => {
       <div key={reply.id} className="mb-2">
         <div className="text-sm font-semibold text-neonBlue">{reply.author?.username || 'anon'}:</div>
         <div className="grid grid-cols-8">
-                  {reply.tags.map((tag, index) => (
+                  { !reply.author? <></> : getreplytags(reply.author).map((tag, index) => (
           <span 
             key={index}
             className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
@@ -148,7 +166,7 @@ const submitReply = async (parentReplyId = null) => {
               <div key={child.id}>
                 <div className="text-sm font-semibold text-black dark:text-white">{child.author?.username || 'anon'}:</div>
                 <div className="grid grid-cols-8">
-                  {child.tags.map((tag, index) => (
+                  { !child.author? <></> : getreplytags(child.author).map((tag, index) => (
           <span 
             key={index}
             className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}

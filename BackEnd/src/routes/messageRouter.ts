@@ -219,7 +219,7 @@ messageRouter.get('/all/recent', async (req, res) => {
       order: [['createdAt', 'DESC']],
       limit: 10, // Only get 10 most recent
     });
-
+    console.log(JSON.stringify(posts), 'this ************')
     res.json(posts);
   } catch (error) {
     console.error('Failed to GET /api/message/all/recent:', error);
