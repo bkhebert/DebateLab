@@ -24,7 +24,7 @@ const Post = ({ postInfo }: { postInfo: any }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
 const [replyText, setReplyText] = useState("");
  useEffect(() => {
-    console.log('hello')
+   
     if (!postInfo.author?.PoliticalView) return;
 
     const selectedTags = Object.values(postInfo.author.PoliticalView)
