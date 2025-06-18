@@ -96,9 +96,10 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
     if(topic === null){
       topic = "The Great Conversation";
     }
+    const {factCheckedMessage} = aiResponse;
         axios.post(`${baseURL}/api/message/`,  {
       content: {
-        argument,
+        factCheckedMessage,
         fallacies: [],
         user,
       },
