@@ -130,14 +130,34 @@ const submitReply = async (parentReplyId = null) => {
     {postInfo.Replies.slice().reverse().map((reply) => (
       <div key={reply.id} className="mb-2">
         <div className="text-sm font-semibold text-neonBlue">{reply.author?.username || 'anon'}:</div>
-        <div className="text-sm mb-1">{reply.content}</div>
+        <div className="grid grid-cols-8">
+                  {reply.tags.map((tag, index) => (
+          <span 
+            key={index}
+            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
+            title={tag.label}
+          >
+            {tag.label}
+          </span>
+        ))}</div>
+        <div className="text-sm mb-1 text-black dark:text-white">{reply.content}</div>
 
         {reply.children?.length > 0 && (
           <div className="ml-4 border-l pl-2">
             {reply.children.slice().reverse().map((child) => (
               <div key={child.id}>
-                <div className="text-sm font-semibold">{child.author?.username || 'anon'}:</div>
-                <div className="text-sm mb-1">{child.content}</div>
+                <div className="text-sm font-semibold text-black dark:text-white">{child.author?.username || 'anon'}:</div>
+                <div className="grid grid-cols-8">
+                  {child.tags.map((tag, index) => (
+          <span 
+            key={index}
+            className={`px-2 py-0.5 mx-0.5 rounded my-0.5 border border-dashed border-white/40 text-center truncate ${tag.color} text-white`}
+            title={tag.label}
+          >
+            {tag.label}
+          </span>
+        ))}</div>
+                <div className="text-sm mb-1 text-black dark:text-white ">{child.content}</div>
               </div>
             ))}
           </div>
