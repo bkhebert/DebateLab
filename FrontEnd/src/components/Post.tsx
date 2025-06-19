@@ -167,7 +167,9 @@ const submitReply = async (parentReplyId = null) => {
       </span>
     ))}
 </div>
-        <div className="text-sm mb-1 text-black dark:text-white">{reply.content}</div>
+<div className="text-sm mb-1 text-black dark:text-white max-w-screen-md w-full mx-auto break-words">
+  {reply.content}
+</div>
 
         {reply.children?.length > 0 && (
           <div className="ml-4 border-l pl-2">
