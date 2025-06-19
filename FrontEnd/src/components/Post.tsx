@@ -167,7 +167,7 @@ const submitReply = async (parentReplyId = null) => {
       </span>
     ))}
 </div>
-<div className="text-sm mb-1 text-black dark:text-white max-w-screen-md w-full mx-auto break-words">
+<div className="text-sm mb-1 text-black dark:text-white max-w-[600px] w-full mx-auto break-words">
   {reply.content}
 </div>
 
