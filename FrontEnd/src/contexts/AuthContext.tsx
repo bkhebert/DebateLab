@@ -71,15 +71,14 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         const data = await response.json();
         tokenManager.setToken(data.accessToken);
         setUser(data.user);
-      
         return true;
       } else {
         const error = await response.json();
-        console.error('Login failed:', error);
+        console.error(error);
         return false;
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error(error);
       return false;
     }
   };
