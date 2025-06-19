@@ -137,8 +137,8 @@ const submitReply = async (parentReplyId = null) => {
         </div>
         <Separator className="bg-black/30 mb-1  mt-1"/>
         <div className="flex justify-center dark:bg-cstmdarkaccent">
-        <div className={`mx-3 text-center max-w-2xl bg-white rounded text-black dark:bg-primarydark dark:text-primaryglow/95 ${postInfo.content.argument.length < 150 ? 'p-8 text-2xl' : 'p-2 text-sm'}`}>
-          {postInfo.content.argument}</div></div>
+        <div className={`mx-3 text-center max-w-2xl bg-white rounded text-black dark:bg-primarydark dark:text-primaryglow/95 ${postInfo.content.argument?.length < 150 ? 'p-8 text-2xl' : 'p-2 text-sm'}`}>
+          {postInfo.content?.argument}</div></div>
         </div>)}
         {showProfileView && (
           <UserProfileModal username={postInfo.author ? postInfo.author.username : "anon"} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author ? postInfo.author.school : "This user is anonymous"} beliefs={postInfo.author ? postInfo.author.philosophies : [{category: "anon", subtopic: 'anon', description: 'anon'}]} onClose={handleClick}/>

@@ -1,4 +1,4 @@
-const isDevelopment =  false // toggle this value
+const isDevelopment =  true // toggle this value
 
 const baseURL = isDevelopment
   ? 'http://localhost:3000'
