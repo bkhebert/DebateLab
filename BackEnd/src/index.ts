@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(cors({
-  origin: process.env.NODE_DEV ? 'http://localhost:5173' : [ process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW ], // Explicit origin
+  origin: process.env.NODE_DEV ? ['http://localhost:5173', "chrome-extension://your-extension-id"] : [ process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW ], // Explicit origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
