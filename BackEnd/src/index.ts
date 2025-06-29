@@ -4,6 +4,7 @@ import cors from "cors";
 import sequelize from "./database/db.js";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
+import extensionAI from "./routes/extensionai.js";
 import { jwtAuthRouter } from "./jwtAuth/jwtAuthRoutes.js";
 
 dotenv.config();
@@ -11,8 +12,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.use('/extension/ai', extensionAI);
+
 app.use(cors({
-  origin: process.env.NODE_DEV ? ['http://localhost:5173', "chrome-extension://your-extension-id"] : [ process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW ], // Explicit origin
+  origin: process.env.NODE_DEV ? ['http://localhost:5173', "chrome-extension://odmkpbiaelfogmjpmmkbhkfilcphjbec", "chrome-extension://kfpgbpaenajgoaepokockhpofelpkjei"] : [ process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW ], // Explicit origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

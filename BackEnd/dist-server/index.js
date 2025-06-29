@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 import database from "./database/db.js";
 import apiRouter from "./routes/index.js";
+import extensionAI from "./routes/extensionai.js";
 import { jwtAuthRouter } from "./jwtAuth/jwtAuthRoutes.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
+app.use('/extension/ai', extensionAI);
 app.use(cors({
-    origin: process.env.NODE_DEV ? 'http://localhost:5173' : [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW], // Explicit origin
+    origin: process.env.NODE_DEV ? ['http://localhost:5173', "chrome-extension://odmkpbiaelfogmjpmmkbhkfilcphjbec", "chrome-extension://kfpgbpaenajgoaepokockhpofelpkjei"] : [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_WWW], // Explicit origin
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -26,7 +28,7 @@ app.listen(PORT, async () => {
     }
     else {
         try {
-            await database.sync({ force: true }); // set to alter true
+            await database.sync({ alter: true }); // set to alter true
             console.log('Successfully connected to the database');
             //       const testDB = async () => {
             //   const user = await User.create({ username: 'testuser', email: 'abc@abc.com', tokenVersion: 0, email_verified: false });
