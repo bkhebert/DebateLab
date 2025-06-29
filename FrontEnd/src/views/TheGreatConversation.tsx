@@ -2,6 +2,7 @@ import { useAllPosts } from "../hooks/useAllPosts";
 import Post from "../components/Post";
 import { Loader } from "lucide-react"; // Optional
 import { Link } from "react-router-dom";
+import { Button } from "../components/ui/Button";
 const TheGreatConversation = () => {
   const { posts, loading, error } = useAllPosts(); // Destructure the hook's return value
   
@@ -26,6 +27,13 @@ const TheGreatConversation = () => {
   <Link to={"/signUp"}><button className="w-full mt-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md transition">
     Sign Up & Join The Debate
   </button></Link>
+  <div
+      className="flex justify-center"
+      ><Link to="/extension">
+        <button className="w-full mt-2 bg-lime-500 hover:bg-indigo-500 text-black rounded rounded-xl border border-5 font-semibold py-2 px-4 rounded-md transition">
+    Download Extension
+  </button>
+        </Link></div>
 </div>
 <div className="bg-gradient-to-br from-fuchsia-900 via-purple-800 to-slate-900 text-white rounded-2xl p-6 shadow-xl border border-fuchsia-500/30 max-w-md mx-auto my-4 animate-fade-in">
   <h2 className="text-2xl font-extrabold mb-2 tracking-tight">

@@ -20,6 +20,8 @@ import Debates from './views/Debates';
 import OnboardingTags from './views/onboardingTags';
 import OnboardingBeliefs from './views/onboardingBeliefs';
 import TheGreatConversation from './views/TheGreatConversation';
+import ExtensionDownloadPage from './views/ExtensionDownload';
+
 function App() {
 
 
@@ -46,6 +48,7 @@ function App() {
       <Route path="/onboarding/beliefs" element={<OnboardingBeliefs />} />
       <Route path="/onboarding/tags" element={<OnboardingTags/>} />
       <Route path="/thegreatconversation" element={<TheGreatConversation/>}/>
+      <Route path="/extension" element={<ExtensionDownloadPage/>} />
      </Routes>
      </div>
       <RightSideBar />

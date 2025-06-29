@@ -1,5 +1,6 @@
 import ArgumentForm from "./ArgumentForm";
-
+import { Button } from "./ui/Button";
+import { Link } from "react-router-dom";
 type AnalyzerCardProps = {
   closeModal: () => void | null;
   topic?: string,
@@ -39,6 +40,9 @@ const AnalyzerCard = ({closeModal, topic, showLogo, isDemo, showExit}: AnalyzerC
         </p>
          
       <ArgumentForm topic={topic} isDemo={isDemo} closeModal={closeModal}/>
+      <div
+      className="flex justify-center"
+      ><Link to="/extension"><Button className="mb-2">Download Extension</Button></Link></div>
     </div>
   );
 };
