@@ -11,6 +11,9 @@ export default function ExtensionDownloadPage() {
           <p className="mt-2 text-center text-lg text-cstmgray dark:text-cstmneutral">
             Enhance your critical thinking. Analyze arguments instantly.
           </p>
+          <p className="mt-2 text-center text-lg text-cstmgray dark:text-cstmneutral">
+            Current Limit: 5 Analysis per 24hrs
+          </p>
         </header>
 
         <section className="mb-10 text-center">
