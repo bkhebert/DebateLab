@@ -1,6 +1,6 @@
 
 import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './views/Home';
 import DebateLabPitch from './views/DebateLabPitch';
 import { DarkModeProvider } from './contexts/DarkModeContext';
@@ -29,7 +29,7 @@ function App() {
      <>
    <DarkModeProvider>
       <AuthProvider>
-     <BrowserRouter>
+    
       <Header/>
         <div className="lg:py-8"></div>
       <div className={`grid grid-cols-1 lg:grid-cols-12 h-screen`}>
@@ -53,7 +53,7 @@ function App() {
      </div>
       <RightSideBar />
      </div>
-     </BrowserRouter>
+    
      </AuthProvider>
      </DarkModeProvider>
      </>
