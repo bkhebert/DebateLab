@@ -11,6 +11,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false, // disable for production
     rollupOptions: { // Added for better asset handling
+       input: 'src/main.tsx',
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
              entryFileNames: "assets/[name]-[hash].js", // Cache-busting hashes
