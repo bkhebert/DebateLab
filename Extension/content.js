@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     //const backend = "https://debatelab-server.onrender.com/api/ai/fact" :
     const backend = "http://localhost:3000/extension/ai/fact"
     // Send a post request to the backend with the text to be analyzed
-    const analysis = await fetch("http://localhost:3000/extension/ai/fact", {
+    const analysis = await fetch("https://debatelab-server.onrender.com/extension/ai/fact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
