@@ -7,11 +7,13 @@ export default defineConfig({
   base: './',
   plugins: [react(), ],
   build: {
+    
     outDir: 'dist',
     sourcemap: false, // disable for production
     rollupOptions: { // Added for better asset handling
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
+             entryFileNames: "assets/[name]-[hash].js", // Cache-busting hashes
       }
     }
   },
