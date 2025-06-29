@@ -1,0 +1,24 @@
+# render.yaml
+redirects:
+  - source: /.*        # Catch all routes
+    destination: /index.html
+    status: 200
+
+
+# services:
+#   - type: web
+#     name: debatelab-frontend   # Only affects frontend
+#     env: static
+#     buildCommand: cd FrontEnd && npm run build
+#     staticPublishPath: ./FrontEnd/dist
+#     routes:
+#       - type: rewrite
+#         source: "/*"
+#         destination: "/index.html"  # Rewrites apply only to frontend paths
+
+#   # Your backend service would be defined separately (if deployed via same repo)
+#   # - type: web
+#   #   name: your-backend
+#   #   env: node
+#   #   buildCommand: cd backend && npm install
+#   #   startCommand: cd backend && npm start
