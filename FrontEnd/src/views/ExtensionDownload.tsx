@@ -1,6 +1,23 @@
 import React from "react";
-
+import axios from "axios";
+import baseURL from "../constants/constant";
 export default function ExtensionDownloadPage() {
+    const handleDownload = async () => {
+    try {
+      // Increment download count
+      await axios.post(`${baseURL}/downloads/increment/extension`);
+
+      // Start actual file download
+      const link = document.createElement("a");
+      link.href = "/DebateLabExtension.zip";
+      link.download = "DebateLabExtension.zip";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Failed to increment download count", err);
+    }
+  };
   return (
     <div className="min-h-screen w-full px-4 py-10 bg-cstmwhite text-cstmblack dark:bg-covenantDark dark:text-cstmneutral transition-colors">
       <div className="max-w-4xl mx-auto">
@@ -17,13 +34,12 @@ export default function ExtensionDownloadPage() {
         </header>
 
         <section className="mb-10 text-center">
-          <a
-            href="/DebateLabExtension.zip"
-            download
+          <button
+            onClick={handleDownload}
             className="inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-md hover:bg-primarylight dark:hover:bg-cstmdarkaccent transition"
           >
             Download v1.0.0
-          </a>
+          </button>
         </section>
 
         <section className="mb-16">
