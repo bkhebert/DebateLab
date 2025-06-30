@@ -17,7 +17,8 @@ const Download = database.define<DownloadInstance>(
   {
     extension: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
   },
   
