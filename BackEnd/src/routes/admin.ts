@@ -12,9 +12,10 @@ adminRouter.get('/count/:name', async (req: any, res:  any) => {
     const download = await Download.findOne({ where: { name } });
 
     if (!download) {
+      console.log('couldnt find matching download');
       return res.status(404).json({ name, count: 0 });
     }
-
+    console.log('found matching download')
     res.json({ name: download.name, count: download.count });
   } catch (err) {
     res.status(500).json({ error: `Failed to fetch ${name} count` });
@@ -24,7 +25,7 @@ adminRouter.get('/count/:name', async (req: any, res:  any) => {
 // Route to increment download count
 adminRouter.post('/increment/:name', async (req: any, res: any) => {
   const { name } = req.params;
-  
+  console.log('incrementing a count ')
   try {
     let download = await Download.findOne({ where: { name } });
 
@@ -34,7 +35,7 @@ adminRouter.post('/increment/:name', async (req: any, res: any) => {
       download.count += 1;
       await download.save();
     }
-
+  console.log('incrementing a count is complete')
     res.json({ name: download.name, count: download.count });
   } catch (err) {
     res.status(500).json({ error: `Failed to increment ${name} count` });
