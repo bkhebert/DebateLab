@@ -5,6 +5,7 @@ import Topic from './Topic.js';
 import PoliticalView from './PoliticalView.js';
 import Reply from './Reply.js';
 import UserPhilosophy from './UserPhilosophy.js';
+import Download from './Download.js';
 // All associations go here:
 Message.belongsTo(User, { foreignKey: 'userId', as: 'author' }); // UserId
 User.hasMany(Message, { foreignKey: 'userId' });
@@ -24,4 +25,4 @@ UserPhilosophy.belongsTo(User, {
     foreignKey: 'userId',
     as: 'user',
 });
-export { database, User, UserPhilosophy, Topic, Message, PoliticalView, Reply, };
+export { database, User, UserPhilosophy, Topic, Message, PoliticalView, Reply, Download, };
