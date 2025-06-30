@@ -18,18 +18,22 @@ adminRouter.get('/count', async (req: any, res:  any) => {
 })
 
 // Route to increment download count
-adminRouter.post('/increment', async (req: any, res: any) => {
+adminRouter.post('/increment/:name', async (req: any, res: any) => {
+  const { name } = req.params;
+  
   try {
-    let download = await Download.findOne();
+    let download = await Download.findOne({ where: { name } });
+
     if (!download) {
-      download = await Download.create({ extension: 1 });
+      download = await Download.create({ name, count: 1 });
     } else {
-      download.extension = (download.extension || 0) + 1;
+      download.count += 1;
       await download.save();
     }
-    res.json({ extension: download.extension });
+
+    res.json({ name: download.name, count: download.count });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to increment download count' });
+    res.status(500).json({ error: `Failed to increment ${name} count` });
   }
 });
 
