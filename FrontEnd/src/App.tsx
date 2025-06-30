@@ -21,6 +21,7 @@ import OnboardingTags from './views/onboardingTags';
 import OnboardingBeliefs from './views/onboardingBeliefs';
 import TheGreatConversation from './views/TheGreatConversation';
 import ExtensionDownloadPage from './views/ExtensionDownload';
+import Admin from './views/Admin';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
   <div className="col-span-8">
      <Routes>
       <Route path="/" element={<Home />}/>
+      <Route path="/admin" element={<Admin/>}/>
       <Route path="/logout" element={<Logout />}/>
       <Route path="/About" element={<DebateLabPitch />}/>
       <Route path="/signIn" element={<SignIn />} />
