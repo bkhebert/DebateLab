@@ -10,11 +10,11 @@ const Admin = () => {
     const fetchStats = async () => {
       try {
         // Fetch extension download count
-        const downloadRes = await axios.get(`${baseURL}/downloads/count/extension`);
+        const downloadRes = await axios.get(`${baseURL}/api/admin/count/extension`);
         setExtensionDownloads(downloadRes.data.count);
 
         // Fetch user count
-        const userRes = await axios.get(`${baseURL}/downloads/users/count`);
+        const userRes = await axios.get(`${baseURL}/api/admin/users/count`);
         setUserCount(userRes.data.users);
       } catch (err) {
         setError("Failed to fetch admin stats");
