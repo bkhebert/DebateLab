@@ -18,7 +18,7 @@ adminRouter.get('/count', async (req: any, res:  any) => {
 })
 
 // Route to increment download count
-adminRouter.post('/increment', async (req, res) => {
+adminRouter.post('/increment', async (req: any, res: any) => {
   try {
     let download = await Download.findOne();
     if (!download) {
@@ -34,7 +34,7 @@ adminRouter.post('/increment', async (req, res) => {
 });
 
 // Route to get total user count
-adminRouter.get('/users/count', async (req, res) => {
+adminRouter.get('/users/count', async (req: any, res: any) => {
   try {
     const userCount = await User.count();
     res.json({ users: userCount });
