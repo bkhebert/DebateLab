@@ -5,15 +5,19 @@ dotenv.config();
 
 const adminRouter = Router();
 
-adminRouter.get('/count', async (req: any, res:  any) => {
+adminRouter.get('/count/:name', async (req: any, res:  any) => {
+    const { name } = req.params;
+
   try {
-    const download = await Download.findOne();
+    const download = await Download.findOne({ where: { name } });
+
     if (!download) {
-      return res.status(404).json({ extension: 0 });
+      return res.status(404).json({ name, count: 0 });
     }
-    res.json({ extension: download.extension });
+
+    res.json({ name: download.name, count: download.count });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch download count' });
+    res.status(500).json({ error: `Failed to fetch ${name} count` });
   }
 })
 
@@ -37,6 +41,14 @@ adminRouter.post('/increment/:name', async (req: any, res: any) => {
   }
 });
 
+adminRouter.get('/all', async (req, res) => {
+  try {
+    const all = await Download.findAll();
+    res.json(all); // array of { name, count }
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch all download stats' });
+  }
+});
 // Route to get total user count
 adminRouter.get('/users/count', async (req: any, res: any) => {
   try {
