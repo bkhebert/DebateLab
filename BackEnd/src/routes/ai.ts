@@ -4,6 +4,7 @@ import rateLimitOnePerDay from '../middleware/rateLimit.js';
 import normalizeToArray from '../utils/normalizeToArray.js';
 import { getPercentageOfFallacy, increaseFallacy } from '../utils/fallacycounter.js';
 import Fallacy from '../database/models/Fallacy.js';
+import Download from '../database/models/Download.js';
 import dotenv from "dotenv";
 dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEN_AI_KEY });
@@ -12,6 +13,19 @@ const aiRouter = Router();
 
 aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
   console.log('ai Router post to /fact')
+   console.log('adding an analysis...')
+  try{
+    const [analysisRow] = await Download.findOrCreate({
+      where: { name: 'analysis' },
+      defaults: { count: 0 }
+    });
+
+    analysisRow.count += 1;
+    await analysisRow.save();
+    console.log('saved an analysis')
+  } catch (err) {
+    console.error(err, 'failed to create analysis table or count this analysis')
+  }
   if (!req.body.message) {
     res.sendStatus(400); // There must be a message on the request body.
   } else {

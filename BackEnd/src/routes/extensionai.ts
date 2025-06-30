@@ -4,6 +4,7 @@ import rateLimitOnePerDay from '../middleware/rateLimit.js';
 import normalizeToArray from '../utils/normalizeToArray.js';
 import { getPercentageOfFallacy, increaseFallacy } from '../utils/fallacycounter.js';
 import Fallacy from '../database/models/Fallacy.js';
+import Download from '../database/models/Download.js';
 import dotenv from "dotenv";
 import cors from 'cors';
 dotenv.config();
@@ -26,6 +27,19 @@ extensionAI.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
   
   console.log('ai Router post to /fact')
   console.log(req.body)
+  console.log('adding an analysis via extension...')
+  try{
+    const [analysisRow] = await Download.findOrCreate({
+      where: { name: 'analysisviaextension' },
+      defaults: { count: 0 }
+    });
+
+    analysisRow.count += 1;
+    await analysisRow.save();
+    console.log('saved an analysis via extension')
+  } catch (err) {
+    console.error(err, 'failed to create analysis via extension table or count this analysis')
+  }
   if (!req.body.message) {
     res.sendStatus(400); // There must be a message on the request body.
   } else {
