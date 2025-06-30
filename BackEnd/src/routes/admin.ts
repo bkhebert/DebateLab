@@ -7,7 +7,7 @@ const adminRouter = Router();
 
 adminRouter.get('/count/:name', async (req: any, res:  any) => {
     const { name } = req.params;
-
+    console.log('getting params for download name', req.params)
   try {
     const download = await Download.findOne({ where: { name } });
 
@@ -51,6 +51,7 @@ adminRouter.get('/all', async (req, res) => {
 });
 // Route to get total user count
 adminRouter.get('/users/count', async (req: any, res: any) => {
+  console.log('getting user count')
   try {
     const userCount = await User.count();
     res.json({ users: userCount });
