@@ -5,7 +5,7 @@ export default function ExtensionDownloadPage() {
     const handleDownload = async () => {
     try {
       // Increment download count
-      await axios.post(`${baseURL}/downloads/increment/extension`);
+      await axios.post(`${baseURL}/api/admin/increment/extension`);
 
       // Start actual file download
       const link = document.createElement("a");
@@ -16,6 +16,12 @@ export default function ExtensionDownloadPage() {
       document.body.removeChild(link);
     } catch (err) {
       console.error("Failed to increment download count", err);
+      const link = document.createElement("a");
+      link.href = "/DebateLabExtension.zip";
+      link.download = "DebateLabExtension.zip";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
   return (
