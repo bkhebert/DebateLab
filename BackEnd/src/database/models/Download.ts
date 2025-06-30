@@ -4,11 +4,11 @@ import database from '../db.js';
 interface DownloadAttributes {
   id?: number; // Auto-incremented by Sequelize
   name: string | null;
-  extension: number | null;
+  count: number | null;
 }
 
 interface DownloadCreationAttributes extends Optional<DownloadAttributes, 
-  'id' | 'extension' | 'name'> {}
+  'id' | 'count' | 'name'> {}
 
 
 interface DownloadInstance extends Model<DownloadAttributes>, DownloadAttributes {}
@@ -21,7 +21,7 @@ const Download = database.define<DownloadInstance>(
       allowNull: false,
       unique: true, // ensures one row per item type
     },
-    extension: {
+    count: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
