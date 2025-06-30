@@ -111,7 +111,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   }
 })
     .then((beliefInfo) => {
-      console.log(beliefInfo.data)
+
      beliefInfo.data.forEach((belief) => {
       for(let i = 0; i < beliefs.length; i++){
       if(belief.category === beliefs[i].title){
@@ -156,7 +156,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   }
 }
   ).then(() => {
-    console.log('success!')
+  
     getPhilosophyData()
   }).catch((err) => {
     console.error(err);
