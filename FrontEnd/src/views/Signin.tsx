@@ -48,7 +48,7 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
     try {
       const success = await login(email, password);
       if (success) {
-        console.log("✅ Logged in successfully");
+
         navigate('/');
       } else {
         setError("Invalid email or password");
