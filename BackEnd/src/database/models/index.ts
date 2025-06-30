@@ -5,7 +5,7 @@ import Topic from './Topic.js';
 import PoliticalView from './PoliticalView.js';
 import Reply from './Reply.js';
 import UserPhilosophy from './UserPhilosophy.js';
-
+import Download from './Download.js';
 // All associations go here:
 
 Message.belongsTo(User, { foreignKey: 'userId', as: 'author'  }); // UserId
@@ -41,4 +41,5 @@ export {
   Message,
   PoliticalView,
   Reply,
+  Download,
 };
