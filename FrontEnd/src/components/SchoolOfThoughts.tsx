@@ -87,7 +87,7 @@ export default function SchoolOfThoughts() {
     'Content-Type': 'application/json'
   }
 }).then((val) => {
-  console.log('successfully updated the school i think');
+ 
  
 }).catch((err) => {
   console.error('failed to puawodji school', err);
