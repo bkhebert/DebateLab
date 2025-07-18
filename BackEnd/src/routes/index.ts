@@ -8,9 +8,11 @@ import beliefsRouter from "./beliefs.js";
 import schoolRouter from "./school.js";
 import profileRouter from "./profile.js";
 import adminRouter from "./admin.js";
+import coverLetterGeneratorRouter from "./coverlettergenerator.js";
 const apiRouter = Router();
 
 apiRouter.use('/admin', adminRouter);
+apiRouter.use('/generators', coverLetterGeneratorRouter)
 apiRouter.use('/politicalPhilosophy', politicalPhilosophyRouter);
 apiRouter.use('/beliefs', beliefsRouter);
 apiRouter.use('/ai', aiRouter);
