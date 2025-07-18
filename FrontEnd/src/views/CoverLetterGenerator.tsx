@@ -20,8 +20,10 @@ const CoverLetterGenerator = () => {
       const response = await axios.post(
         `${baseURL}/api/generators/coverlettergenerator`,
         {
-          resume: resume.trim(),
-          application: jobListing.trim(),
+          resume: resume.trim().slice(0, 8000),
+          application: jobListing.trim().replace(/(equal opportunity|eeo|diversity and inclusion)[\s\S]+$/i, '')
+          .trim()
+          .slice(0, 6600),
         }
       );
 
