@@ -335,7 +335,11 @@ export default function RecoilSimulatorApp() {
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="col-span-2 bg-[#071b2a] rounded-2xl p-4 shadow-2xl">
           <div style={{ height: '640px' }}>
-            <Canvas key={distance} camera={{ position: [Math.max(4, distance * 0.6), 2.5, 6], fov: 50 }}>
+            <Canvas key={distance} 
+            camera={firstPerson 
+              ? { position: [0, 0, 1.6], fov: 60 } // shooter eye height
+              : { position: [Math.max(4, distance * 0.6), 2.5, 6], fov: 50 }
+            }>
               {/* Using key={distance} forces camera re-init when distance changes so users don't get lost. */}
               <SceneHelpers distance={distance} />
               <TargetPlane distance={distance} impact={result ? result.impact.pos_m : null} />
