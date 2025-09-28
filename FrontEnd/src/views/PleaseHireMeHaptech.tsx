@@ -90,26 +90,43 @@ function computeRecoil(profile, barrelAngleDeg) {
 
   return { v_b0, v_g_recoil, F_recoil_avg };
 }
-
+/* applyAimPerturbationFromWind:
+   - Wind applies drag force on rifle: F_wind ≈ -0.5 * ρ * C_d * A * |V| * V  (vector)
+   - Resulting torque magnitude τ = |F| * r_cp    (simple lever arm)
+   - Small-angle rotation estimated from rotational dynamics: α = τ / I  (rotational accel)
+   - Integrate for a short response_t to get Δangle ≈ α * response_t
+   - Then apply yaw/pitch rotation to the muzzle unit vector (approximate small rotations)
+Input: 
+the local unit vector of the rifle's barrel (ub_local), 
+the wind velocity (V_wind), the air density (rho), 
+and the rifle's profile (profile).
+*/
 function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
   // Simple game-model: wind force on rifle -> torque -> small yaw/pitch
-  const Vw_len = vlen(V_wind);
-  if (Vw_len < 1e-6) return { ub: ub_local, yaw:0, pitch:0 };
+  const Vw_len = vlen(V_wind); // Wind speed magnitude calculated
+  if (Vw_len < 1e-6) return { ub: ub_local, yaw:0, pitch:0 }; // if wind is weak, no perturbation
+  
+  // Calculate wind force on rifle using drag equation
   const F_wind_rif = vmul(V_wind, -0.5 * rho * profile.Cd_rifle * profile.A_rifle * Vw_len);
    // F_d = ½ ρ C_d A v²  (Quadratic drag force)
   // Here applied to rifle cross-section: ρ = air density, Cd_rifle = drag coeff, A_rifle = area
 
+  // calculate torque from wind force
   const torque = Math.abs(vlen(F_wind_rif)) * profile.r_cp;
     // τ = F × r  (Torque)
   // r_cp = distance to center of pressure
 
   const response_t = 0.2; // seconds, fictional
+
+  // calculate rotational acceleration from torque
   const delta_alpha = torque * response_t / profile.I; // radians
   // α = τ / I  (Rotational dynamics)
   // Integrated over response_t → Δθ ≈ α * t
   // I = rotational inertia
 
   const yaw_sign = (V_wind[1] >= 0) ? 1 : -1;
+
+  // calculate yaw and pitch perturbation
   const delta_yaw = delta_alpha * (Math.abs(V_wind[1]) / Math.max(Vw_len,1)) * yaw_sign;
     // yaw perturbation ∝ side component of wind velocity
 
@@ -130,13 +147,19 @@ function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
   return { ub: ub_new, yaw: delta_yaw, pitch: delta_pitch };
 }
 
+/* integrateProjectile:
+   - Uses RK4 to integrate projectile motion in 3D with gravity and quadratic drag.
+   - Drag model (vector): F_d = -0.5 * ρ * C_d * A * |v_rel| * v_rel  (N)
+   - Acceleration of projectile: a = (F_d / m_b) + g_vector  (where g_vector = [0,0,-g])
+   - RK4 steps: k1 = f(y_n), k2 = f(y_n + dt*k1/2), ... standard RK4 formula for ODE y' = f(y)
+*/
 function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeight=1.6) {
   // RK4 integrator in 3D, stops when x >= x_target or hits ground
   const g = 9.81; // gravity
   let r = [0, 0, shooterHeight]; // initial position
   let v = v0_vec.slice(); // initial velocity
-  const dt = 0.002; // reasonable compromise for browser
-  const maxSteps = 300000; // cap
+  const dt = 0.002; // time-steps
+  const maxSteps = 300000; // max cap
 
   function accel(v_local) {
     const vrel = vsub(v_local, V_wind);
