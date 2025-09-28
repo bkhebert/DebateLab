@@ -281,6 +281,7 @@ function SceneHelpers({ distance }) {
 }
 
 export default function RecoilSimulatorApp() {
+  const [firstPerson, setFirstPerson] = useState(false);
   const [profileId, setProfileId] = useState('A');
   const [distance, setDistance] = useState(100); // meters
   const [wind, setWind] = useState({ x:0, y:3, z:0 });
