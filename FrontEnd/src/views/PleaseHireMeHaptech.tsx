@@ -58,9 +58,22 @@ const vnorm = a => { const L = vlen(a) || 1; return [a[0]/L, a[1]/L, a[2]/L]; };
 function computeRecoil(profile, barrelAngleDeg) {
   const theta = barrelAngleDeg * Math.PI/180;
   const ub_local = [Math.cos(theta), 0, Math.sin(theta)]; // forward, right, up
+  // unit vector in firing direction; θ is barrel angle
+  
   const v_b0 = vmul(ub_local, profile.v0);
+  // v_b0 = u_b * v0  → projectile initial velocity vector
+  // (definition: v = u * |v|)
+
   const v_g_recoil = vmul(v_b0, -profile.m_b / profile.m_g);
+  // Δp = m Δv  (Conservation of momentum)
+  // Here: m_b v_b0 + m_g v_g = 0 → v_g = -(m_b/m_g) v_b0
+  // m_b = bullet mass, m_g = gun mass, v_g = recoil velocity
+
   const F_recoil_avg = vmul(v_g_recoil, profile.m_g / profile.delta_t_muzzle);
+  // F = Δp / Δt  (Impulse–momentum theorem)
+  // Δp = m_g v_g_recoil; Δt = muzzle exit time
+  // This yields the average recoil force over muzzle time
+
   return { v_b0, v_g_recoil, F_recoil_avg };
 }
 
