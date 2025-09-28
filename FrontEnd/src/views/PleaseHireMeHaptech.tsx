@@ -27,12 +27,12 @@ import { OrbitControls, Html, Text } from '@react-three/drei';
 const PROFILES = {
   A: {
     id: 'A', name: 'Model A (light) - FICTIONAL',
-    m_g: 3.0,       // kg (fictional)
-    m_b: 0.012,     // kg (fictional)
-    v0: 820,        // m/s (fictional)
-    Cd: 0.295, A: 0.0005,
-    delta_t_muzzle: 0.002,
-    Cd_rifle: 1.0, A_rifle: 0.06, I: 0.15, r_cp: 0.35
+    m_g: 3.0,       // kg (fictional) gun mass
+    m_b: 0.012,     // kg (fictional) bullet mass
+    v0: 820,        // m/s (fictional) mezzle velocity
+    Cd: 0.295, A: 0.0005, // projectile drag coefficient and area
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time
+    Cd_rifle: 1.0, A_rifle: 0.06, I: 0.15, r_cp: 0.35 // rifle wind drag/rotational params
   },
   B: {
     id: 'B', name: 'Model B (medium) - FICTIONAL',
@@ -47,28 +47,42 @@ const PROFILES = {
 };
 
 // -------------------- Utility vector math --------------------
-const vadd = (a,b) => [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
-const vsub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
-const vmul = (a,s) => [a[0]*s, a[1]*s, a[2]*s];
-const vdot = (a,b) => a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
-const vlen = a => Math.sqrt(Math.max(0, vdot(a,a)));
-const vnorm = a => { const L = vlen(a) || 1; return [a[0]/L, a[1]/L, a[2]/L]; };
+// These are vector math functions used for recoil simulation and aim perturbation throughout this code
+const vadd = (a,b) => [a[0]+b[0], a[1]+b[1], a[2]+b[2]];  // a + b (vector addition)
+const vsub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; // a - b (vector subtraction)
+const vmul = (a,s) => [a[0]*s, a[1]*s, a[2]*s]; // scalar * vector
+const vdot = (a,b) => a[0]*b[0] + a[1]*b[1] + a[2]*b[2];  // dot(a,b)
+const vlen = a => Math.sqrt(Math.max(0, vdot(a,a))); // |a| = sqrt(a·a)
+const vnorm = a => { const L = vlen(a) || 1; return [a[0]/L, a[1]/L, a[2]/L]; }; // a/|a|
 
 // -------------------- Physics core (fictional, game-grade) --------------------
+
+
+/* computeRecoil: Calculates the recoil of a gun based on its profile and the angle of the barrel.
+
+   - Uses conservation of linear momentum: m_g * v_g + m_b * v_b = 0 (approx instantaneous impulse)
+     => v_g = - (m_b / m_g) * v_b    (recoil velocity of gun)
+   - Converts impulse to average force: F_avg = m_g * v_g / delta_t  or equivalently Δp/Δt
+*/
 function computeRecoil(profile, barrelAngleDeg) {
+
+  // first calculates the unit vector in the firing direction of the gun using the barrel angle
   const theta = barrelAngleDeg * Math.PI/180;
   const ub_local = [Math.cos(theta), 0, Math.sin(theta)]; // forward, right, up
   // unit vector in firing direction; θ is barrel angle
-  
+
+  // computes the initial velocity vector of the projectile by multiplying the unit vector with the gun's velocity profile.
   const v_b0 = vmul(ub_local, profile.v0);
   // v_b0 = u_b * v0  → projectile initial velocity vector
   // (definition: v = u * |v|)
 
+  // calculates the recoil velocity of the gun by applying the conservation of linear momentum
   const v_g_recoil = vmul(v_b0, -profile.m_b / profile.m_g);
   // Δp = m Δv  (Conservation of momentum)
   // Here: m_b v_b0 + m_g v_g = 0 → v_g = -(m_b/m_g) v_b0
   // m_b = bullet mass, m_g = gun mass, v_g = recoil velocity
 
+  // it calculates the average recoil force by multiplying the recoil velocity with the gun mass divided by the muzzle exit time
   const F_recoil_avg = vmul(v_g_recoil, profile.m_g / profile.delta_t_muzzle);
   // F = Δp / Δt  (Impulse–momentum theorem)
   // Δp = m_g v_g_recoil; Δt = muzzle exit time
@@ -82,12 +96,26 @@ function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
   const Vw_len = vlen(V_wind);
   if (Vw_len < 1e-6) return { ub: ub_local, yaw:0, pitch:0 };
   const F_wind_rif = vmul(V_wind, -0.5 * rho * profile.Cd_rifle * profile.A_rifle * Vw_len);
+   // F_d = ½ ρ C_d A v²  (Quadratic drag force)
+  // Here applied to rifle cross-section: ρ = air density, Cd_rifle = drag coeff, A_rifle = area
+
   const torque = Math.abs(vlen(F_wind_rif)) * profile.r_cp;
+    // τ = F × r  (Torque)
+  // r_cp = distance to center of pressure
+
   const response_t = 0.2; // seconds, fictional
   const delta_alpha = torque * response_t / profile.I; // radians
+  // α = τ / I  (Rotational dynamics)
+  // Integrated over response_t → Δθ ≈ α * t
+  // I = rotational inertia
+
   const yaw_sign = (V_wind[1] >= 0) ? 1 : -1;
   const delta_yaw = delta_alpha * (Math.abs(V_wind[1]) / Math.max(Vw_len,1)) * yaw_sign;
+    // yaw perturbation ∝ side component of wind velocity
+
   const delta_pitch = delta_alpha * (Math.abs(V_wind[0]) / Math.max(Vw_len,1)) * Math.sign(-V_wind[0]);
+   // pitch perturbation ∝ vertical component of wind velocity
+
   // apply small yaw/pitch rotation (approximate)
   const cosY = Math.cos(delta_yaw), sinY = Math.sin(delta_yaw);
   let x = ub_local[0], y = ub_local[1], z = ub_local[2];
@@ -97,23 +125,32 @@ function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
   const xr2 = xr * cosP + z * sinP;
   const zr2 = -xr * sinP + z * cosP;
   const ub_new = vnorm([xr2, yr, zr2]);
+  // normalize back to unit vector (definition: u = v/|v|)
+
   return { ub: ub_new, yaw: delta_yaw, pitch: delta_pitch };
 }
 
 function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeight=1.6) {
   // RK4 integrator in 3D, stops when x >= x_target or hits ground
-  const g = 9.81;
-  let r = [0, 0, shooterHeight];
-  let v = v0_vec.slice();
+  const g = 9.81; // gravity
+  let r = [0, 0, shooterHeight]; // initial position
+  let v = v0_vec.slice(); // initial velocity
   const dt = 0.002; // reasonable compromise for browser
   const maxSteps = 300000; // cap
 
   function accel(v_local) {
     const vrel = vsub(v_local, V_wind);
+    // relative velocity = v - v_wind
+
     const vrel_len = vlen(vrel);
     if (vrel_len === 0) return [0,0,-g];
     const drag = vmul(vrel, -0.5 * rho * profile.Cd * profile.A * vrel_len / profile.m_b);
+     // F_d = ½ ρ C_d A v²  (Drag equation)
+    // a_d = F_d / m_b  → acceleration contribution
+
     return vadd(drag, [0,0,-g]);
+        // a = (F_drag / m_b) + g (Newton’s 2nd law)
+
   }
 
   let t = 0;
@@ -121,7 +158,7 @@ function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeig
   for (let step=0; step<maxSteps; step++) {
     if (r[0] >= x_target) return {impactPos: r.slice(), time: t, hitGround:false};
     if (r[2] <= 0) return {impactPos: r.slice(), time: t, hitGround:true};
-    // RK4
+    // RK4    (Runge-Kutta 4th order method for ODE integration)
     const k1v = accel(v);
     const k1r = v;
     const v2 = vadd(v, vmul(k1v, dt/2));
@@ -133,6 +170,8 @@ function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeig
     const v4 = vadd(v, vmul(k3v, dt));
     const k4v = accel(v4);
     const k4r = v4;
+
+    // update velocity and position
     v = vadd(v, vmul(vadd(vadd(vmul(k1v,1), vmul(k2v,2)), vadd(vmul(k3v,2), vmul(k4v,1))), dt/6));
     r = vadd(r, vmul(vadd(vadd(vmul(k1r,1), vmul(k2r,2)), vadd(vmul(k3r,2), vmul(k4r,1))), dt/6));
     t += dt;
