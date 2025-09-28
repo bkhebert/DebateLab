@@ -30,9 +30,13 @@ const PROFILES = {
     m_g: 3.0,       // kg (fictional) gun mass
     m_b: 0.012,     // kg (fictional) bullet mass
     v0: 820,        // m/s (fictional) mezzle velocity
-    Cd: 0.295, A: 0.0005, // projectile drag coefficient and area
-    delta_t_muzzle: 0.002,  // effective muzzle impulse time
-    Cd_rifle: 1.0, A_rifle: 0.06, I: 0.15, r_cp: 0.35 // rifle wind drag/rotational params
+    Cd: 0.295,      // bullet drag coefficient
+    A: 0.0005,      // cross-sectional area of the bullet
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
+    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
+    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
+    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
+    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
   },
   B: {
     id: 'B', name: 'Model B (medium) - FICTIONAL',
