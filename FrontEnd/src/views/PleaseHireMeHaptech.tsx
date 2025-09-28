@@ -21,6 +21,7 @@
 
 import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 import { OrbitControls, Html, Text } from '@react-three/drei';
 
 // -------------------- Fictional weapon profiles --------------------
@@ -213,13 +214,13 @@ function TargetPlane({ distance = 100, impact = null }) {
   // and a visible border to avoid sinking into the ground. Impact marker is larger and animated
   // (scales in via simple useFrame if you want to animate it later).
   return (
-    <group name="TargetPlaneMesh" rotation={[0,-1 * Math.PI / 2, 0]} position={[distance, 0, 1.6]}> {/* place target at shooter eye-level-ish */}
-      {/* Backing plane to avoid z-fighting and give contrast */}
-      {/* <mesh rotation={[0, Math.PI/2, 0]} position={[0,0,-0.005]}> 
-        <planeGeometry args={[3.2, 3.2]} />
-        <meshStandardMaterial color="#0f1724" metalness={0.2} roughness={0.7} />
-      </mesh> */}
-
+   <group rotation={[0,-1 * Math.PI / 2, 0]} position={[distance, 0, 1.6]}>
+      {/* Invisible plane used for raycasting (2.5 x 2.5 m) */}
+      <mesh name="TargetPlaneMesh" position={[0, 0, 0]} rotation={[0, 0, 0]}>
+        <planeGeometry args={[2.5, 2.5]} />
+        {/* transparent material so plane is invisible but raycastable */}
+        <meshBasicMaterial transparent opacity={100} />
+      </mesh>
       {/* Colorful concentric rings for a recognizably colored target */}
       <mesh rotation={[0, 0, 0]} position={[0.03, 0, 0.01]}> <circleGeometry args={[1.15, 64]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
       <mesh rotation={[0, 0, 0]} position={[0.025, 0, 0.015]}> <circleGeometry args={[0.85, 64]} /> <meshStandardMaterial color="#1f8cff" /> </mesh>
@@ -288,32 +289,48 @@ function FirstPersonShooter({ profile, distance, wind, rho, onShot }) {
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
-      // Create a raycaster from camera through click point
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera({ x, y }, camera);
 
-      // Fire a shot in ray direction
-      const dir = raycaster.ray.direction.clone().normalize();
+      const targetPlane = scene.getObjectByName("TargetPlaneMesh");
+      if (!targetPlane) return;
+
+      const intersects = raycaster.intersectObject(targetPlane);
+      if (intersects.length === 0) return;
+
+      const aimPoint = intersects[0].point; // world coords on plane
+      const muzzle = new THREE.Vector3(0, 0, 1.6);
+
+      // initial velocity vector
+      const dir = aimPoint.clone().sub(muzzle).normalize();
       const v_b0 = [dir.x * profile.v0, dir.y * profile.v0, dir.z * profile.v0];
 
+      // run projectile sim
       const sim = integrateProjectile(profile, v_b0, [wind.x, wind.y, wind.z], rho, distance);
-
       const impact = sim.impactPos;
-      const lateral_m = impact[1];
-      const vertical_m = impact[2] - 1.6;
+
+      // check target hit
+      const hitBoxHalf = 1.25; // half of 2.5m
+      const localY = impact[1]; // lateral offset
+      const localZ = impact[2] - 1.6; // vertical offset from center
+      let note = "MISS";
+      if (sim.hitGround) {
+        note = "HIT GROUND EARLY";
+      } else if (!sim.truncated &&
+        Math.abs(localY) <= hitBoxHalf &&
+        Math.abs(localZ) <= hitBoxHalf) {
+        note = "HIT target";
+      }
 
       onShot({
         profile: profile.name,
+        aimPoint: aimPoint.toArray(),
         impact: {
           pos_m: impact,
-          lateral_cm: lateral_m * 100,
-          vertical_cm: vertical_m * 100,
-          time_s: sim.time,
-          note: sim.hitGround ? "hit ground before reaching target" :
-                sim.truncated ? "truncated" :
-                (Math.abs(lateral_m) < 1.2 && Math.abs(vertical_m) < 1.2
-                  ? "HIT target" 
-                  : "MISSED target")
+          lateral_cm: localY * 100,
+          vertical_cm: localZ * 100,
+          time_s: sim.time ?? "i love haptech",
+          note
         }
       });
     };
@@ -324,6 +341,7 @@ function FirstPersonShooter({ profile, distance, wind, rho, onShot }) {
 
   return null;
 }
+
 
 
 export default function RecoilSimulatorApp() {
@@ -384,10 +402,10 @@ export default function RecoilSimulatorApp() {
         <div className="col-span-2 bg-[#071b2a] rounded-2xl p-4 shadow-2xl">
           <div style={{ height: '640px' }}>
             <Canvas key={distance} 
-            camera={firstPerson 
-              ? { position: [0, 0, 1.6], fov: 60 } // shooter eye height
-              : { position: [Math.max(4, distance * 0.6), 2.5, 6], fov: 50 }
-            }>
+            camera={firstPerson
+              ? { position: [0, 0, 1.6], fov: 60, near: 0.1, far: 2000 }
+              : { position: [Math.max(4, distance * 0.6), 2.5, 6], fov: 50 }}
+              >
             
               {/* Using key={distance} forces camera re-init when distance changes so users don't get lost. */}
               <SceneHelpers distance={distance} firstPerson={firstPerson} />
