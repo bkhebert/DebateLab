@@ -396,7 +396,12 @@ export default function RecoilSimulatorApp() {
               )}
             </div>
           </div>
-
+              <button 
+                onClick={() => setFirstPerson(fp => !fp)} 
+                className="px-4 py-2 rounded bg-[#ff9f19] text-black font-semibold"
+              >
+                {firstPerson ? "Exit First Person" : "First Person Mode"}
+              </button>
           <div className="bg-[#071b2a] p-4 rounded-xl text-xs text-slate-400">
             <strong>Disclaimer:</strong> This demo uses fictional parameters for presentation and game/educational purposes only. It is not suitable for real weapon modeling or improvements. If you plan to validate with measured data in a professional environment, do so under authorized and controlled conditions with appropriate domain experts.
           </div>
