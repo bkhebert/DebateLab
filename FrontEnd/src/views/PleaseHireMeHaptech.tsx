@@ -134,19 +134,19 @@ function TargetPlane({ distance = 100, impact = null }) {
   // and a visible border to avoid sinking into the ground. Impact marker is larger and animated
   // (scales in via simple useFrame if you want to animate it later).
   return (
-    <group position={[distance, 0, 1.6]}> {/* place target at shooter eye-level-ish */}
+    <group rotation={[0,-1 * Math.PI / 2, 0]} position={[distance, 0, 1.6]}> {/* place target at shooter eye-level-ish */}
       {/* Backing plane to avoid z-fighting and give contrast */}
-      <mesh rotation={[0, Math.PI/2, 0]} position={[0,0,-0.005]}> 
+      {/* <mesh rotation={[0, Math.PI/2, 0]} position={[0,0,-0.005]}> 
         <planeGeometry args={[3.2, 3.2]} />
         <meshStandardMaterial color="#0f1724" metalness={0.2} roughness={0.7} />
-      </mesh>
+      </mesh> */}
 
       {/* Colorful concentric rings for a recognizably colored target */}
-      <mesh position={[0, 0, 0.01]}> <circleGeometry args={[1.15, 64]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
-      <mesh position={[0, 0, 0.015]}> <circleGeometry args={[0.85, 64]} /> <meshStandardMaterial color="#1f8cff" /> </mesh>
-      <mesh position={[0, 0, 0.02]}> <circleGeometry args={[0.55, 64]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
-      <mesh position={[0, 0, 0.025]}> <circleGeometry args={[0.25, 64]} /> <meshStandardMaterial color="#ff2b2b" /> </mesh>
-      <mesh position={[0, 0, 0.03]}> <circleGeometry args={[0.05, 32]} /> <meshStandardMaterial color="#111111" /> </mesh>
+      <mesh rotation={[0, 0, 0]} position={[0.03, 0, 0.01]}> <circleGeometry args={[1.15, 64]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
+      <mesh rotation={[0, 0, 0]} position={[0.025, 0, 0.015]}> <circleGeometry args={[0.85, 64]} /> <meshStandardMaterial color="#1f8cff" /> </mesh>
+      <mesh rotation={[0, 0, 0]} position={[0.02, 0, 0.02]}> <circleGeometry args={[0.55, 64]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
+      <mesh rotation={[0, 0, 0]} position={[0.015, 0, 0.025]}> <circleGeometry args={[0.25, 64]} /> <meshStandardMaterial color="#ff2b2b" /> </mesh>
+      <mesh rotation={[0, 0, 0]} position={[0.01, 0, 0.03]}> <circleGeometry args={[0.05, 32]} /> <meshStandardMaterial color="#111111" /> </mesh>
 
       {/* Impact marker - brighter, emissive and clamped to target bounds */}
       {impact && (
@@ -182,13 +182,13 @@ function SceneHelpers({ distance }) {
       <directionalLight position={[6, 10, 8]} intensity={0.8} />
 
       {/* Ground plane - simple colored ground to reduce contrast with target */}
-      <mesh rotation={[-Math.PI/2, 0, 0]} position={[0,0,0]}> 
+      <mesh rotation={[-Math.PI/2, 0, 0]} position={[0,-5,0]}> 
         <planeGeometry args={[200, 200]} />
         <meshStandardMaterial color="#081424" metalness={0.0} roughness={1.0} />
       </mesh>
 
       {/* Subtle grid helper (low contrast) so it doesn't visually compete with the target */}
-      <gridHelper args={[200, 40, '#082733', '#071726']} position={[0,0,0.01]} />
+      <gridHelper args={[200, 40, '#082733', '#071726']} position={[0,-5,0.01]} />
 
       {/* Shooter marker at origin so the user knows where shots originate */}
       <group position={[0,0,1.6]}> 
