@@ -19,8 +19,8 @@
 // help tune this to replicate or improve real firearm accuracy or performance. This demo is
 // intended for presentation, game, or educational use only.
 
-import React, { useRef, useState, useMemo, useCallback } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Text } from '@react-three/drei';
 
 // -------------------- Fictional weapon profiles --------------------
@@ -213,7 +213,7 @@ function TargetPlane({ distance = 100, impact = null }) {
   // and a visible border to avoid sinking into the ground. Impact marker is larger and animated
   // (scales in via simple useFrame if you want to animate it later).
   return (
-    <group rotation={[0,-1 * Math.PI / 2, 0]} position={[distance, 0, 1.6]}> {/* place target at shooter eye-level-ish */}
+    <group name="TargetPlaneMesh" rotation={[0,-1 * Math.PI / 2, 0]} position={[distance, 0, 1.6]}> {/* place target at shooter eye-level-ish */}
       {/* Backing plane to avoid z-fighting and give contrast */}
       {/* <mesh rotation={[0, Math.PI/2, 0]} position={[0,0,-0.005]}> 
         <planeGeometry args={[3.2, 3.2]} />
@@ -254,7 +254,7 @@ function TargetPlane({ distance = 100, impact = null }) {
   );
 }
 
-function SceneHelpers({ distance }) {
+function SceneHelpers({ distance, firstPerson }) {
   return (
     <>
       <ambientLight intensity={0.9} />
@@ -274,11 +274,57 @@ function SceneHelpers({ distance }) {
         <mesh> <sphereGeometry args={[0.06, 16, 12]} /> <meshStandardMaterial color="#f1c40f" emissive="#6b4d00" emissiveIntensity={0.8} /> </mesh>
         <mesh position={[0, -0.16, -0.02]}> <boxGeometry args={[0.4, 0.02, 0.02]} /> <meshStandardMaterial color="#ffffff" /> </mesh>
       </group>
-
-      <OrbitControls minDistance={2} maxDistance={1200} maxPolarAngle={Math.PI/2.05} enablePan={true} />
+     {firstPerson ? null :  <OrbitControls minDistance={2} maxDistance={1200} maxPolarAngle={Math.PI/2.05} enablePan={true} />}
     </>
   );
 }
+
+function FirstPersonShooter({ profile, distance, wind, rho, onShot }) {
+  const { camera, gl, scene } = useThree();
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      const rect = gl.domElement.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Create a raycaster from camera through click point
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera({ x, y }, camera);
+
+      // Fire a shot in ray direction
+      const dir = raycaster.ray.direction.clone().normalize();
+      const v_b0 = [dir.x * profile.v0, dir.y * profile.v0, dir.z * profile.v0];
+
+      const sim = integrateProjectile(profile, v_b0, [wind.x, wind.y, wind.z], rho, distance);
+
+      const impact = sim.impactPos;
+      const lateral_m = impact[1];
+      const vertical_m = impact[2] - 1.6;
+
+      onShot({
+        profile: profile.name,
+        impact: {
+          pos_m: impact,
+          lateral_cm: lateral_m * 100,
+          vertical_cm: vertical_m * 100,
+          time_s: sim.time,
+          note: sim.hitGround ? "hit ground before reaching target" :
+                sim.truncated ? "truncated" :
+                (Math.abs(lateral_m) < 1.2 && Math.abs(vertical_m) < 1.2
+                  ? "HIT target" 
+                  : "MISSED target")
+        }
+      });
+    };
+
+    gl.domElement.addEventListener("click", handleClick);
+    return () => gl.domElement.removeEventListener("click", handleClick);
+  }, [camera, gl, profile, distance, wind, rho, onShot]);
+
+  return null;
+}
+
 
 export default function RecoilSimulatorApp() {
   const [firstPerson, setFirstPerson] = useState(false);
@@ -329,6 +375,8 @@ export default function RecoilSimulatorApp() {
     setResult(out);
   }, [profile, barrelAngle, wind, rho, distance]);
 
+  
+
   // UI layout
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#041025] to-[#071024] text-slate-100 p-6">
@@ -340,9 +388,17 @@ export default function RecoilSimulatorApp() {
               ? { position: [0, 0, 1.6], fov: 60 } // shooter eye height
               : { position: [Math.max(4, distance * 0.6), 2.5, 6], fov: 50 }
             }>
+            
               {/* Using key={distance} forces camera re-init when distance changes so users don't get lost. */}
-              <SceneHelpers distance={distance} />
+              <SceneHelpers distance={distance} firstPerson={firstPerson} />
               <TargetPlane distance={distance} impact={result ? result.impact.pos_m : null} />
+              {firstPerson && <FirstPersonShooter 
+                profile={profile} 
+                distance={distance}
+                wind={wind}
+                rho={rho}
+                onShot={setResult}
+              />}
             </Canvas>
           </div>
         </div>
