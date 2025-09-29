@@ -492,7 +492,7 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot,
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
 
-      // Find the named plane mesh we added
+      // Find the named plane mesh added
       const targetPlane = scene.getObjectByName("TargetPlaneMesh");
       if (!targetPlane) return;
 
@@ -511,8 +511,8 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot,
       let v_b0_click = [dir.x * profile.v0, dir.y * profile.v0, dir.z * profile.v0];
 
       // Now replicate the same steps as "simulate":
-      // 1) compute recoil info (for result panel)
-      const recoilInfo = computeRecoil(profile, barrelAngle);
+      // 1) compute recoil info (for result panel) - now using zero distance
+      const recoilInfo = computeRecoil(profile, barrelAngle, zeroDistance);
 
       // 2) apply aim perturbation from wind to the *unit* muzzle vector
       // Use the unit of v_b0_click for perturbation input
@@ -524,6 +524,18 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot,
 
       // 3) integrate projectile using the perturbed initial velocity
       const sim = integrateProjectile(profile, v_b0_pert, [wind.x, wind.y, wind.z], rho, distance);
+
+          // Calculate force of impact using actual impact velocity
+      const impactSpeed = vlen(sim.impactVelocity); // CHANGED
+      const forceOfImpact = calculateBulletForce(
+        profile.m_b,
+        impactSpeed, // CHANGED
+        distance,
+        profile.A,
+        profile.Cd,
+        rho,
+        0.1
+      );
 
       const impact = sim.impactPos;
       const lateral_m = impact[1];
@@ -549,6 +561,7 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot,
       const out = {
         profile: profile.name,
         recoilNewton: F_mag,
+        forceOfImpact: forceOfImpact, // ADDED
         recoilDir: F_dir,
         deltaYawDeg: (pert.yaw || 0) * 180 / Math.PI,
         deltaPitchDeg: (pert.pitch || 0) * 180 / Math.PI,
@@ -567,7 +580,7 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot,
 
     gl.domElement.addEventListener('click', handleClick);
     return () => gl.domElement.removeEventListener('click', handleClick);
-  }, [camera, gl, scene, profile, barrelAngle, distance, wind, rho, onShot]);
+  }, [camera, gl, scene, profile, barrelAngle, distance, wind, rho, onShot, zeroDistance]);
 
   return null;
 }
@@ -662,6 +675,7 @@ export default function RecoilSimulatorApp() {
                 distance={distance}
                 wind={wind}
                 rho={rho}
+                zeroDistance={zeroDistance}
                 onShot={setResult}
               />}
             </Canvas>
