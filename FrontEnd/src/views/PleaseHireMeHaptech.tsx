@@ -477,7 +477,7 @@ function SceneHelpers({ distance, firstPerson }) {
   );
 }
 
-function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot }) {
+function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot, zeroDistance = 100 }) {
   const { camera, gl, scene } = useThree();
 
   useEffect(() => {
