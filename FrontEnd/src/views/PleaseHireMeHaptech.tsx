@@ -669,7 +669,10 @@ export default function RecoilSimulatorApp() {
               <label className="block text-sm text-slate-300 mt-2">Target distance (m)</label>
               <input type="range" min={10} max={600} value={distance} onChange={e=>setDistance(Number(e.target.value))} />
               <div className="text-sm text-slate-300">{distance} m</div>
-
+              {/* ADD ZERO DISTANCE CONTROL */}
+                  <label className="block text-sm text-slate-300 mt-2">Zero distance (m)</label>
+                  <input type="range" min={25} max={300} value={zeroDistance} onChange={e=>setZeroDistance(Number(e.target.value))} />
+                  <div className="text-sm text-slate-300">{zeroDistance} m</div>
               {firstPerson ? 
               <label className="block text-sm text-slate-300 mt-3">Wind (m/s) — right, forward, up</label>
               : 
