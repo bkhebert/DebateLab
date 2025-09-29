@@ -62,19 +62,20 @@ const PROFILES = {
     I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
     r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
   },
-    E: {
-    id: 'E', name: 'Model A (light) - FICTIONAL',
-    m_g: 3.0,       // kg (fictional) gun mass
-    m_b: 0.012,     // kg (fictional) bullet mass
-    v0: 820,        // m/s (fictional) mezzle velocity
-    Cd: 0.295,      // bullet drag coefficient
-    A: 0.0005,      // cross-sectional area of the bullet
-    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
-    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
-    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
-    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
-    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
-  },
+  E: {
+  id: 'E',
+  name: 'M9 Beretta',
+  m_g: 1.1,           // kg - Weight with loaded magazine
+  m_b: 0.008,         // kg - 9mm bullet mass (8 grams)
+  v0: 380,            // m/s - Muzzle velocity for 9mm
+  Cd: 0.155,          // Drag coefficient for 9mm bullet
+  A: 0.0000636,       // m² - Cross-sectional area for 9mm (9mm diameter)
+  delta_t_muzzle: 0.003, // s - Longer impulse time for pistol recoil
+  Cd_rifle: 1.8,      // Higher drag for pistol shape
+  A_rifle: 0.02,      // m² - Smaller frontal area
+  I: 0.05,            // kg·m² - Lower moment of inertia (shorter weapon)
+  r_cp: 0.25          // m - Shorter lever arm (pistol grip)
+},
     F: {
     id: 'F', name: 'Model A (light) - FICTIONAL',
     m_g: 3.0,       // kg (fictional) gun mass
