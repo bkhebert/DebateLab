@@ -48,7 +48,59 @@ const PROFILES = {
     id: 'C', name: 'Model C (heavy support) - FICTIONAL',
     m_g: 12.0, m_b: 0.012, v0: 820, Cd: 0.33, A: 0.0006, delta_t_muzzle: 0.0025,
     Cd_rifle: 1.1, A_rifle: 0.12, I: 0.8, r_cp: 0.40
-  }
+  },
+    D: {
+    id: 'D', name: 'Model A (light) - FICTIONAL',
+    m_g: 3.0,       // kg (fictional) gun mass
+    m_b: 0.012,     // kg (fictional) bullet mass
+    v0: 820,        // m/s (fictional) mezzle velocity
+    Cd: 0.295,      // bullet drag coefficient
+    A: 0.0005,      // cross-sectional area of the bullet
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
+    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
+    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
+    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
+    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
+  },
+    E: {
+    id: 'E', name: 'Model A (light) - FICTIONAL',
+    m_g: 3.0,       // kg (fictional) gun mass
+    m_b: 0.012,     // kg (fictional) bullet mass
+    v0: 820,        // m/s (fictional) mezzle velocity
+    Cd: 0.295,      // bullet drag coefficient
+    A: 0.0005,      // cross-sectional area of the bullet
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
+    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
+    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
+    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
+    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
+  },
+    F: {
+    id: 'F', name: 'Model A (light) - FICTIONAL',
+    m_g: 3.0,       // kg (fictional) gun mass
+    m_b: 0.012,     // kg (fictional) bullet mass
+    v0: 820,        // m/s (fictional) mezzle velocity
+    Cd: 0.295,      // bullet drag coefficient
+    A: 0.0005,      // cross-sectional area of the bullet
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
+    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
+    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
+    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
+    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
+  },
+    G: {
+    id: 'G', name: 'Model A (light) - FICTIONAL',
+    m_g: 3.0,       // kg (fictional) gun mass
+    m_b: 0.012,     // kg (fictional) bullet mass
+    v0: 820,        // m/s (fictional) mezzle velocity
+    Cd: 0.295,      // bullet drag coefficient
+    A: 0.0005,      // cross-sectional area of the bullet
+    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
+    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
+    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
+    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
+    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
+  },
 };
 
 // -------------------- Utility vector math --------------------
