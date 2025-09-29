@@ -570,6 +570,7 @@ export default function RecoilSimulatorApp() {
   const [firstPerson, setFirstPerson] = useState(false);
   const [profileId, setProfileId] = useState('A');
   const [distance, setDistance] = useState(100); // meters
+  const [zeroDistance, setZeroDistance] = useState(100); /// zeroed rifle / pistol distance
   const [wind, setWind] = useState({ x:0, y:3, z:0 });
   const [rho, setRho] = useState(1.225);
   const [barrelAngle, setBarrelAngle] = useState(1.5);
