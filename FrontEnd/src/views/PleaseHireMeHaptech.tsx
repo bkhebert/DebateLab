@@ -124,11 +124,18 @@ const vnorm = a => { const L = vlen(a) || 1; return [a[0]/L, a[1]/L, a[2]/L]; };
      => v_g = - (m_b / m_g) * v_b    (recoil velocity of gun)
    - Converts impulse to average force: F_avg = m_g * v_g / delta_t  or equivalently Δp/Δt
 */
-function computeRecoil(profile, barrelAngleDeg) {
+function computeRecoil(profile, barrelAngleDeg, zeroDistance = 100) {
 
+    const g = 9.81; // gravity (m/s^2)
+  const v0 = profile.v0;
+  
+  // Calculate optimal angle for zeroing at specified distance
+  // Using the exact solution for vacuum trajectory (simplified)
+  const optimalAngle = 0.5 * Math.asin((g * zeroDistance) / (v0 * v0));
   // first calculates the unit vector in the firing direction of the gun using the barrel angle
   const theta = barrelAngleDeg * Math.PI/180;
-  const ub_local = [Math.cos(theta), 0, Math.sin(theta)]; // forward, right, up
+  const totalAngle = theta + optimalAngle;
+  const ub_local = [Math.cos(totalAngle), 0, Math.sin(totalAngle)]; // forward, right, up
   // unit vector in firing direction; θ is barrel angle
 
   // computes the initial velocity vector of the projectile by multiplying the unit vector with the gun's velocity profile.
