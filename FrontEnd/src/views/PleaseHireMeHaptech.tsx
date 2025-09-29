@@ -375,8 +375,10 @@ function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeig
   let t = 0;
   let prev = { r: r.slice(), v: v.slice(), t };
   for (let step=0; step<maxSteps; step++) {
-    if (r[0] >= x_target) return {impactPos: r.slice(), time: t, hitGround:false};
-    if (r[2] <= 0) return {impactPos: r.slice(), time: t, hitGround:true};
+    // if (r[0] >= x_target) return {impactPos: r.slice(), time: t, hitGround:false};
+    // if (r[2] <= 0) return {impactPos: r.slice(), time: t, hitGround:true};
+    if (r[0] >= x_target) return {impactPos: r.slice(), impactVelocity: v.slice(), time: t, hitGround:false}; // CHANGED
+    if (r[2] <= 0) return {impactPos: r.slice(), impactVelocity: v.slice(), time: t, hitGround:true}; // CHANGED
     // RK4    (Runge-Kutta 4th order method for ODE integration)
     const k1v = accel(v);
     const k1r = v;
@@ -396,7 +398,7 @@ function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeig
     t += dt;
     prev = { r: r.slice(), v: v.slice(), t };
   }
-  return {impactPos: r.slice(), time: t, hitGround:false, truncated:true};
+   return {impactPos: r.slice(), impactVelocity: v.slice(), time: t, hitGround:false, truncated:true}; // CHANGED
 }
 
 // -------------------- React + R3F visualization --------------------
@@ -587,7 +589,7 @@ export default function RecoilSimulatorApp() {
 
   const simulate = useCallback(() => {
     // 1) compute base recoil and muzzle vector
-    const recoilInfo = computeRecoil(profile, barrelAngle);
+     const recoilInfo = computeRecoil(profile, barrelAngle, zeroDistance); // CHANGED
 
     // 2) apply aim perturbation from wind
     const pert = applyAimPerturbationFromWind(recoilInfo.v_b0.map(v=>v/vlen(recoilInfo.v_b0)), [wind.x, wind.y, wind.z], rho, profile);
@@ -596,10 +598,11 @@ export default function RecoilSimulatorApp() {
     // 3) integrate projectile until target distance
     const sim = integrateProjectile(profile, v_b0_pert, [wind.x, wind.y, wind.z], rho, distance);
 
-  // calculate force of impact
+// calculate force of impact - use ACTUAL impact velocity from RK4 integration
+  const impactSpeed = vlen(sim.impactVelocity); // CHANGED - get actual impact speed
   const forceOfImpact = calculateBulletForce(
     profile.m_b,           // mass of bullet in kg
-    profile.v0,            // muzzle velocity in m/s
+   impactSpeed,           // CHANGED - use actual impact velocity, not muzzle velocity
     distance,              // distance to target in meters
     profile.A,             // cross-sectional area in m²
     profile.Cd,            // bullet drag coefficient
@@ -620,6 +623,7 @@ export default function RecoilSimulatorApp() {
       profile: profile.name,
       recoilNewton: F_mag,
       forceOfImpact: forceOfImpact,
+      impactSpeed: impactSpeed, // ADDED for debugging
       recoilDir: F_dir,
       deltaYawDeg: (pert.yaw || 0) * 180/Math.PI,
       deltaPitchDeg: (pert.pitch || 0) * 180/Math.PI,
@@ -632,7 +636,7 @@ export default function RecoilSimulatorApp() {
       }
     };
     setResult(out);
-  }, [profile, barrelAngle, wind, rho, distance]);
+  }, [profile, barrelAngle, wind, rho, distance, zeroDistance]);
 
   
 
