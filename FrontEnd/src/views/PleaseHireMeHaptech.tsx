@@ -207,6 +207,135 @@ function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
   return { ub: ub_new, yaw: delta_yaw, pitch: delta_pitch };
 }
 
+/**
+ * Calculate the force exerted on a target by a bullet.
+ * 
+ * @param mass Mass of bullet in kg
+ * @param muzzleVelocity Initial velocity in m/s
+ * @param distance Distance to target in meters
+ * @param crossSectionalArea Cross-sectional area in m²
+ * @param dragCoefficient Bullet drag coefficient (dimensionless)
+ * @param airDensity Density of air in kg/m³ (default: 1.225 at sea level)
+ * @param stoppingDistance Distance over which bullet stops in target in meters (default: 0.1)
+ * @returns Force in Newtons
+ */
+function calculateBulletForce(
+  mass: number,
+  muzzleVelocity: number,
+  distance: number,
+  crossSectionalArea: number,
+  dragCoefficient: number,
+  airDensity: number = 1.225,
+  stoppingDistance: number = 0.1
+): number {
+  // Calculate velocity at impact using drag equation
+  const dragForce = 0.5 * airDensity * muzzleVelocity ** 2 * dragCoefficient * crossSectionalArea;
+  const deceleration = dragForce / mass;
+  
+  // Using kinematic equation: v² = u² - 2as
+  const impactVelocitySquared = muzzleVelocity ** 2 - 2 * deceleration * distance;
+  
+  // Ensure velocity doesn't go negative
+  if (impactVelocitySquared <= 0) {
+    return 0;
+  }
+  
+  const impactVelocity = Math.sqrt(impactVelocitySquared);
+  
+  // Calculate stopping force using work-energy principle: F = (1/2 * m * v²) / stopping_distance
+  const force = (0.5 * mass * impactVelocity ** 2) / stoppingDistance;
+  
+  return force;
+}
+
+/**
+ * Calculate force using impulse-momentum theorem.
+ * 
+ * @param mass Mass of bullet in kg
+ * @param muzzleVelocity Initial velocity in m/s
+ * @param distance Distance to target in meters
+ * @param crossSectionalArea Cross-sectional area in m²
+ * @param dragCoefficient Bullet drag coefficient (dimensionless)
+ * @param airDensity Density of air in kg/m³ (default: 1.225 at sea level)
+ * @param stoppingTime Time over which bullet stops in target in seconds (default: 0.001)
+ * @returns Force in Newtons
+ */
+function calculateBulletForceImpulse(
+  mass: number,
+  muzzleVelocity: number,
+  distance: number,
+  crossSectionalArea: number,
+  dragCoefficient: number,
+  airDensity: number = 1.225,
+  stoppingTime: number = 0.001
+): number {
+  // Calculate impact velocity
+  const dragForce = 0.5 * airDensity * muzzleVelocity ** 2 * dragCoefficient * crossSectionalArea;
+  const deceleration = dragForce / mass;
+  const impactVelocitySquared = muzzleVelocity ** 2 - 2 * deceleration * distance;
+  
+  if (impactVelocitySquared <= 0) {
+    return 0;
+  }
+  
+  const impactVelocity = Math.sqrt(impactVelocitySquared);
+  
+  // Force = change in momentum / time
+  const force = (mass * impactVelocity) / stoppingTime;
+  
+  return force;
+}
+
+// Interface for bullet parameters (optional, for better type safety)
+interface BulletParameters {
+  mass: number;
+  muzzleVelocity: number;
+  distance: number;
+  crossSectionalArea: number;
+  dragCoefficient: number;
+  airDensity?: number;
+  stoppingDistance?: number;
+  stoppingTime?: number;
+}
+
+/**
+ * Calculate bullet force using an object parameter for cleaner function calls
+ */
+function calculateBulletForceFromObject(params: BulletParameters & { method?: 'energy' | 'impulse' }): number {
+  const {
+    mass,
+    muzzleVelocity,
+    distance,
+    crossSectionalArea,
+    dragCoefficient,
+    airDensity = 1.225,
+    stoppingDistance = 0.1,
+    stoppingTime = 0.001,
+    method = 'energy'
+  } = params;
+  
+  if (method === 'impulse') {
+    return calculateBulletForceImpulse(
+      mass,
+      muzzleVelocity,
+      distance,
+      crossSectionalArea,
+      dragCoefficient,
+      airDensity,
+      stoppingTime
+    );
+  } else {
+    return calculateBulletForce(
+      mass,
+      muzzleVelocity,
+      distance,
+      crossSectionalArea,
+      dragCoefficient,
+      airDensity,
+      stoppingDistance
+    );
+  }
+}
 /* integrateProjectile:
    - Uses RK4 to integrate projectile motion in 3D with gravity and quadratic drag.
    - Drag model (vector): F_d = -0.5 * ρ * C_d * A * |v_rel| * v_rel  (N)
@@ -459,6 +588,8 @@ export default function RecoilSimulatorApp() {
     // 3) integrate projectile until target distance
     const sim = integrateProjectile(profile, v_b0_pert, [wind.x, wind.y, wind.z], rho, distance);
 
+    // calculate force of impact
+    
     // Compute lateral/vertical offsets in cm
     const impact = sim.impactPos;
     const lateral_m = impact[1];
