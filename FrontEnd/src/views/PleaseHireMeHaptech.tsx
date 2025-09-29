@@ -297,7 +297,165 @@ function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot 
 
       // Ray from camera through clicked pixel
       const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera({ x, y }, camera);
+      raycaster.setFromCamera({
+        x, y,
+        width: 0,
+        height: 0,
+        isVector2: true,
+        set: function (x: number, y: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        setScalar: function (scalar: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        setX: function (x: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        setY: function (y: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        setComponent: function (index: number, value: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        getComponent: function (index: number): number {
+          throw new Error('Function not implemented.');
+        },
+        clone: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        copy: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        add: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        addScalar: function (s: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        addVectors: function (a: THREE.Vector2Like, b: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        addScaledVector: function (v: THREE.Vector2Like, s: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        sub: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        subScalar: function (s: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        subVectors: function (a: THREE.Vector2Like, b: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        multiply: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        multiplyScalar: function (scalar: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        divide: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        divideScalar: function (s: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        applyMatrix3: function (m: THREE.Matrix3): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        min: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        max: function (v: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        clamp: function (min: THREE.Vector2Like, max: THREE.Vector2Like): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        clampScalar: function (min: number, max: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        clampLength: function (min: number, max: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        floor: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        ceil: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        round: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        roundToZero: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        negate: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        dot: function (v: THREE.Vector2Like): number {
+          throw new Error('Function not implemented.');
+        },
+        cross: function (v: THREE.Vector2Like): number {
+          throw new Error('Function not implemented.');
+        },
+        lengthSq: function (): number {
+          throw new Error('Function not implemented.');
+        },
+        length: function (): number {
+          throw new Error('Function not implemented.');
+        },
+        manhattanLength: function (): number {
+          throw new Error('Function not implemented.');
+        },
+        normalize: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        angle: function (): number {
+          throw new Error('Function not implemented.');
+        },
+        angleTo: function (v: THREE.Vector2): number {
+          throw new Error('Function not implemented.');
+        },
+        distanceTo: function (v: THREE.Vector2Like): number {
+          throw new Error('Function not implemented.');
+        },
+        distanceToSquared: function (v: THREE.Vector2Like): number {
+          throw new Error('Function not implemented.');
+        },
+        manhattanDistanceTo: function (v: THREE.Vector2Like): number {
+          throw new Error('Function not implemented.');
+        },
+        setLength: function (length: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        lerp: function (v: THREE.Vector2Like, alpha: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        lerpVectors: function (v1: THREE.Vector2Like, v2: THREE.Vector2Like, alpha: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        equals: function (v: THREE.Vector2Like): boolean {
+          throw new Error('Function not implemented.');
+        },
+        fromArray: function (array: number[] | ArrayLike<number>, offset?: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        toArray: function (array?: number[], offset?: number): number[] {
+          throw new Error('Function not implemented.');
+        },
+        fromBufferAttribute: function (attribute: THREE.BufferAttribute, index: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        rotateAround: function (center: THREE.Vector2Like, angle: number): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        random: function (): THREE.Vector2 {
+          throw new Error('Function not implemented.');
+        },
+        [Symbol.iterator]: function (): Iterator<number> {
+          throw new Error('Function not implemented.');
+        }
+      }, camera);
 
       // Find the named plane mesh we added
       const targetPlane = scene.getObjectByName("TargetPlaneMesh");
