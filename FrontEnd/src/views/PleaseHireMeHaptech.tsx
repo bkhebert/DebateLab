@@ -588,8 +588,16 @@ export default function RecoilSimulatorApp() {
     // 3) integrate projectile until target distance
     const sim = integrateProjectile(profile, v_b0_pert, [wind.x, wind.y, wind.z], rho, distance);
 
-    // calculate force of impact
-    
+  // calculate force of impact
+  const forceOfImpact = calculateBulletForce(
+    profile.m_b,           // mass of bullet in kg
+    profile.v0,            // muzzle velocity in m/s
+    distance,              // distance to target in meters
+    profile.A,             // cross-sectional area in m²
+    profile.Cd,            // bullet drag coefficient
+    rho,                   // air density in kg/m³
+    0.1                    // stopping distance in meters (default)
+  );
     // Compute lateral/vertical offsets in cm
     const impact = sim.impactPos;
     const lateral_m = impact[1];
@@ -603,6 +611,7 @@ export default function RecoilSimulatorApp() {
     const out = {
       profile: profile.name,
       recoilNewton: F_mag,
+      forceOfImpact: forceOfImpact,
       recoilDir: F_dir,
       deltaYawDeg: (pert.yaw || 0) * 180/Math.PI,
       deltaPitchDeg: (pert.pitch || 0) * 180/Math.PI,
@@ -690,6 +699,7 @@ export default function RecoilSimulatorApp() {
                 <div>
                   <strong>{result.profile}</strong>
                   <div>Recoil force (avg): {result.recoilNewton.toFixed(1)} N</div>
+                  <div>Force of impact: {result.forceOfImpact} N</div> 
                   <div>Recoil direction: [{result.recoilDir.map(v=>v.toFixed(3)).join(', ')}]</div>
                   <div>Aim perturbation yaw: {result.deltaYawDeg.toFixed(3)}°</div>
                   <div>Aim perturbation pitch: {result.deltaPitchDeg.toFixed(3)}°</div>
