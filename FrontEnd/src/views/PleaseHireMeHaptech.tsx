@@ -76,19 +76,20 @@ const PROFILES = {
   I: 0.05,            // kg·m² - Lower moment of inertia (shorter weapon)
   r_cp: 0.25          // m - Shorter lever arm (pistol grip)
 },
-    F: {
-    id: 'F', name: 'Model A (light) - FICTIONAL',
-    m_g: 3.0,       // kg (fictional) gun mass
-    m_b: 0.012,     // kg (fictional) bullet mass
-    v0: 820,        // m/s (fictional) mezzle velocity
-    Cd: 0.295,      // bullet drag coefficient
-    A: 0.0005,      // cross-sectional area of the bullet
-    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
-    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
-    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
-    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
-    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
-  },
+  F: {
+  id: 'F',
+  name: 'M16',
+  m_g: 3.9,           // kg - Heavier than M4 (longer barrel, full stock)
+  m_b: 0.004,         // kg - Same 5.56mm bullet
+  v0: 960,            // m/s - Higher velocity from 20" barrel
+  Cd: 0.279,          // Same bullet aerodynamics
+  A: 0.0000255,       // m² - Same 5.56mm cross-section
+  delta_t_muzzle: 0.002, // s - Similar impulse time
+  Cd_rifle: 1.4,      // Slightly more aerodynamic than M4
+  A_rifle: 0.05,      // m² - Similar frontal area
+  I: 0.18,            // kg·m² - Higher moment (longer weapon)
+  r_cp: 0.45          // m - Longer lever arm
+},
     G: {
     id: 'G', name: 'Model A (light) - FICTIONAL',
     m_g: 3.0,       // kg (fictional) gun mass
