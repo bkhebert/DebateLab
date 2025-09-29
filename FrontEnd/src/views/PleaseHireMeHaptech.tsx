@@ -209,7 +209,7 @@ function integrateProjectile(profile, v0_vec, V_wind, rho, x_target, shooterHeig
 }
 
 // -------------------- React + R3F visualization --------------------
-function TargetPlane({ distance = 100, impact = null }) {
+function TargetPlane({ distance = 100, impact = null, firstPerson }) {
   // Improved visual target: colorful concentric rings (white/red/blue) with slight offsets
   // and a visible border to avoid sinking into the ground. Impact marker is larger and animated
   // (scales in via simple useFrame if you want to animate it later).
@@ -232,13 +232,17 @@ function TargetPlane({ distance = 100, impact = null }) {
       {impact && (
         (() => {
           const ix = impact[0]; const iy = impact[1]; const iz = impact[2];
-          const localX = iy; // horizontal
-          const localY = iz - 1.6; // vertical relative to shooter height
+          let localX = iy; // horizontal
+          let localY = iz - 1.6; // vertical relative to shooter height
+          if(firstPerson){
+            localX = iz - 1.6;
+            localY = iy;
+          }
           const max = 1.4;
           const mx = Math.max(-max, Math.min(max, localX));
           const my = Math.max(-max, Math.min(max, localY));
           return (
-            <mesh position={[mx, my, 0.04]}> 
+            <mesh position={[mx, my, 0.04]} > 
               <sphereGeometry args={[0.08, 24, 16]} />
               <meshStandardMaterial color="#ff2b2b" emissive="#ff6b6b" emissiveIntensity={1.4} metalness={0.2} roughness={0.3} />
             </mesh>
@@ -280,67 +284,101 @@ function SceneHelpers({ distance, firstPerson }) {
   );
 }
 
-function FirstPersonShooter({ profile, distance, wind, rho, onShot }) {
+function FirstPersonShooter({ profile, barrelAngle, distance, wind, rho, onShot }) {
   const { camera, gl, scene } = useThree();
 
   useEffect(() => {
+    if (!gl || !camera) return;
+
     const handleClick = (e) => {
       const rect = gl.domElement.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
+      // Ray from camera through clicked pixel
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera({ x, y }, camera);
 
+      // Find the named plane mesh we added
       const targetPlane = scene.getObjectByName("TargetPlaneMesh");
       if (!targetPlane) return;
 
-      const intersects = raycaster.intersectObject(targetPlane);
-      if (intersects.length === 0) return;
+      const intersects = raycaster.intersectObject(targetPlane, false);
+      if (!intersects || intersects.length === 0) return;
 
-      const aimPoint = intersects[0].point; // world coords on plane
+      const aimPoint = intersects[0].point.clone(); // world coords where user aimed
+
+      // muzzle is always at world (0,0,1.6)
       const muzzle = new THREE.Vector3(0, 0, 1.6);
 
-      // initial velocity vector
+      // initial direction from muzzle to clicked aimPoint
       const dir = aimPoint.clone().sub(muzzle).normalize();
-      const v_b0 = [dir.x * profile.v0, dir.y * profile.v0, dir.z * profile.v0];
 
-      // run projectile sim
-      const sim = integrateProjectile(profile, v_b0, [wind.x, wind.y, wind.z], rho, distance);
+      // Build initial projectile velocity vector (no perturbation yet)
+      let v_b0_click = [dir.x * profile.v0, dir.y * profile.v0, dir.z * profile.v0];
+
+      // Now replicate the same steps as "simulate":
+      // 1) compute recoil info (for result panel)
+      const recoilInfo = computeRecoil(profile, barrelAngle);
+
+      // 2) apply aim perturbation from wind to the *unit* muzzle vector
+      // Use the unit of v_b0_click for perturbation input
+      const ub_click = vnorm(v_b0_click);
+      const pert = applyAimPerturbationFromWind(ub_click, [wind.x, wind.y, wind.z], rho, profile);
+
+      // Apply perturbation to the projectile initial velocity
+      const v_b0_pert = vmul(pert.ub, profile.v0);
+
+      // 3) integrate projectile using the perturbed initial velocity
+      const sim = integrateProjectile(profile, v_b0_pert, [wind.x, wind.y, wind.z], rho, distance);
+
       const impact = sim.impactPos;
+      const lateral_m = impact[1];
+      const vertical_m = impact[2] - 1.6; // relative to shooter height
 
-      // check target hit
-      const hitBoxHalf = 1.25; // half of 2.5m
-      const localY = impact[1]; // lateral offset
-      const localZ = impact[2] - 1.6; // vertical offset from center
-      let note = "MISS";
+      // Recoil force magnitude and direction (same as simulate)
+      const F = recoilInfo.F_recoil_avg;
+      const F_mag = vlen(F);
+      const F_dir = vnorm(F);
+
+      // Determine hit vs miss (2.5m square target centered at plane)
+      const hitBoxHalf = 1.25;
+      let note = 'MISS';
       if (sim.hitGround) {
-        note = "HIT GROUND EARLY";
-      } else if (!sim.truncated &&
-        Math.abs(localY) <= hitBoxHalf &&
-        Math.abs(localZ) <= hitBoxHalf) {
-        note = "HIT target";
+        note = 'hit ground before reaching target';
+      } else if (!sim.truncated && Math.abs(lateral_m) <= hitBoxHalf && Math.abs(vertical_m) <= hitBoxHalf) {
+        note = 'HIT target';
+      } else {
+        note = 'MISS';
       }
 
-      onShot({
+      // Build full result same shape as simulate
+      const out = {
         profile: profile.name,
-        aimPoint: aimPoint.toArray(),
+        recoilNewton: F_mag,
+        recoilDir: F_dir,
+        deltaYawDeg: (pert.yaw || 0) * 180 / Math.PI,
+        deltaPitchDeg: (pert.pitch || 0) * 180 / Math.PI,
+        aimPoint: [aimPoint.x, aimPoint.y, aimPoint.z], // new field
         impact: {
           pos_m: impact,
-          lateral_cm: localY * 100,
-          vertical_cm: localZ * 100,
+          lateral_cm: vertical_m * 100,
+          vertical_cm: lateral_m * 100,
           time_s: sim.time ?? "i love haptech",
           note
         }
-      });
+      };
+
+      onShot(out);
     };
 
-    gl.domElement.addEventListener("click", handleClick);
-    return () => gl.domElement.removeEventListener("click", handleClick);
-  }, [camera, gl, profile, distance, wind, rho, onShot]);
+    gl.domElement.addEventListener('click', handleClick);
+    return () => gl.domElement.removeEventListener('click', handleClick);
+  }, [camera, gl, scene, profile, barrelAngle, distance, wind, rho, onShot]);
 
   return null;
 }
+
 
 
 
@@ -404,15 +442,16 @@ export default function RecoilSimulatorApp() {
 
           <Canvas key={`${distance}-${firstPerson}`} 
             camera={firstPerson ? 
-            { position: [0,0,1.6], fov:60, near:0.1, far:2000 } : 
+            { rotation:[0,-1 * Math.PI / 2, 0], position: [0,0,1.6], fov:60, near:0.1, far:2000 } : 
             { position: [Math.max(4, distance*0.6), 2.5, 6], fov:50 }}
             >
             
               {/* Using key={distance} forces camera re-init when distance changes so users don't get lost. */}
               <SceneHelpers distance={distance} firstPerson={firstPerson} />
-              <TargetPlane distance={distance} impact={result ? result.impact.pos_m : null} />
+              <TargetPlane distance={distance} impact={result ? result.impact.pos_m : null} firstPerson={firstPerson} />
               {firstPerson && <FirstPersonShooter 
                 profile={profile} 
+                barrelAngle={barrelAngle}
                 distance={distance}
                 wind={wind}
                 rho={rho}
@@ -435,7 +474,10 @@ export default function RecoilSimulatorApp() {
               <input type="range" min={10} max={600} value={distance} onChange={e=>setDistance(Number(e.target.value))} />
               <div className="text-sm text-slate-300">{distance} m</div>
 
-              <label className="block text-sm text-slate-300 mt-3">Wind (m/s) — forward, right, up</label>
+              {firstPerson ? 
+              <label className="block text-sm text-slate-300 mt-3">Wind (m/s) — right, forward, up</label>
+              : 
+              <label className="block text-sm text-slate-300 mt-3">Wind (m/s) — forward, right, up</label>}
               <div className="grid grid-cols-3 gap-2">
                 <input type="number" value={wind.x} onChange={e=>setWind(w=>({...w, x:Number(e.target.value)}))} className="bg-[#031420] p-2 rounded" />
                 <input type="number" value={wind.y} onChange={e=>setWind(w=>({...w, y:Number(e.target.value)}))} className="bg-[#031420] p-2 rounded" />
