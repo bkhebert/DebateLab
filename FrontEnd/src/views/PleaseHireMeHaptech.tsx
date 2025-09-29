@@ -90,19 +90,20 @@ const PROFILES = {
   I: 0.18,            // kg·m² - Higher moment (longer weapon)
   r_cp: 0.45          // m - Longer lever arm
 },
-    G: {
-    id: 'G', name: 'Model A (light) - FICTIONAL',
-    m_g: 3.0,       // kg (fictional) gun mass
-    m_b: 0.012,     // kg (fictional) bullet mass
-    v0: 820,        // m/s (fictional) mezzle velocity
-    Cd: 0.295,      // bullet drag coefficient
-    A: 0.0005,      // cross-sectional area of the bullet
-    delta_t_muzzle: 0.002,  // effective muzzle impulse time aka duration of recoil
-    Cd_rifle: 1.0, // dimensionless, drag coefficient of the rifle itself
-    A_rifle: 0.06,  // m², cross-sectional area of the rifle for aerodynamic drag
-    I: 0.15,  // kg·m², moment of inertia of the rifle about shoulder pivot (for angular acceleration/torque calcs)
-    r_cp: 0.35 // m, distance from shoulder pivot to center of pressure (lever arm for aerodynamic forces)
-  },
+   G: {
+  id: 'G',
+  name: 'M249 SAW',
+  m_g: 10.0,          // kg - Much heavier, crew-served weapon
+  m_b: 0.004,         // kg - Same 5.56mm ammunition
+  v0: 915,            // m/s - Similar to M4 (shorter barrel than M16)
+  Cd: 0.279,          // Same bullet aerodynamics
+  A: 0.0000255,       // m² - Same 5.56mm cross-section
+  delta_t_muzzle: 0.0015, // s - Shorter, sharper impulse (different gas system)
+  Cd_rifle: 1.6,      // Bulkier, less aerodynamic
+  A_rifle: 0.08,      // m² - Larger frontal area
+  I: 0.25,            // kg·m² - Much higher moment of inertia
+  r_cp: 0.5           // m - Longer distance to center of pressure
+},
 };
 
 // -------------------- Utility vector math --------------------
