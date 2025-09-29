@@ -183,10 +183,10 @@ function applyAimPerturbationFromWind(ub_local, V_wind, rho, profile) {
     // τ = F × r  (Torque)
   // r_cp = distance to center of pressure
 
-  const response_t = 0.2; // seconds, fictional
+  const response_t = 0.02; // seconds, fictional
 
   // calculate rotational acceleration from torque
-  const delta_alpha = torque * response_t / profile.I; // radians
+  const delta_alpha = ( torque * response_t / profile.I ) * 0.3; // radians
   // α = τ / I  (Rotational dynamics)
   // Integrated over response_t → Δθ ≈ α * t
   // I = rotational inertia
