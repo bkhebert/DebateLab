@@ -22,7 +22,16 @@ const Post = ({ postInfo }: { postInfo: any }) => {
   const [showProfileView, setShowProfileView] = useState(false);
   const[tags, setTags] = useState([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
-const [replyText, setReplyText] = useState("");
+  const [replyText, setReplyText] = useState("");
+  const [isHomePage, setIsHomePage] = useState(true);
+
+  useEffect(() => {
+    if(window.location.pathname === "/")
+      setIsHomePage(true);
+    else
+      setIsHomePage(false);
+  }, []);
+
  useEffect(() => {
    
     if (!postInfo.author?.PoliticalView) return;
