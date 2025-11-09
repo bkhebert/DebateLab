@@ -18,7 +18,7 @@ const MagicBoxIntro = () => {
       </BoxReveal>
  
       <BoxReveal boxColor={"#2B2E44"} duration={0.5}>
-        <h2 className="mt-[1rem] text-[1rem] italic dark:text-white">
+        <h2 className="mt-[1rem] text-[1rem] italic text-black dark:text-white">
           Debate app, powered by {" "}
           <span className="text-[#A128E3] shadow  shadow-lg dark:shadow-primarylight/20">A.I.</span>
         </h2>
