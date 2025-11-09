@@ -94,7 +94,7 @@ const submitReply = async (parentReplyId = null) => {
       return formatDistanceToNow(new Date(isoString), { addSuffix: true })
   }
   return (
-        <div className="dark:bg-primary/60 mx-3 p-2 mb-2 rounded border border-2 border-black/30 bg-white p-3 md:w-full lg:w-3/4 max-w-3/4">
+        <div className={`dark:bg-primary/60 mx-3 p-2 mb-2 rounded border border-2 border-black/30 bg-white p-3 md:w-full lg:w-3/4 max-w-3/4 ${isHomePage ? "max-h-[500px]" : " "}`}>
   {   !showProfileView &&  ( <div className="">
           <div className="grid grid-cols-8 grid-rows-2 rounded-full bg-white dark:bg-primarylight/70">
             <div className="col-span-1 row-span-2 flex justify-center">
