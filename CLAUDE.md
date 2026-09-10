@@ -17,7 +17,7 @@ There is no CI config in this repo and no `.env.example`. Each service reads its
 ## Cross-cutting architecture
 
 ### How frontend and backend talk to each other
-`FrontEnd/src/constants/constant.ts` hardcodes which backend the app targets via a manually-toggled boolean (`isDevelopment`), **not an environment variable** — see `FrontEnd/CLAUDE.md` for the exact mechanics. This is the single most important thing to know before doing full-stack local dev: you must flip that value to point at `localhost:3000`, and flip it back before committing.
+`FrontEnd/src/constants/constant.ts` hardcodes which backend the app targets via a manually-toggled boolean (`isDevelopment`), **not an environment variable** — see `FrontEnd/CLAUDE.md` for the exact mechanics. This is the single most important thing to know before doing full-stack local dev: you must flip that value to point at `localhost:3000` to develop locally, and **it must always be flipped back to `false` before any push** — check it as the last step before `git push`, every time, no exceptions.
 
 There is no shared types package or generated client between the two services. Request/response shapes are hand-duplicated on each side (e.g. the `User` interface in `FrontEnd/src/contexts/AuthContext.tsx` mirrors the backend's Sequelize `User` model by hand). If you change a field on one side, you must manually find and update the other — there's no compiler check tying them together.
 

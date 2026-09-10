@@ -20,7 +20,9 @@ This covers the `FrontEnd/` service specifically. For how this fits into the wid
 const isDevelopment = false // toggle this value
 ```
 
-This switches between `http://localhost:3000` and the deployed Render backend URL. To develop against a local backend, flip this to `true` — and remember to flip it back before committing, since there's no build-time guard against shipping it pointed at localhost. If you're touching this repeatedly, consider proposing a `VITE_API_URL` env var instead (flag it as a suggested improvement rather than changing it silently, since it changes the dev workflow).
+This switches between `http://localhost:3000` and the deployed Render backend URL. To develop against a local backend, flip this to `true` — and flip it back to `false` before committing/pushing, since there's no build-time guard against shipping it pointed at localhost. If you're touching this repeatedly, consider proposing a `VITE_API_URL` env var instead (flag it as a suggested improvement rather than changing it silently, since it changes the dev workflow).
+
+**Standing rule: `isDevelopment` must be `false` in every commit that reaches `main` / gets pushed.** Before any push, verify this value — a stray `true` here silently points the deployed frontend at `localhost:3000`, which breaks production. Check it as the last step before `git push`, every time, no exceptions.
 
 ## Architecture
 

@@ -37,7 +37,7 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
     }
     try {
       const { text } = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3.6-flash',
         contents: 
         `Below you will find a message that needs to be fact checked.
         While trying keep the message as close to the original as you can,
@@ -97,7 +97,8 @@ aiRouter.post('/fact', rateLimitOnePerDay, async (req: any, res: any) => {
             // let factCheckedMessage = splitText[2].slice(1, -2);
             // let factCheckedStatement = splitText[4].slice(1, -1);
             // let listOfFallacies = normalizeToArray(splitText[6].slice(1, -1));
-            const parsedText = JSON.parse(text.slice(7, -3));
+            const fenceMatch = text.trim().match(/^```(?:json)?\s*([\s\S]*?)\s*```$/);
+            const parsedText = JSON.parse(fenceMatch ? fenceMatch[1] : text.trim());
             console.log(parsedText);
             let factCheckedMessage = parsedText.rewrittenMessage;
             console.log('fact checked message', factCheckedMessage);
@@ -137,7 +138,7 @@ await Fallacy.findOrCreate({
 //   } else {
 //     try {
 //       const { text } = await ai.models.generateContent({
-//         model: 'gemini-2.0-flash',
+//         model: 'gemini-3.6-flash',
 //         contents: 
 // `Below you will find a message that has been fact checked, 
 // but now needs to be checked for charged language.
