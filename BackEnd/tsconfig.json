@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext", // ESNext (output will be modern JS), necessary to work with Vite
-    "module": "ESNext", // module system. using import statements
-    "moduleResolution": "Node", // How to resolve modules. Node mimics node.js behavior
+    "module": "NodeNext", // module system. using import statements
+    "moduleResolution": "NodeNext", // matches Node.js ESM resolution (package.json has "type": "module")
     "outDir": "dist-server", // Where to place compiled .js files
     "rootDir": "src",
     "strict": true, // Enables all strict type-checking

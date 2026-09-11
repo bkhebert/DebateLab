@@ -1,5 +1,5 @@
 import e from "express";
-import Fallacy from "../database/models/Fallacy";
+import Fallacy from "../database/models/Fallacy.js";
 import fallacies from "./fallacies.json" with { type: 'json' }; 
 // Increases the fallacy
 const increaseFallacy = async (fallacyName, FallacyTable) => {
