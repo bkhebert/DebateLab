@@ -22,8 +22,6 @@ import OnboardingBeliefs from './views/onboardingBeliefs';
 import TheGreatConversation from './views/TheGreatConversation';
 import ExtensionDownloadPage from './views/ExtensionDownload';
 import Admin from './views/Admin';
-import CoverLetterGenerator from './views/CoverLetterGenerator';
-// import RecoilSimulatorApp from './views/PleaseHireMeHaptech';
 function App() {
 
 
@@ -52,8 +50,6 @@ function App() {
       <Route path="/onboarding/tags" element={<OnboardingTags/>} />
       <Route path="/thegreatconversation" element={<TheGreatConversation/>}/>
       <Route path="/extension" element={<ExtensionDownloadPage/>} />
-      <Route path="/coverlettergenerator" element={<CoverLetterGenerator/>}/>
-      {/* <Route path="/pleasehiremehaptech" element={<RecoilSimulatorApp/>}/> */}
      </Routes>
      </div>
       <RightSideBar />
