@@ -20,12 +20,23 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        // Matches the gradient buttons that were hand-copied 5x across
+        // Profile.tsx. Kept as its own variant so that duplication is fixed
+        // in one place, but it's a deliberate holdover from the pre-Phase-3
+        // look (the approved design system calls for minimal gradients) -
+        // a candidate to migrate to `default` in Phase 5, not a pattern to
+        // reach for in new code.
+        legacyGradient:
+          "font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
+        // Pairs with variant="legacyGradient" - matches that style's
+        // original hand-rolled sizing (rounded-xl, py-3, no fixed height).
+        menu: "h-auto rounded-xl px-0 py-3 text-base font-semibold has-[>svg]:px-0",
       },
     },
     defaultVariants: {

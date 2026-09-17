@@ -18,6 +18,7 @@ const infoNeeded = {
 import UserProfileModal from "../components/ViewProfile";
 import axios from "axios";
 import baseURL from "../constants/constant";
+import { Button } from "../components/ui/Button";
 const Profile = () => {
   const [showBeliefs, setShowBeliefs] = useState(false);
   const [showTags, setShowTags] = useState(false);
@@ -88,36 +89,23 @@ setSchoolOfThought(!schoolOfThought);
     <div className="">
  {!showTags && !showBeliefs && !schoolOfThought && (
   <div className="grid grid-cols-1 gap-4 px-4 py-6 max-w-md mx-auto">
-    <button
-      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
-      onClick={toggleBeliefs}
-    >
+    <Button variant="legacyGradient" size="menu" onClick={toggleBeliefs}>
       👁 My Beliefs
-    </button>
-    <button
-      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
-      onClick={toggleTags}
-    >
+    </Button>
+    <Button variant="legacyGradient" size="menu" onClick={toggleTags}>
       🏷 Tags
-    </button>
-    <button
-      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
-      onClick={toggleSchoolOfThoughtView}
-    >
+    </Button>
+    <Button variant="legacyGradient" size="menu" onClick={toggleSchoolOfThoughtView}>
       🧠 School of Thought
-    </button>
-    <button
-      className="font-sans bg-gradient-to-r from-purple-900 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out"
-      onClick={toggleProfileView}
-    >
+    </Button>
+    <Button variant="legacyGradient" size="menu" onClick={toggleProfileView}>
       🪪 My Profile Card
-    </button>
+    </Button>
   </div>
 )}
        <div className="grid grid-cols-1">
-      { ( showTags || showBeliefs || schoolOfThought) && 
-      <button
-      className="font-sans bg-gradient-to-r from-purple-900 mx-2 my-2 to-indigo-800 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-200 ease-in-out" onClick={toggleMenu}>Return To Edit Profile</button>}
+      { ( showTags || showBeliefs || schoolOfThought) &&
+      <Button variant="legacyGradient" size="menu" className="mx-2 my-2" onClick={toggleMenu}>Return To Edit Profile</Button>}
       </div>
 {   showBeliefs && <ProfileBeliefs isSelectingTopics={false} topicChosen={false} feedtopic={false}/>}
 {   showTags && <TagSelector />}
