@@ -3,7 +3,7 @@ import { FaFlask, FaPrayingHands, FaBook, FaBrain, FaLandmark, FaGlobe } from 'r
 import { BeliefCard } from './BeliefCard';
 import { SubBeliefCard } from './BeliefCard';
 import { BeliefModal } from './BeliefModal';
-import MobileLayout from './MobileLayout';
+import { PageHeader } from './ui/PageHeader';
 import axios from 'axios';
 import baseURL from '../constants/constant';
 import useAuth from '../contexts/useAuth';
@@ -168,16 +168,21 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
     <div className="px-6 max-w-6xl mx-auto">
       {selectedParent === null && (
         <>
-     { !isSelectingTopics && !topicSelected && <div><h1 className="text-4xl font-bold text-center mb-1">Add your beliefs</h1>
-<p className="text-xs mb-2 italic">
-  This section may take time. It’s no small task to sit with oneself and carve out truths you stand by in a world as ambiguous as ours. But take comfort—your answers aren’t final. You can revise, reflect, evolve. No A.I. will interpret your beliefs here; they are valid because they are yours. Share them not for approval, but for understanding—so others may glimpse who you are in this brief and shifting moment of being.
-</p></div> }
+     { !isSelectingTopics && !topicSelected && (
+       <PageHeader
+         title="Add your beliefs"
+         subtitle="This section may take time. It’s no small task to sit with oneself and carve out truths you stand by in a world as ambiguous as ours. But take comfort—your answers aren’t final. You can revise, reflect, evolve. No A.I. will interpret your beliefs here; they are valid because they are yours. Share them not for approval, but for understanding—so others may glimpse who you are in this brief and shifting moment of being."
+       />
+     )}
 { isSelectingTopics &&
-<div><h1 className="text-4xl font-bold text-center mb-1">Select A Topic To Debate</h1>
-
-<p className="text-xs mb-2 italic text-center">
-If you can't find something you like,there is always...  
-</p><Link to={'/thegreatconversation'}><button className="flex justify-center mx-auto p-3 bg-primary m-2 rounded text-white">The Great Conversation</button></Link></div>
+<div>
+  <PageHeader
+    title="Select A Topic To Debate"
+    subtitle="If you can't find something you like,there is always...  "
+    centerSubtitle
+  />
+  <Link to={'/thegreatconversation'}><button className="flex justify-center mx-auto p-3 bg-primary m-2 rounded text-white">The Great Conversation</button></Link>
+</div>
 }
          <div 
         className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6">

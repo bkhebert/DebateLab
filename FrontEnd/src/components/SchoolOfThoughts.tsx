@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { ThoughtCard } from './ThoughtCard';
 import { ThoughtModal } from './ThoughtModal';
+import { PageHeader } from './ui/PageHeader';
 import { FaBrain } from '@react-icons/all-files/fa/FaBrain' 
   import { FaFlask } from '@react-icons/all-files/fa/FaFlask' 
   import { FaHeart } from '@react-icons/all-files/fa/FaHeart' 
@@ -97,7 +98,7 @@ export default function SchoolOfThoughts() {
 
   return (
     <div className="py-2 px-6 max-w-6xl mx-auto">
-      <h1 className="text-4xl font-bold text-center mb-10">Schools Of Thought</h1>
+      <PageHeader title="Schools Of Thought" />
       <div className="grid grid-cols-2 lg:grid-cols-2 gap-6">
         {schools.map((school, i) => (
           <ThoughtCard
