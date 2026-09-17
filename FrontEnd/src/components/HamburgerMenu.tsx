@@ -9,6 +9,8 @@ const HamburgerMenu = () => {
     <div className="relative lg:hidden flex items-center ml-1">
       <button
         onClick={() => setOpen(!open)}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
         className="rounded-lg p-2 bg-primarylight border border-double border-4 border-primarydark dark:border-cstmneutral focus:outline-none focus:ring-2 focus:ring-cstmblack"
       >
         {open ? <X size={18} /> : <Menu size={18} />}

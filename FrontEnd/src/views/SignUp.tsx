@@ -79,7 +79,7 @@ const SignUp = () => {
                       />
                     </div>
    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-slate-900 font-medium dark:text-white">Username</Label>
+                      <Label htmlFor="username" className="text-slate-900 font-medium dark:text-white">Username</Label>
                       <Input  
                         type="username"
                         id="username"
