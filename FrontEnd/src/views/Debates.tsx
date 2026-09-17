@@ -1,4 +1,5 @@
 import DisclaimerCard from "../components/Disclaimer"
+import { Button } from "../components/ui/Button";
 import { useState } from "react";
 import ProfileBeliefs from "../components/ProfileBeliefs";
 import MobileLayout from "../components/MobileLayout";
@@ -26,9 +27,9 @@ const Debates = () => {
     <div >
         <DisclaimerCard/>
         <div className="grid grid-cols-3 gap-2 mt-1">
-        <button onClick={toggleCountCool}className="bg-cstmgreen rounded p-3">chillout brah i gotchu</button>
-        <button onClick={toggleCountHoly} className="bg-cstmblue rounded p-3">Understood I will be respectful</button>
-        <button onClick={toggleCountAsshole} className="bg-cstmred text-white rounded p-3">Hell no I am toxic</button>
+        <Button onClick={toggleCountCool} className="bg-cstmgreen rounded p-3">chillout brah i gotchu</Button>
+        <Button onClick={toggleCountHoly} className="bg-cstmblue rounded p-3">Understood I will be respectful</Button>
+        <Button onClick={toggleCountAsshole} className="bg-cstmred text-white rounded p-3">Hell no I am toxic</Button>
         </div>
         </div>
     </div>

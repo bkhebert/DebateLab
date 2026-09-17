@@ -24,15 +24,15 @@ const TheGreatConversation = () => {
     <li>Debate anonymously or as yourself</li>
     <li>Real-time audience votes coming soon</li>
   </ul>
-  <Link to={"/signUp"}><button className="w-full mt-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md transition">
+  <Link to={"/signUp"}><Button className="w-full mt-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md transition">
     Sign Up & Join The Debate
-  </button></Link>
+  </Button></Link>
   <div
       className="flex justify-center"
       ><Link to="/extension">
-        <button className="w-full mt-2 bg-lime-500 hover:bg-indigo-500 text-black rounded rounded-xl border border-5 font-semibold py-2 px-4 rounded-md transition">
+        <Button className="w-full mt-2 bg-lime-500 hover:bg-indigo-500 text-black rounded rounded-xl border border-5 font-semibold py-2 px-4 rounded-md transition">
     Download Extension
-  </button>
+  </Button>
         </Link></div>
 </div>
 <div className="bg-gradient-to-br from-fuchsia-900 via-purple-800 to-slate-900 text-white rounded-2xl p-6 shadow-xl border border-fuchsia-500/30 max-w-md mx-auto my-4 animate-fade-in">
@@ -48,15 +48,15 @@ const TheGreatConversation = () => {
     <li>Help bridge philosophical divides</li>
   </ul>
   <div className="space-y-2">
-    <button className="w-full bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold py-2 px-4 rounded-md transition">
+    <Button className="w-full bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold py-2 px-4 rounded-md transition">
       Games & Events Coming Soon!
-    </button>
+    </Button>
    <a
         href="https://www.paypal.com/donate/?business=BCJFZUCNXZ7L4&no_recurring=0&item_name=Hi%21+I+am+the+guy+who+made+DebateLab%21+This+project+is+kept+alive+by+donations+until+we+receive+funding.+Anything+helps.+%0A-Cheers&currency_code=USD"
         target="_blank"
-        rel="noopener noreferrer" className="mt-3"> <button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition">
+        rel="noopener noreferrer" className="mt-3"> <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition">
       Donate to Support the Mission 🕊️
-    </button></a> 
+    </Button></a>
   </div>
 </div>
 

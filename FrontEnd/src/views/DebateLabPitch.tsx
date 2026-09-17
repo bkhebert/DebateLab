@@ -1,3 +1,4 @@
+import { Button } from "../components/ui/Button";
 
 const DebateLabPitch = () => {
   const schoolsOfThought = [
@@ -92,9 +93,9 @@ const DebateLabPitch = () => {
               <h3 className="text-2xl font-bold mb-3">{school.name}</h3>
               <p className="italic">{school.coreBelief}</p>
               <div className="mt-4 h-1 bg-white bg-opacity-30 rounded-full"></div>
-              <button className="mt-4 px-4 py-2 bg-black bg-opacity-30 rounded-lg hover:bg-opacity-50 transition">
+              <Button className="mt-4 px-4 py-2 bg-black bg-opacity-30 rounded-lg hover:bg-opacity-50 transition">
                 Join {school.name}
-              </button>
+              </Button>
             </div>
           ))}
         </div>
@@ -109,12 +110,12 @@ const DebateLabPitch = () => {
               We're seeking partners who believe in rebuilding <span className="text-yellow-300">reason-based discourse</span>. Whether through investment, donations, or joining our beta program, help us combat the crisis of mass disinformation.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg font-bold hover:opacity-90 transition">
+              <Button className="px-8 py-3 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg font-bold hover:opacity-90 transition">
                 Invest in DebateLab
-              </button>
-              <button className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-bold hover:opacity-90 transition">
+              </Button>
+              <Button className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-bold hover:opacity-90 transition">
                 Join Beta Program
-              </button>
+              </Button>
             </div>
           </div>
         </div>
