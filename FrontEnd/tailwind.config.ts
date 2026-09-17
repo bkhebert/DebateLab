@@ -18,12 +18,55 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {    
-            covenantDark: '#1a132d',
-    covenantLight: '#3a2a5d',
-    covenantAccent: '#7c4dff',
-    neonBlue: '#00e5ff',
-        primary: '#6813F1',
+      colors: {
+        // Phase 3 design system - the semantic tokens shadcn's components
+        // (Button, Card, Input, ...) already reference via CSS variables
+        // that were never defined. Values live in src/index.css (:root / .dark).
+        background: 'hsl(var(--background) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        card: {
+          DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover) / <alpha-value>)',
+          foreground: 'hsl(var(--popover-foreground) / <alpha-value>)',
+        },
+        primary: {
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+          foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success) / <alpha-value>)',
+          foreground: 'hsl(var(--success-foreground) / <alpha-value>)',
+        },
+        border: 'hsl(var(--border) / <alpha-value>)',
+        input: 'hsl(var(--input) / <alpha-value>)',
+        ring: 'hsl(var(--ring) / <alpha-value>)',
+
+        // Legacy brand tokens - left as-is on purpose. Existing pages use
+        // these extensively; Phase 4/5 migrate markup to the tokens above
+        // incrementally instead of all at once here.
+        covenantDark: '#1a132d',
+        covenantLight: '#3a2a5d',
+        covenantAccent: '#7c4dff',
+        neonBlue: '#00e5ff',
         primarydark: '#1E142E',
         primarylight: '#A128E3',
         primaryglow: '#D8ABF4',
@@ -36,11 +79,12 @@ export default {
         cstmblack: '#111016',
         cstmneutral: '#E0E0E3',
         cstmblue: '#00D9FF',
-        cstmwhite: '#F7F6F9', 
+        cstmwhite: '#F7F6F9',
       },
       boxShadow: {
-    glow: '0 0 10px #7c4dff',
-  },
+        card: 'var(--shadow-card)',
+        glow: 'var(--shadow-glow)',
+      },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -117,7 +161,10 @@ export default {
       fontFamily: {
         mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
         exo: ['"Exo 2"', 'ui-sans-serif', 'system-ui'],
-         sans: ['Orbitron', 'ui-sans-serif', 'system-ui'],
+        // Was ['Orbitron', ...] - never loaded anywhere, so font-sans was
+        // silently falling back past it. Exo 2 is what the body font
+        // actually is; this makes font-sans agree with that everywhere.
+        sans: ['"Exo 2"', 'ui-sans-serif', 'system-ui'],
       },
     },
   },
