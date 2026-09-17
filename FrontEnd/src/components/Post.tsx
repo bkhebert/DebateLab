@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Separator } from "./ui/Separator";
+import { Button } from "./ui/Button";
 import { FaBalanceScaleLeft } from "@react-icons/all-files/fa/FaBalanceScaleLeft";
 import { useEffect, useState } from "react";
 import UserProfileModal from "./ViewProfile";
@@ -153,12 +154,12 @@ const submitReply = async (parentReplyId = null) => {
           <UserProfileModal username={postInfo.author ? postInfo.author.username : "anon"} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} school={postInfo.author ? postInfo.author.school : "This user is anonymous"} beliefs={postInfo.author ? postInfo.author.philosophies : [{category: "anon", subtopic: 'anon', description: 'anon'}]} onClose={handleClick}/>
         )}
         <Separator className="bg-black/30 mb-1 mt-1"/>
-       <div className={'flex justify-center my-3'}> <button
-  className="p-2 py-1 bg-primarylight/80 text-black rounded border border-2 border-primary/50 dark:bg-neonBlue/90"
+       <div className={'flex justify-center my-3'}> <Button
+  className="p-2 py-1 bg-primarylight/80 hover:bg-primarylight/80 text-black rounded border border-2 border-primary/50 dark:bg-neonBlue/90 dark:hover:bg-neonBlue/90"
   onClick={() => setShowReplyForm(!showReplyForm)}
 >
   DEBATE
-</button></div>
+</Button></div>
  {postInfo.Replies && postInfo.Replies.length > 0 && (
   <div className="mt-4 pl-4 border-l-2 border-gray-300">
     {postInfo.Replies.slice().reverse().map((reply) => (
@@ -203,14 +204,14 @@ const submitReply = async (parentReplyId = null) => {
           </div>
         )}
 
-        <button
-          className="text-xs text-blue-600 hover:underline"
+        <Button
+          className="h-auto w-auto p-0 bg-transparent hover:bg-transparent text-xs text-blue-600 hover:underline"
           onClick={() => {
             setShowReplyForm(true);
           }}
         >
           Reply
-        </button>
+        </Button>
       </div>
     ))}
   </div>
@@ -223,12 +224,12 @@ const submitReply = async (parentReplyId = null) => {
       onChange={(e) => setReplyText(e.target.value)}
       placeholder="Write your reply..."
     />
-    <button
-      className="mt-1 bg-green-500 text-white px-2 py-1 rounded"
+    <Button
+      className="mt-1 bg-green-500 hover:bg-green-500 text-white px-2 py-1 rounded"
       onClick={() => submitReply()}
     >
       Submit Reply
-    </button>
+    </Button>
   </div>
 )}
         </div>

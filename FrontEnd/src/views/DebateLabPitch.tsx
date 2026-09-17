@@ -93,7 +93,7 @@ const DebateLabPitch = () => {
               <h3 className="text-2xl font-bold mb-3">{school.name}</h3>
               <p className="italic">{school.coreBelief}</p>
               <div className="mt-4 h-1 bg-white bg-opacity-30 rounded-full"></div>
-              <Button className="mt-4 px-4 py-2 bg-black bg-opacity-30 rounded-lg hover:bg-opacity-50 transition">
+              <Button className="mt-4 px-4 py-2 bg-black/30 hover:bg-black/50 rounded-lg transition">
                 Join {school.name}
               </Button>
             </div>

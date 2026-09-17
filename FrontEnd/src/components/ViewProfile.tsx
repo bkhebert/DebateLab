@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import { Button } from "./ui/Button";
 
 interface Belief {
   category: string;
@@ -29,12 +30,12 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
       <div className="relative w-full max-w-3xl mx-auto p-6 rounded-2xl shadow-2xl border border-violet-600 bg-gradient-to-br from-[#3b0a56] via-[#4b117a] to-[#250044] text-white">
-        <button
+        <Button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:text-violet-300"
+          className="absolute top-4 right-4 h-auto w-auto p-0 bg-transparent hover:bg-transparent text-white hover:text-violet-300"
         >
           <X size={24} />
-        </button>
+        </Button>
 
         <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
           <div className="flex-shrink-0">

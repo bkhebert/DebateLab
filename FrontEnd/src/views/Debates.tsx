@@ -27,9 +27,9 @@ const Debates = () => {
     <div >
         <DisclaimerCard/>
         <div className="grid grid-cols-3 gap-2 mt-1">
-        <Button onClick={toggleCountCool} className="bg-cstmgreen rounded p-3">chillout brah i gotchu</Button>
-        <Button onClick={toggleCountHoly} className="bg-cstmblue rounded p-3">Understood I will be respectful</Button>
-        <Button onClick={toggleCountAsshole} className="bg-cstmred text-white rounded p-3">Hell no I am toxic</Button>
+        <Button onClick={toggleCountCool} className="bg-cstmgreen hover:bg-cstmgreen rounded p-3">chillout brah i gotchu</Button>
+        <Button onClick={toggleCountHoly} className="bg-cstmblue hover:bg-cstmblue rounded p-3">Understood I will be respectful</Button>
+        <Button onClick={toggleCountAsshole} className="bg-cstmred hover:bg-cstmred text-white rounded p-3">Hell no I am toxic</Button>
         </div>
         </div>
     </div>

@@ -29,10 +29,10 @@ const AnalyzerCard = ({closeModal, topic, showLogo, isDemo, showExit}: AnalyzerC
           </div>
         </div>
       <div className="mx-auto mr-1 ">
-        {!isDemo && showExit && <button 
-        className="rounded bg-red-400/80 dark:bg-cstmblack/80 m-1 text-sm p-3"
+        {!isDemo && showExit && <Button
+        className="rounded bg-red-400/80 hover:bg-red-400/80 dark:bg-cstmblack/80 dark:hover:bg-cstmblack/80 m-1 text-sm p-3"
         onClick={closeModal}
-        >X</button>}
+        >X</Button>}
       </div>
       </div>
         <p className="lg:hidden mb-1 font-mono text-center text-lg italic font-bold">

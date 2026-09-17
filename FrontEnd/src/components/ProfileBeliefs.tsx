@@ -4,6 +4,7 @@ import { BeliefCard } from './BeliefCard';
 import { SubBeliefCard } from './BeliefCard';
 import { BeliefModal } from './BeliefModal';
 import { PageHeader } from './ui/PageHeader';
+import { Button } from './ui/Button';
 import axios from 'axios';
 import baseURL from '../constants/constant';
 import useAuth from '../contexts/useAuth';
@@ -181,7 +182,7 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
     subtitle="If you can't find something you like,there is always...  "
     centerSubtitle
   />
-  <Link to={'/thegreatconversation'}><button className="flex justify-center mx-auto p-3 bg-primary m-2 rounded text-white">The Great Conversation</button></Link>
+  <Link to={'/thegreatconversation'}><Button className="flex justify-center mx-auto p-3 hover:bg-primary bg-primary m-2 rounded text-white">The Great Conversation</Button></Link>
 </div>
 }
          <div 
@@ -205,8 +206,8 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   
       {selectedParent !== null && (
         <>
-          <button onClick={() => setSelectedParent(null)} className={`mt-1 text-blue-600 underline border border-black`}>
-            {`${(isSelectingTopics && topicSelected) ? "Back" : "Back" }`}</button>
+          <Button onClick={() => setSelectedParent(null)} className="mt-1 text-blue-600 bg-transparent hover:bg-transparent underline border border-black">
+            {`${(isSelectingTopics && topicSelected) ? "Back" : "Back" }`}</Button>
           <h2 className="text-3xl font-semibold text-center mb-8">{beliefs[selectedParent].title}</h2>
           <div className={`${(isSelectingTopics && topicSelected) ? "hidden " : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6"} `}>
             {beliefs[selectedParent].subs.map((sub) => (

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
+import { Button } from "../components/ui/Button";
 export default function ExtensionDownloadPage() {
     const handleDownload = async () => {
     try {
@@ -40,12 +41,12 @@ export default function ExtensionDownloadPage() {
         </header>
 
         <section className="mb-10 text-center">
-          <button
+          <Button
             onClick={handleDownload}
             className="inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-md hover:bg-primarylight dark:hover:bg-cstmdarkaccent transition"
           >
             Download v1.0.0
-          </button>
+          </Button>
         </section>
 
         <section className="mb-16">

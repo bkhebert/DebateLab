@@ -1,6 +1,7 @@
 import AnalyzerCard from "./AnalyzerCard"
 import Feed from "./Feed"
 import { Separator } from "@radix-ui/react-separator"
+import { Button } from "./ui/Button"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const MobileLayout = ({topic}) => {
@@ -46,9 +47,9 @@ const MobileLayout = ({topic}) => {
      
         <Separator className="mt-2 mb-2 bg-cstmblack" />
           { !topic && <div className="flex justify-center mt-3">
-          <button 
+          <Button
           onClick={toTopics}
-          className="bg-white text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</button>
+          className="bg-white hover:bg-white text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</Button>
         </div>}
         <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent debates{topic? ` on ${topic}`: ""}</h6>
         

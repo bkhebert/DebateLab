@@ -9,6 +9,7 @@ import FallacyList from "./FallacyList";
 import { FaTable } from "react-icons/fa";
 import { Loader } from "lucide-react";
 import { ShimmerButton } from "./ui/ShimmerButton";
+import { Button } from "./ui/Button";
 import useAuth from "../contexts/useAuth";
 type FactCheckResponse = {
   factCheckedMessage: string;
@@ -250,24 +251,24 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
             
             </div>
             <div className="col-span-2 flex justify-center">
-              <button
+              <Button
                 className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
                 onClick={() => { setAiResponse(null); }}
               >
                 Back
-              </button>
-              <button
+              </Button>
+              <Button
                 className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
                 onClick={() => { acceptOriginalPost(topic); }}
               >
                 Accept Original Post
-              </button>
-              <button
+              </Button>
+              <Button
                 className="mt-2 mb-2 text-white px-4 py-2 rounded mr-2 bg-cstmdarkaccent hover:bg-primary"
                 onClick={() => { acceptRevisedPost(topic); }}
               >
                 Accept Revised Post
-              </button>
+              </Button>
             </div>
           </div>
         }
