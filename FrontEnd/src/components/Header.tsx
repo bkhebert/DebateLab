@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 const Header = () => {
   return (
-    <div className="lg:fixed lg:top-0 lg:right-0 lg:left-0 grid grid-cols-3 border border-btm border-cstmblack bg-primarylight/50 z-10">
+    <div className="lg:fixed lg:top-0 lg:right-0 lg:left-0 grid grid-cols-3 border-b border-border bg-primarylight/50 z-10">
       
       <div className="grid grid-cols-3">
       <HamburgerMenu /> {/* 👈 Now mobile only */}
@@ -21,8 +21,8 @@ const Header = () => {
         <div className="hidden lg:flex"></div>
         <div className="hidden lg:flex"></div>
       <div className="grid grid-cols-3">
-       <Link to="/signIn"> <p className="hidden lg:flex mr-1 mx-auto mt-2 my-auto text-black dark:text-primaryglow hover:!text-cstmgold">Log in</p></Link>
-        <Link to="/signUp"> <p className="hidden lg:flex mx-auto mt-2 my-auto text-black dark:text-primaryglow hover:!text-cstmgreen">Sign up</p></Link>
+       <Link to="/signIn"> <p className="hidden lg:flex mr-1 mx-auto mt-2 my-auto text-foreground hover:text-primary transition-colors">Log in</p></Link>
+        <Link to="/signUp"> <p className="hidden lg:flex mx-auto mt-2 my-auto text-foreground hover:text-primary transition-colors">Sign up</p></Link>
       <DarkModeToggle/>
       </div>
       </div>

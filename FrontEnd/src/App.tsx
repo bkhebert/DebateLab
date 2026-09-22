@@ -34,7 +34,7 @@ function App() {
         <div className="lg:py-8"></div>
       <div className={`grid grid-cols-1 lg:grid-cols-12 h-screen`}>
     <LeftSideBar />
-  <div className="col-span-8">
+  <div className="lg:col-span-8">
      <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/admin" element={<Admin/>}/>

@@ -20,23 +20,23 @@ const HamburgerMenu = () => {
       {open && (
         <div 
         onClick={()=> {setOpen(false)}}
-        className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50">
-          <nav className="flex flex-col text-left text-sm text-cstmblack">
-            <Link to="/"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+        className="absolute top-full left-0 mt-2 w-48 bg-card shadow-card border border-border rounded-md z-50">
+          <nav className="flex flex-col text-left text-sm text-card-foreground">
+            <Link to="/"><li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
             Home</li></Link>
-            { user ? <Link to="/profile"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            { user ? <Link to="/profile"><li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
             Profile</li></Link> : null}
-           <Link to="/analyzer"> <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+           <Link to="/analyzer"> <li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
             Analyze</li></Link>
-            <Link to="/debates"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            <Link to="/debates"><li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
             Debates</li></Link>
-            { user ? null :  <Link to="/signIn"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            { user ? null :  <Link to="/signIn"><li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
            Log in</li></Link>}
-            { user ? null :  <Link to="/signUp"><li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            { user ? null :  <Link to="/signUp"><li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
            Sign up</li></Link>}
-            { user ?<Link to="/logout"> <li className="p-4 hover:bg-gray-100 cursor-pointer border-solid border-primary/30 border-2">
+            { user ?<Link to="/logout"> <li className="p-4 hover:bg-accent cursor-pointer border-solid border-primary/30 border-2">
             Log out</li></Link> : null}
-            <li className="p-4 hover:bg-gray-100 cursor-pointer">
+            <li className="p-4 hover:bg-accent cursor-pointer">
             <div className="flex justify-center">
           {/* <a href='/About'>About</a> */}
       <a
