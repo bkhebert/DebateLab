@@ -1,10 +1,7 @@
-import { Separator } from "../components/ui/Separator";
 import AnalyzerCard from "../components/AnalyzerCard";
-import Feed from "../components/Feed";
 import { IconCloudDemo } from "../components/ui/IconCloudDemo";
 import MagicBoxIntro from "../components/MagicBoxIntro";
 import { Marquee3D } from "../components/3DFeed";
-import { HorizontalFeed } from "../components/HorizontalFeed";
 const DesktopLayout = () => {
   const handleclose = () => {
     return null;
@@ -39,29 +36,7 @@ const DesktopLayout = () => {
     </div>
   </div>
   </div>
-
-  {/* Feed section */}
-  <div className="px-6 lg:px-12 py-12 bg-gray-50 dark:bg-primarydark/50">
-    <div className="max-w-7xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-6">
-        Recent Debates & Analyzed Arguments
-      </h2>
-      <div className="space-y-6">
-        
-        <HorizontalFeed /> 
-      </div>
-    </div>
-  </div>
 </div>
-   
-    // <div className="grid grid-cols-3 grid-rows-5 bg-red-400 w-full">
-    //   <div className="flex justify-center col-span-2 row-span-3 bg-blue-400">What is Debate Labs?</div>
-    //   <div className="flex justify-center col-span-1 row-span-3 bg-yellow-300"></div>
-
-    //   <div className="flex justify-center col-span-3 row-span-2 bg-green-300">
-    //     <Separator className="bg-black"/>
-    //   </div>
-    // </div>
   )
 }
 
