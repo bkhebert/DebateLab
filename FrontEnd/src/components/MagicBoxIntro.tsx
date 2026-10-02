@@ -12,7 +12,7 @@ const MagicBoxIntro = () => {
             <img
               src={`/debatelabblack.png`}
               alt="DebateLab Logo"
-              className="w-32 md:w-80 mx-aut"
+              className="w-32 md:w-80 mx-auto"
             />
           </div>
       </BoxReveal>

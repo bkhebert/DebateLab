@@ -30,7 +30,7 @@ const TheGreatConversation = () => {
   <div
       className="flex justify-center"
       ><Link to="/extension">
-        <Button className="w-full mt-2 bg-lime-500 hover:bg-indigo-500 text-black rounded rounded-xl border border-5 font-semibold py-2 px-4 rounded-md transition">
+        <Button className="w-full mt-2 bg-lime-500 hover:bg-indigo-500 text-black rounded-xl border border-4 font-semibold py-2 px-4 transition">
     Download Extension
   </Button>
         </Link></div>

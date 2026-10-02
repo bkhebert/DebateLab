@@ -19,6 +19,7 @@ import UserProfileModal from "../components/ViewProfile";
 import axios from "axios";
 import baseURL from "../constants/constant";
 import { Button } from "../components/ui/Button";
+import { Eye, Tag, Brain, IdCard } from "lucide-react";
 const Profile = () => {
   const [showBeliefs, setShowBeliefs] = useState(false);
   const [showTags, setShowTags] = useState(false);
@@ -90,16 +91,16 @@ setSchoolOfThought(!schoolOfThought);
  {!showTags && !showBeliefs && !schoolOfThought && (
   <div className="grid grid-cols-1 gap-4 px-4 py-6 max-w-md mx-auto">
     <Button variant="legacyGradient" size="menu" onClick={toggleBeliefs}>
-      👁 My Beliefs
+      <Eye /> My Beliefs
     </Button>
     <Button variant="legacyGradient" size="menu" onClick={toggleTags}>
-      🏷 Tags
+      <Tag /> Tags
     </Button>
     <Button variant="legacyGradient" size="menu" onClick={toggleSchoolOfThoughtView}>
-      🧠 School of Thought
+      <Brain /> School of Thought
     </Button>
     <Button variant="legacyGradient" size="menu" onClick={toggleProfileView}>
-      🪪 My Profile Card
+      <IdCard /> My Profile Card
     </Button>
   </div>
 )}
