@@ -9,7 +9,9 @@
     "build": "tsc && npm run seed",
     "start": "node dist-server/index.js ",
     "type-check": "tsc --noEmit",
-    "seed": "node dist-server/database/seed/seedAnonymous.js"
+    "seed": "node dist-server/database/seed/seedAnonymous.js",
+    "seed:demo": "tsx src/database/seed/seedDemoData.ts",
+    "seed:demo:clean": "tsx src/database/seed/cleanDemoData.ts"
   },
   "keywords": [],
   "author": "",
