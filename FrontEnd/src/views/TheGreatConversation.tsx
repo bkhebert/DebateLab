@@ -11,7 +11,7 @@ const TheGreatConversation = () => {
   
   return (
     <div className="">
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="bg-gradient-to-br from-purple-900 via-indigo-800 to-gray-900 text-white rounded-2xl p-6 shadow-xl border border-purple-500/30 max-w-md mx-auto my-4 animate-fade-in">
   <h2 className="text-2xl font-extrabold mb-2 tracking-tight">
     ⚔️ The Arena Awaits
