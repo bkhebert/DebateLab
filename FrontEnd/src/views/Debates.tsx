@@ -38,8 +38,8 @@ const Debates = () => {
     <ProfileBeliefs isSelectingTopics={true} feedtopic={(e) => setSelectedSub(e)} topicChosen={false}/>
    <div className="text-center text-primary"> The best way to use this app is to be honest about who you are and what you believe in.</div>
       </div>}
-      {selectedSub && <MobileLayout 
-      topic={selectedSub}/>}
+      {selectedSub && <MobileLayout
+      feedTopic={selectedSub} displayTopic={selectedSub} postTopic={selectedSub}/>}
     </div>
   )
 }

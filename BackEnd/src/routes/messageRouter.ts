@@ -1,7 +1,68 @@
 import { Router } from "express";
+import { Op } from "sequelize";
 import { Message, PoliticalView, User, Reply, UserPhilosophy } from "../database/models/index.js";
 
 const messageRouter = Router();
+
+const authorInclude = {
+  model: User,
+  as: 'author' as const,
+  attributes: ['id', 'username', 'school'],
+  include: [
+    {
+      model: PoliticalView,
+      attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
+      required: false,
+    },
+    {
+      model: UserPhilosophy,
+      as: 'philosophies' as const,
+      attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
+      required: false,
+    },
+  ],
+};
+
+/*
+  Fetches every reply belonging to a message as a flat list, then nests it
+  into a tree by parentReplyId - unlike a fixed-depth Sequelize `include`,
+  this supports replies-to-replies at any depth, not just one level.
+*/
+async function buildReplyTree(messageId: number) {
+  const flatReplies = await Reply.findAll({
+    where: { messageId },
+    include: [authorInclude],
+    order: [['createdAt', 'ASC']],
+  });
+
+  const plainReplies = flatReplies.map((reply) => reply.toJSON() as any);
+  const byId = new Map<number, any>();
+  plainReplies.forEach((reply) => {
+    reply.children = [];
+    byId.set(reply.id, reply);
+  });
+
+  const roots: any[] = [];
+  plainReplies.forEach((reply) => {
+    if (reply.parentReplyId && byId.has(reply.parentReplyId)) {
+      byId.get(reply.parentReplyId).children.push(reply);
+    } else {
+      roots.push(reply);
+    }
+  });
+
+  return roots;
+}
+
+async function attachReplyTrees(messages: any[]) {
+  return Promise.all(
+    messages.map(async (message) => {
+      const plain = message.toJSON();
+      plain.Replies = await buildReplyTree(plain.id);
+      return plain;
+    })
+  );
+}
 
 /*
   POST /api/message
@@ -34,82 +95,39 @@ messageRouter.post('/', async (req:any, res:any) => {
 /*
   GET /api/message/:topic
     - Fetch messages for a given topic, including nested replies and author metadata
+    - :topic may be several sub-topics joined with "|" (e.g. picking a whole
+      subject in the frontend's RightSideBar aggregates all of its sub-topics)
 */
 messageRouter.get('/:topic', async (req, res) => {
   const { topic } = req.params;
+  const topics = topic.includes('|') ? topic.split('|') : [topic];
 
   const posts = await Message.findAll({
-    where: { topic },
-    include: [
-      {
-        model: User,
-        as: 'author',
-        attributes: ['id', 'username', 'school'],
-        include: [
-          {
-            model: PoliticalView,
-            attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-          },
-          {
-            model: UserPhilosophy,
-            as: 'philosophies',
-            attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-            required: false,
-          },
-        ],
-      },
-      {
-        model: Reply,
-        where: { parentReplyId: null },
-        required: false,
-        include: [
-          {
-            model: User,
-            as: 'author',
-            attributes: ['id', 'username', 'school'],
-            include: [
-              {
-                model: PoliticalView,
-                attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-                required: false,
-              },
-              {
-                model: UserPhilosophy,
-                as: 'philosophies',
-                attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-              },
-            ],
-          },
-          {
-            model: Reply,
-            as: 'children',
-            include: [
-              {
-                model: User,
-                as: 'author',
-                attributes: ['id', 'username', 'school'],
-                include: [
-                  {
-                    model: PoliticalView,
-                    attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-                  },
-                  {
-                    model: UserPhilosophy,
-                    as: 'philosophies',
-                    attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-                    required: false,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    where: { topic: topics.length > 1 ? { [Op.in]: topics } : topics[0] },
+    include: [authorInclude],
     order: [['createdAt', 'DESC']],
   });
 
-  res.json(posts);
+  res.json(await attachReplyTrees(posts));
+});
+
+/*
+  GET /api/message/single/:id
+    - Fetch one message (with its full reply tree) by id - used to refresh
+      a single post's thread after a reply is posted, without refetching
+      the whole feed.
+*/
+messageRouter.get('/single/:id', async (req: any, res: any) => {
+  try {
+    const message = await Message.findByPk(req.params.id, { include: [authorInclude] });
+    if (!message) return res.sendStatus(404);
+
+    const [withReplies] = await attachReplyTrees([message]);
+    res.json(withReplies);
+  } catch (error) {
+    console.error('Failed to GET /api/message/single/:id:', error);
+    res.sendStatus(500);
+  }
 });
 
 /*
@@ -146,81 +164,11 @@ messageRouter.post('/reply', async (req:any, res:any) => {
 messageRouter.get('/all/recent', async (req, res) => {
   try {
     const posts = await Message.findAll({
-      where: {
-        // Only get original posts (not replies)
-        // Assuming replies are stored in the Reply table only
-      },
-      include: [
-        {
-          model: User,
-          as: 'author',
-          attributes: ['id', 'username', 'school'],
-          include: [
-            {
-              model: PoliticalView,
-              attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-            },
-            {
-              model: UserPhilosophy,
-              as: 'philosophies',
-              attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-              required: false,
-            },
-          ],
-        },
-        {
-          model: Reply,
-          where: { parentReplyId: null }, // Only top-level replies
-          required: false,
-          include: [
-            {
-              model: User,
-              as: 'author',
-              attributes: ['id', 'username', 'school'],
-              include: [
-                {
-                  model: PoliticalView,
-                  attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-                  required: false,
-                },
-                {
-                  model: UserPhilosophy,
-                  as: 'philosophies',
-                  attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-                },
-              ],
-            },
-            {
-              model: Reply,
-              as: 'children', // Nested replies
-              include: [
-                {
-                  model: User,
-                  as: 'author',
-                  attributes: ['id', 'username', 'school'],
-                  include: [
-                    {
-                      model: PoliticalView,
-                      attributes: { exclude: ['id', 'email', 'createdAt', 'updatedAt'] },
-                    },
-                    {
-                      model: UserPhilosophy,
-                      as: 'philosophies',
-                      attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
-                      required: false,
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      include: [authorInclude],
       order: [['createdAt', 'DESC']],
       limit: 10, // Only get 10 most recent
     });
-    console.log(JSON.stringify(posts), 'this ************')
-    res.json(posts);
+    res.json(await attachReplyTrees(posts));
   } catch (error) {
     console.error('Failed to GET /api/message/all/recent:', error);
     res.sendStatus(500);

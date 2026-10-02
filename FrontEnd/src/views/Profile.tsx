@@ -1,6 +1,7 @@
 import ProfileBeliefs from "../components/ProfileBeliefs";
 import TagSelector from "../components/TagSelector";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import SchoolOfThoughts from "../components/SchoolOfThoughts";
 import useAuth from "../contexts/useAuth";
 import { tokenManager } from "../utils/tokenManager";
@@ -21,10 +22,14 @@ import baseURL from "../constants/constant";
 import { Button } from "../components/ui/Button";
 import { Eye, Tag, Brain, IdCard } from "lucide-react";
 const Profile = () => {
-  const [showBeliefs, setShowBeliefs] = useState(false);
-  const [showTags, setShowTags] = useState(false);
-   const [showProfileView, setShowProfileView] = useState(false);
-   const [schoolOfThought, setSchoolOfThought] = useState(false);
+  // RightSideBar links directly here with ?view=beliefs|tags|school|card so
+  // the target panel opens immediately instead of landing on the menu first.
+  const [searchParams] = useSearchParams();
+  const initialView = searchParams.get("view");
+  const [showBeliefs, setShowBeliefs] = useState(initialView === "beliefs");
+  const [showTags, setShowTags] = useState(initialView === "tags");
+   const [showProfileView, setShowProfileView] = useState(initialView === "card");
+   const [schoolOfThought, setSchoolOfThought] = useState(initialView === "school");
    const { user } = useAuth();
    const [userDetails, setUserDetails] = useState<any>(user);
 

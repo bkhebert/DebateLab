@@ -1,56 +1,9 @@
-import { FaLeaf, FaDharmachakra,  FaTree, FaSpinner, FaHandPeace, FaCrown, FaStarOfDavid, FaStarAndCrescent, FaGavel,  FaDice, FaUserSecret, FaFistRaised, FaArrowAltCircleUp, FaSmileWink, FaShieldAlt, FaBalanceScale, FaHeart, FaSkull, FaSmile, FaBiohazard, FaDove, FaCross, FaFire, FaYinYang, FaQuestion } from "react-icons/fa";
 import { tokenManager } from "../utils/tokenManager";
-import { GiJesterHat, GiLibertyWing, GiThreeLeaves, GiHammerSickle } from "react-icons/gi";
-import { MdOutlineCancel } from "react-icons/md";
-import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import { IoMdChatbubbles } from "react-icons/io";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import baseURL from "../constants/constant";
 import Tag from "./Tag";
-const icons = {
-   "FaHeart": <FaHeart />, 
-   "FaBalanceScale": <FaBalanceScale />, 
-   "GiLibertyWing": <GiLibertyWing />, 
-   "GiHammerSickle": <GiHammerSickle />, 
-   "FaGavel": <FaGavel />, 
-   
-   "FaDove": <FaDove />, 
-   "BsGenderFemale": <BsGenderFemale />, 
-  "BsGenderMale": <BsGenderMale />, 
- 
-   "FaLeaf": <FaLeaf />, 
-  "FaQuestion": <FaQuestion />, 
-  "FaSkull": <FaSkull />, 
-  
-   "FaBiohazard": <FaBiohazard />, 
-   
-   "FaSmile": <FaSmile />, 
- "IoMdChatbubbles": <IoMdChatbubbles />, 
- "MdOutlineCancel": <MdOutlineCancel />, 
-   "FaFire": <FaFire />, 
- "FaDice": <FaDice />, 
- 
-   "GiThreeLeaves": <GiThreeLeaves />, 
-   "FaCross": <FaCross />, 
-   "FaStarAndCrescent": <FaStarAndCrescent />, 
- 
-   "FaYinYang": <FaYinYang />, 
-   "FaStarOfDavid": <FaStarOfDavid />, 
-   "FaDharmachakra": <FaDharmachakra />, 
-   "FaHandPeace": <FaHandPeace />, 
-   
-   "FaTree": <FaTree />, 
-   "GiJesterHat": <GiJesterHat />, 
-  
-"FaSnileWink": <FaSmileWink />, 
-   "FaArrowAltCircleUp": <FaArrowAltCircleUp />, 
-   "FaShieldAlt": <FaShieldAlt />, 
-   "FaCrown": <FaCrown/>,  
-   "FaFistRaised": <FaFistRaised />, 
- "FaUserSecret": <FaUserSecret />,  
-  "FaSpinner":<FaSpinner/>,
-};
+import { tagIcons as icons } from "../utils/tagIcons";
 
 export default function TagSelector() {
   const [ tags, setTags] = useState([]);
