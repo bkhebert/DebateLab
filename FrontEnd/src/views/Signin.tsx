@@ -75,7 +75,7 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
                     )}
         </CardDescription>
         <CardAction>
-          <Link to="/signUp"><Button className="bg-cstmblack text-cstmwhite"variant="link">Sign Up</Button></Link>
+          <Link to="/signUp"><Button variant="secondary">Sign Up</Button></Link>
         </CardAction>
       </CardHeader>
       <CardContent>

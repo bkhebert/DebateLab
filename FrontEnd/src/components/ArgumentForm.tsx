@@ -148,12 +148,11 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
           ${isDemo ? "w-full" : "w-full max-w-md"}
            mx-auto 
           mt-1
-          bg-cstmwhite 
-          text-cstmblack
-          dark:bg-cstmblack dark:text-cstmwhite
+          bg-background
+          text-foreground
           rounded-lg
           border
-          border-cstmgray `}>
+          border-border `}>
       <textarea
         id="argument"
         name="argument"
@@ -169,12 +168,11 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
           rounded-lg
           outline-none
           bg-transparent
-          text-cstmblack
-          dark:text-cstmwhite
+          text-foreground
           p-4
           pr-8  /* enough padding for the button */
           text-lg
-          placeholder:text-cstmgray
+          placeholder:text-muted-foreground
           focus:outline-none
           transition-all
           duration-150

@@ -67,59 +67,59 @@ const SignUp = () => {
                     )}
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-slate-900 font-medium dark:text-white">Email Address</Label>
-                      <Input  
+                      <Label htmlFor="email" className="text-foreground font-medium">Email Address</Label>
+                      <Input
                         type="email"
                         id="email"
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full h-12  dark:text-white border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12"
                         disabled={isSubmitting}
                       />
                     </div>
    <div className="space-y-2">
-                      <Label htmlFor="username" className="text-slate-900 font-medium dark:text-white">Username</Label>
-                      <Input  
+                      <Label htmlFor="username" className="text-foreground font-medium">Username</Label>
+                      <Input
                         type="username"
                         id="username"
                         placeholder="bigbrainmansplain"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="w-full h-12 border-slate-300 focus:border-blue-500 dark:bg-primary focus:ring-blue-500"
+                        className="w-full h-12"
                         disabled={isSubmitting}
                       />
                     </div>
-                    <div className="space-y-2 dark:text-white">
-                      <Label htmlFor="password" className="text-slate-900 font-medium dark:text-white">Password</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="password" className="text-foreground font-medium">Password</Label>
                       <Input
                         type="password"
                         id="password"
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full h-12 border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12"
                         disabled={isSubmitting}
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword" className="text-slate-900 font-medium dark:text-white">Confirm Password</Label>
+                      <Label htmlFor="confirmPassword" className="text-foreground font-medium">Confirm Password</Label>
                       <Input
                         type="password"
                         id="confirmPassword"
                         placeholder="••••••••"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full h-12 border-slate-300 dark:bg-primary focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full h-12"
                         disabled={isSubmitting}
                         onKeyPress={(e) => e.key === 'Enter' && handleSignUp()}
                       />
                     </div>
 
-                    <div className="space-y-4 pt-2 dark:text-white">
-                      <Button 
-                        className="w-full bg-covenantLight hover:bg-primary dark:bg-neonBlue text-white font-semibold py-3 h-12 rounded-xl"
+                    <div className="space-y-4 pt-2">
+                      <Button
+                        className="w-full font-semibold py-3 h-12 rounded-xl"
                         onClick={handleSignUp}
                         disabled={isSubmitting}
                       >
