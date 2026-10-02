@@ -46,12 +46,12 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
     setError("");
 
     try {
-      const success = await login(email, password);
-      if (success) {
+      const result = await login(email, password);
+      if (result.success) {
 
         navigate('/');
       } else {
-        setError("Invalid email or password");
+        setError(result.error || "Invalid email or password.");
       }
     } catch (err) {
       console.error("❌ Login error:", err);

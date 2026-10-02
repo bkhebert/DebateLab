@@ -36,44 +36,89 @@ describe('AuthContext', () => {
     const { result } = setup();
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    let success = false;
+    let outcome;
     await act(async () => {
-      success = await result.current.login('a@b.com', 'password1');
+      outcome = await result.current.login('a@b.com', 'password1');
     });
 
-    expect(success).toBe(true);
+    expect(outcome).toEqual({ success: true });
     expect(result.current.user).toEqual({ id: '1', email: 'a@b.com' });
     expect(sessionStorage.getItem('debatelab_jwt_token')).toBe('tok');
   });
 
-  it('login returns false and sets no user when the server rejects credentials', async () => {
+  it('login surfaces the real server error message when credentials are rejected', async () => {
     mockFetchOnce({ ok: false, json: async () => ({ error: 'Invalid credentials' }) });
 
     const { result } = setup();
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    let success = true;
+    let outcome;
     await act(async () => {
-      success = await result.current.login('a@b.com', 'wrong-password');
+      outcome = await result.current.login('a@b.com', 'wrong-password');
     });
 
-    expect(success).toBe(false);
+    // The exact server-provided message must come through, not a generic
+    // frontend guess - this is what the SignUp.tsx "Email may already
+    // exist" bug got wrong (it showed that fixed string for every failure,
+    // including ones that had nothing to do with a duplicate email).
+    expect(outcome).toEqual({ success: false, error: 'Invalid credentials' });
     expect(result.current.user).toBeNull();
     expect(sessionStorage.getItem('debatelab_jwt_token')).toBeNull();
   });
 
-  it('login returns false (not a thrown error) when the network call itself fails', async () => {
-    global.fetch = jest.fn().mockRejectedValue(new Error('network down')) as unknown as typeof fetch;
+  it('login surfaces a network-failure message (not a misleading server-rejection message) when the request itself fails', async () => {
+    // Simulates exactly what a CORS block looks like to the calling code:
+    // fetch() rejects before any response is ever received.
+    global.fetch = jest.fn().mockRejectedValue(new TypeError('Failed to fetch')) as unknown as typeof fetch;
 
     const { result } = setup();
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    let success = true;
+    let outcome;
     await act(async () => {
-      success = await result.current.login('a@b.com', 'password1');
+      outcome = await result.current.login('a@b.com', 'password1');
     });
 
-    expect(success).toBe(false);
+    expect(outcome.success).toBe(false);
+    expect(outcome.error).toMatch(/unable to reach the server/i);
+  });
+
+  it('signup surfaces the real server error message on rejection (regression test for the "may already exist" bug)', async () => {
+    // This is the actual bug report: Barry filled out SignUp.tsx with
+    // genuinely fresh data and got "Failed to create account. Email may
+    // already exist." - that hardcoded string showed for ANY failure, and
+    // the real cause turned out to be a CORS misconfiguration having
+    // nothing to do with duplicate emails. The fix makes signup() surface
+    // whatever the server actually said.
+    mockFetchOnce({ ok: false, json: async () => ({ error: 'Password must be at least 6 characters' }) });
+
+    const { result } = setup();
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.signup('a@b.com', 'short', 'someone');
+    });
+
+    expect(outcome).toEqual({ success: false, error: 'Password must be at least 6 characters' });
+    expect(result.current.user).toBeNull();
+  });
+
+  it('signup surfaces a network-failure message distinct from a server rejection', async () => {
+    global.fetch = jest.fn().mockRejectedValue(new TypeError('Failed to fetch')) as unknown as typeof fetch;
+
+    const { result } = setup();
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.signup('a@b.com', 'password1', 'someone');
+    });
+
+    expect(outcome.success).toBe(false);
+    expect(outcome.error).toMatch(/unable to reach the server/i);
+    // Specifically must NOT be the old hardcoded guess about duplicate emails.
+    expect(outcome.error).not.toMatch(/already exist/i);
   });
 
   it('an existing token is verified on mount and populates the user', async () => {

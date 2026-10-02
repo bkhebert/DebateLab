@@ -9,15 +9,22 @@ interface User {
   [key: string]: unknown;
 }
 
+interface AuthResult {
+  success: boolean;
+  error?: string;
+}
+
 interface AuthContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  signup: (email: string, password: string, username: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<AuthResult>;
+  signup: (email: string, password: string, username: string) => Promise<AuthResult>;
   logout: () => Promise<void>;
 }
+
+const NETWORK_ERROR_MESSAGE = 'Unable to reach the server. Check your connection and try again.';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -56,7 +63,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   checkAuth();
 }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<AuthResult> => {
     try {
       const response = await fetch(`${baseURL}/jwt/auth/signin`, {
         method: 'POST',
@@ -67,23 +74,23 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       });
 
       if (response.ok) {
-        
+
         const data = await response.json();
         tokenManager.setToken(data.accessToken);
         setUser(data.user);
-        return true;
+        return { success: true };
       } else {
-        const error = await response.json();
+        const error = await response.json().catch(() => ({}));
         console.error(error);
-        return false;
+        return { success: false, error: error?.error || 'Invalid email or password.' };
       }
     } catch (error) {
       console.error(error);
-      return false;
+      return { success: false, error: NETWORK_ERROR_MESSAGE };
     }
   };
 
-  const signup = async (email: string, password: string, username: string): Promise<boolean> => {
+  const signup = async (email: string, password: string, username: string): Promise<AuthResult> => {
     try {
       const response = await fetch(`${baseURL}/jwt/auth/signup`, {
         method: 'POST',
@@ -98,16 +105,16 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         const data = await response.json();
         tokenManager.setToken(data.accessToken);
         setUser(data.user);
-       
-        return true;
+
+        return { success: true };
       } else {
-        const error = await response.json();
+        const error = await response.json().catch(() => ({}));
         console.error('Signup failed:', error);
-        return false;
+        return { success: false, error: error?.error || 'Failed to create account.' };
       }
     } catch (error) {
       console.error('Signup error:', error);
-      return false;
+      return { success: false, error: NETWORK_ERROR_MESSAGE };
     }
   };
 

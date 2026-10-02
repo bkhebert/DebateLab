@@ -36,12 +36,12 @@ const SignUp = () => {
     setError("");
 
     try {
-      const success = await signup(email, password, username);
-      if (success) {
-        
+      const result = await signup(email, password, username);
+      if (result.success) {
+
         navigate('/onboarding');
       } else {
-        setError("Failed to create account. Email may already exist.");
+        setError(result.error || "Failed to create account.");
       }
     } catch (err) {
       console.error("❌ Signup error:", err);
