@@ -49,8 +49,8 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
 
           <div className="flex-1">
-            <h2 className="text-center">{school}</h2>
-            <h2 className="text-3xl font-bold mb-2 text-violet-200">{username}</h2>
+            <h2 className="text-3xl font-bold mb-1 text-violet-200">{username}</h2>
+            <p className="text-sm uppercase tracking-wide text-violet-300 mb-2">{school}</p>
 
             <div className="mb-4 flex flex-wrap gap-2">
               {tags.map((tag, idx) => (

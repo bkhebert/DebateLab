@@ -4,7 +4,7 @@ export default function FallacyList({arrayOfFallacies, isDemo}){
 
   return<>
       <div className="col-span-2">
-      <h1 className={`text-2xl font-bold mb-2 mt-2 text-center font-mono ${isDemo ? 'lg:text-sm ' : ''}`}>Logical Fallacies</h1>
+      <h3 className={`text-lg font-bold mb-4 mt-2 text-center font-mono md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>Logical Fallacies</h3>
       <ul>
         { arrayOfFallacies.map((listItem) => (
           fallacies[listItem.toLowerCase()] ?

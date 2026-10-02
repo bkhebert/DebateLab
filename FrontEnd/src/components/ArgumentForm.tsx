@@ -237,15 +237,15 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
               <div className="col-span-2 bg-cstmblack m-3 font-mono text-cstmwhite rounded-md">
               <FallacyList arrayOfFallacies={aiResponse.listOfFallacies} isDemo={isDemo} />
             <div className="col-span-2">
-            <h1 className={`text-xl font-bold mt-2 mb-4 text-center font-mono text-cstmred md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Original Message</h1>
+            <h3 className={`text-lg font-bold mt-2 mb-4 text-center font-mono text-cstmred md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>Original Message</h3>
             <p className={`p-4 text-center text-xs italic text-red-200 md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{argument}</p>
             </div>
             <div className="col-span-2">
-            <h1 className={`text-xl font-bold mb-4 text-center font-mono text-cstmgreen md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Refactored Message</h1>
+            <h3 className={`text-lg font-bold mb-4 text-center font-mono text-cstmgreen md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>Refactored Message</h3>
             <p className={`p-4 text-center italic text-xs text-cstmgreen md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{aiResponse.factCheckedMessage}</p>
             </div>
             <div className="col-span-2 md:col-span-1 font-mono">
-            <h1 className={`text-xl font-bold mb-4 text-center font-mono md:text-2xl ${isDemo ? 'lg:text-sm ' : ''}`}>Reason for Change</h1>
+            <h3 className={`text-lg font-bold mb-4 text-center font-mono md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>Reason for Change</h3>
             <p className={`mb-4 text-center md:text-xl ${isDemo ? 'lg:text-sm ' : ''}`}>{aiResponse.factCheckedStatement}</p>
             </div>
             

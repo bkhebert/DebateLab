@@ -19,8 +19,8 @@ const Logout = () => {
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-center">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-slate-900 mb-4">Logging out...</h1>
-        <p className="text-slate-600">Please wait while we securely sign you out.</p>
+        <h1 className="text-2xl font-bold text-foreground mb-4">Logging out...</h1>
+        <p className="text-muted-foreground">Please wait while we securely sign you out.</p>
       </div>
     </div>
   );
