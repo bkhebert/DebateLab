@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
+import { Swords } from "lucide-react";
 import AnalyzerCard from "../components/AnalyzerCard";
 import { IconCloudDemo } from "../components/ui/IconCloudDemo";
 import MagicBoxIntro from "../components/MagicBoxIntro";
 import { Marquee3D } from "../components/3DFeed";
+import { Button } from "../components/ui/Button";
 const DesktopLayout = () => {
   const handleclose = () => {
     return null;
@@ -19,8 +22,11 @@ const DesktopLayout = () => {
     <div className="lg:col-span-5 flex flex-col justify-center space-y-6">
      <MagicBoxIntro/>
 
-      
-      
+      <Link to="/training">
+        <Button className="gap-2">
+          <Swords size={16} /> Train vs. AI
+        </Button>
+      </Link>
     </div>
 
     {/* Right 1/3: Try it now card */}

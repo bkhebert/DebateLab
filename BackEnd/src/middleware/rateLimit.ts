@@ -32,3 +32,41 @@ const rateLimitOnePerDay = async (
 };
 
 export default rateLimitOnePerDay
+
+// rateLimitOnePerDay's Redis key is keyed only by IP with a hardcoded limit,
+// so it can't be reused as-is without sharing its counter with every other
+// route that imports it. This factory makes a route its own key (so e.g.
+// training mode usage doesn't eat into the fallacy checker's daily limit or
+// vice versa) and keys by the authenticated user id when available, falling
+// back to IP for anonymous routes.
+//
+// Fixed 24-hour window per user: the key's TTL is set once, on the first use,
+// and preserved (KEEPTTL) on every subsequent increment. rateLimitOnePerDay's
+// own pattern re-sets EX on every increment instead, which means a user who
+// acts every few hours can keep their window alive indefinitely - that's not
+// replicated here.
+export function createDailyRateLimiter(keyPrefix: string, limit: number) {
+  return async (req: any, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const identifier = req.user?.id ?? req.ip;
+      const key = `limit:${keyPrefix}:${identifier}`;
+      const alreadyUsed = await redisClient.get(key);
+      if (Number(alreadyUsed) >= limit) {
+        const ttl = Number(await redisClient.ttl(key));
+        res.status(429).json({
+          error: "Daily limit reached.",
+          retryAfterSeconds: ttl > 0 ? ttl : 86400,
+        });
+        return;
+      } else if (alreadyUsed) {
+        await redisClient.set(key, String(Number(alreadyUsed) + 1), { KEEPTTL: true });
+      } else {
+        await redisClient.set(key, '1', { EX: 86400 });
+      }
+      await next();
+    } catch (error) {
+      console.error("Rate limit error:", error);
+      res.status(500).json({ error: "Internal server error." });
+    }
+  };
+}

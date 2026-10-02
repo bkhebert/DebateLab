@@ -7,6 +7,7 @@ import { DarkModeProvider } from './contexts/DarkModeContext';
 
 import Header from './components/Header';
 import { AuthProvider } from './contexts/AuthContext';
+import { TopicFilterProvider } from './contexts/TopicFilterContext';
 
 import Logout from "./views/Logout";
 import SignIn from './views/Signin';
@@ -22,6 +23,7 @@ import OnboardingBeliefs from './views/onboardingBeliefs';
 import TheGreatConversation from './views/TheGreatConversation';
 import ExtensionDownloadPage from './views/ExtensionDownload';
 import Admin from './views/Admin';
+import TrainingMode from './views/TrainingMode';
 function App() {
 
 
@@ -32,6 +34,7 @@ function App() {
      <BrowserRouter>
       <Header/>
         <div className="lg:py-8"></div>
+      <TopicFilterProvider>
       <div className={`grid grid-cols-1 lg:grid-cols-12 h-screen`}>
     <LeftSideBar />
   <div className="lg:col-span-8">
@@ -50,10 +53,12 @@ function App() {
       <Route path="/onboarding/tags" element={<OnboardingTags/>} />
       <Route path="/thegreatconversation" element={<TheGreatConversation/>}/>
       <Route path="/extension" element={<ExtensionDownloadPage/>} />
+      <Route path="/training" element={<TrainingMode/>} />
      </Routes>
      </div>
       <RightSideBar />
      </div>
+     </TopicFilterProvider>
      </BrowserRouter>
      </AuthProvider>
      </DarkModeProvider>

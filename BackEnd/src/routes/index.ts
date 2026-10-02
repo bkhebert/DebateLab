@@ -9,6 +9,7 @@ import schoolRouter from "./school.js";
 import profileRouter from "./profile.js";
 import adminRouter from "./admin.js";
 import coverLetterGeneratorRouter from "./coverlettergenerator.js";
+import trainingRouter from "./training.js";
 const apiRouter = Router();
 
 apiRouter.use('/admin', adminRouter);
@@ -20,5 +21,6 @@ apiRouter.use('/rate-limit', rateLimitRouter);
 apiRouter.use('/message', messageRouter);
 apiRouter.use('/profile', profileRouter);
 apiRouter.use('/schoolsofthought', schoolRouter);
+apiRouter.use('/training', trainingRouter);
 
 export default apiRouter;
