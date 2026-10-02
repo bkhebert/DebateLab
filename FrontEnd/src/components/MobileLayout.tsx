@@ -21,15 +21,15 @@ const MobileLayout = ({topic}) => {
         
       <main className="col-span-1 lg:col-span-8 lg:px-4 h-screen overflow-y-auto pb-16">
         {/* Argument Input */}
-        <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm shadow-primary border border-gray-300 cursor-pointer hover:bg-gray-100 transition"
+        <div className="mt-1 mx-2 flex items-center gap-2 px-4 py-3 bg-card rounded-xl shadow-card border border-border cursor-pointer hover:bg-accent transition"
           onClick={toggleAnalyzer}>
           <img
             src="/anonprofile.png"
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
           />
-          { !topic && <span className="text-gray-500 text-sm">Enter an argument for analysis here...</span>}
-           { topic && <span className="text-gray-500 text-sm">Submit a post for debate in {topic}?</span>}
+          { !topic && <span className="text-muted-foreground text-sm">Enter an argument for analysis here...</span>}
+           { topic && <span className="text-muted-foreground text-sm">Submit a post for debate in {topic}?</span>}
         </div>
 
         {showAnalyzer && (
@@ -49,7 +49,7 @@ const MobileLayout = ({topic}) => {
           { !topic && <div className="flex justify-center mt-3">
           <Button
           onClick={toTopics}
-          className="bg-white hover:bg-white text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</Button>
+          className="bg-card hover:bg-accent text-primary border-solid border-2 border-primary/70 p-2 rounded-full">Choose A Debate Topic</Button>
         </div>}
         <h6 className="flex justify-center mt-4 md:mt-12 font-mono italic font-bold">Recent debates{topic? ` on ${topic}`: ""}</h6>
         

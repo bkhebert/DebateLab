@@ -3,7 +3,7 @@ export default function FallacyCountComponent({fallacyCount}){
 
   return(<>
 
-      <div className="flex flex-col items-center m-4 bg-cstmblack/10 rounded-xl p-2 border border-cstmblack/25">
+      <div className="flex flex-col items-center m-4 bg-cstmblack/10 dark:bg-cstmblack/75 rounded-xl p-2 border border-cstmblack/25">
       <FaBalanceScaleLeft className="w-full h-full mt-1 max-w-[6em] text-cstmblack dark:text-primaryglow md:max-w-[6em] lg:max-w-[8em]" />
       <p className="font-mono text-md text-lg text-center text-cstmblack dark:text-primaryglow">Fallacies </p>
       <div className="flex flex-col items-center">
