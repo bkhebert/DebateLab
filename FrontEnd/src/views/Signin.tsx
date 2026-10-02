@@ -4,21 +4,16 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../components/ui/Input";
 import useAuth from "../contexts/useAuth";
 import { useNavigate } from "react-router-dom";
-import baseURL from "../constants/constant";
 import { Link } from "react-router-dom";
-import { 
-  Card,   
+import {
+  Card,
   CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle, } from "../components/ui/Card";
-import { ArrowRight, Shield } from 'lucide-react';
-interface FormState {
-  email: string;
-  password: string;
-}
+import { ArrowRight } from 'lucide-react';
 
 const SignIn = () => {
 
@@ -29,7 +24,6 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-const [form, setForm] = useState<FormState>({ email: "", password: "" });
     useEffect(() => {
     if (user) {
       navigate('/');

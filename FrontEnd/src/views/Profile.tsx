@@ -31,7 +31,7 @@ const Profile = () => {
    const [showProfileView, setShowProfileView] = useState(initialView === "card");
    const [schoolOfThought, setSchoolOfThought] = useState(initialView === "school");
    const { user } = useAuth();
-   const [userDetails, setUserDetails] = useState<any>(user);
+   const [userDetails, setUserDetails] = useState<any>(null);
 
    const handleClick = () => {
      setShowProfileView(!showProfileView);
@@ -70,7 +70,7 @@ setSchoolOfThought(!schoolOfThought);
     }
     ).then((userdetails) => {
 
-      setUserDetails(userdetails);
+      setUserDetails(userdetails.data);
 
     if (!userdetails.data.politicalViews) return;
 
@@ -116,7 +116,7 @@ setSchoolOfThought(!schoolOfThought);
 {   showBeliefs && <ProfileBeliefs isSelectingTopics={false} topicChosen={false} feedtopic={false}/>}
 {   showTags && <TagSelector />}
 { schoolOfThought && <SchoolOfThoughts/>}
-{ showProfileView && <UserProfileModal school={user.school as string} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} beliefs={userDetails.data.philosophies} username={user.username as string} onClose={toggleProfileView} />}
+{ showProfileView && user && <UserProfileModal school={user.school as string} image={infoNeeded.img} tags={tags.map((tag) => tag.label)} beliefs={userDetails?.philosophies || []} username={user.username as string} onClose={toggleProfileView} />}
     </div>
   )
 }

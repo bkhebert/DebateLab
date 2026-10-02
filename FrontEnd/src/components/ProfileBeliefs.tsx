@@ -6,17 +6,21 @@ import { PageHeader } from './ui/PageHeader';
 import { Button } from './ui/Button';
 import axios from 'axios';
 import baseURL from '../constants/constant';
-import useAuth from '../contexts/useAuth';
 import { tokenManager } from '../utils/tokenManager';
 import { Link } from 'react-router-dom';
-import { debateTopics as beliefs } from '../constants/debateTopics';
+import { debateTopics } from '../constants/debateTopics';
 
 export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopic}) {
   const [selectedParent, setSelectedParent] = useState<number | null>(null);
   const [selectedSub, setSelectedSub] = useState<{ subTopic: string, description: string } | null>(null);
   const [beliefsState, setBeliefsState] = useState<{ [sub: string]: string }>({});
   const [topicSelected, setTopicSelected] = useState<boolean>(false);
-  const { user } = useAuth();
+  // Fetched descriptions are merged into a local copy, never into the
+  // imported debateTopics singleton - that object is shared with
+  // RightSideBar.tsx and persists for the browser tab's whole lifetime, so
+  // mutating it directly let one user's saved belief text leak into the next
+  // user's view after a logout/login in the same tab (no mutation = no leak).
+  const [beliefs, setBeliefs] = useState(debateTopics);
   const toggleTopicSelected = () => {
     setTopicSelected(!topicSelected);
     if(topicChosen){ topicChosen(selectedSub.subTopic)  }
@@ -37,19 +41,15 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
   }
 })
     .then((beliefInfo) => {
-
-     beliefInfo.data.forEach((belief) => {
-      for(let i = 0; i < beliefs.length; i++){
-      if(belief.category === beliefs[i].title){
-        for(let q = 0; q < beliefs[i].subs.length; q++){
-          if(beliefs[i].subs[q].sub === belief.subtopic){
-            beliefs[i].subs[q].description = belief.description
-          }
-        }
-      }
-    }
-     })
-      // beliefInfo.data.description;
+      setBeliefs((prevBeliefs) => prevBeliefs.map((subject) => ({
+        ...subject,
+        subs: subject.subs.map((sub) => {
+          const match = beliefInfo.data.find(
+            (belief) => belief.category === subject.title && belief.subtopic === sub.sub
+          );
+          return match ? { ...sub, description: match.description } : sub;
+        }),
+      })));
     })
     .catch((err) => {
       console.error(err)
@@ -72,9 +72,8 @@ export default function ProfileBeliefs({isSelectingTopics, topicChosen, feedtopi
     axios.post(`${baseURL}/api/beliefs/updateBelief`, {
       text,
       "selectedSub": selectedSub,
-      user,
       category: beliefs[selectedParent].title
-    }, 
+    },
   {
   headers: {
     'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header

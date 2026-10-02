@@ -15,6 +15,7 @@ import axios from 'axios';
 import { tokenManager } from '../utils/tokenManager';
 import baseURL from '../constants/constant';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../contexts/useAuth';
 const schools = [
   {
     title: 'The Rationalists',
@@ -77,23 +78,30 @@ const schools = [
 export default function SchoolOfThoughts() {
   const [selected, setSelected] = useState<number | null>(null);
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const handleNext = () => {
-    // Replace this with navigation logic to profile page
-    // alert(`Are you sure you want to represent the School Of ${schools[selected!].title}?`);
-   axios.post(`${baseURL}/api/schoolsofthought/`, {
-      school: schools[selected!].title
+    const school = schools[selected!].title;
+    axios.post(`${baseURL}/api/schoolsofthought/`, {
+      school
     }, {
-  headers: {
-    'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
-    'Content-Type': 'application/json'
-  }
-}).then((val) => {
- 
- 
-}).catch((err) => {
-  console.error('failed to puawodji school', err);
-})
- navigate('/onboarding/tags')
+      headers: {
+        'Authorization': `Bearer ${tokenManager.getToken()}`, // 🔑 Token in header
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // Keep the in-memory session in sync - otherwise the rest of
+      // onboarding (and the profile page right after it) still shows the
+      // pre-onboarding school until the next full page load/token verify.
+      setUser((prev) => prev ? { ...prev, school } : prev);
+    }).catch((err) => {
+      console.error('failed to save school of thought', err);
+      // Non-critical preference - don't strand the user in onboarding over
+      // it, but note it's one-shot: unlike a success, a failed save here
+      // isn't retried, so the School Of Thought stays unset until edited
+      // again from the profile page.
+    }).finally(() => {
+      navigate('/onboarding/tags');
+    });
   };
 
   return (

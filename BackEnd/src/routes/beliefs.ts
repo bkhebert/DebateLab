@@ -4,16 +4,19 @@ import { UserPhilosophy } from "../database/models/index.js";
 const beliefsRouter = Router();
 
 beliefsRouter.post('/updateBelief', isAuthenticated as any, async (req: any, res: any) => {
-  const { text, selectedSub, category, user } = req.body;
+  const { text, selectedSub, category } = req.body;
 
-  if (!user?.id || !selectedSub || !category) {
-    return res.status(400).json({ error: 'Missing user, subtopic, or category' });
+  if (!selectedSub || !category) {
+    return res.status(400).json({ error: 'Missing subtopic or category' });
   }
 
   try {
+    // userId must come from the verified token (req.user), never the
+    // request body - trusting a client-supplied id let any logged-in user
+    // overwrite another user's belief by passing a different user.id.
     const existing = await UserPhilosophy.findOne({
       where: {
-        userId: user.id,
+        userId: req.user.id,
         subtopic: selectedSub
       }
     });
@@ -23,7 +26,7 @@ beliefsRouter.post('/updateBelief', isAuthenticated as any, async (req: any, res
       return res.status(200).json({ message: 'Philosophy updated', updated: true, data: existing });
     } else {
       const newEntry = await UserPhilosophy.create({
-        userId: user.id,
+        userId: req.user.id,
         category,
         subtopic: selectedSub,
         description: text

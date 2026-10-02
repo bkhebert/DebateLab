@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { User } from "../database/models/index.js";
 import { PoliticalView } from "../database/models/index.js";
 import { isAuthenticated } from "../jwtAuth/isAuthenticated.js";
 const politicalPhilosophyRouter = Router();
@@ -49,23 +48,5 @@ politicalPhilosophyRouter.post('/UpdateView', isAuthenticated as any, (req: any,
     })
   })
 })
-
-  politicalPhilosophyRouter.get('/flairs', (req, res) => {
-    console.log(req.query, 'the query is received')
-    PoliticalView.findOrCreate(
-      {
-        where: {
-          email: req.query.email,
-        },
-      }
-    ).then((value) => {
-      console.log(value)
-      console.log('success getting their views for the message flairs')
-      res.status(200).send(value);
-    }).catch((err) => {
-      console.error('failed getting their views for the message flairs', err)
-      res.sendStatus(404);
-    })
-  })
 
 export default politicalPhilosophyRouter;

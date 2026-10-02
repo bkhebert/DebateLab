@@ -20,7 +20,7 @@ profileRouter.get('/me/data', isAuthenticated as any, async (req: any, res: any)
         {
           model: UserPhilosophy,
           as: 'philosophies',
-          attributes: ['subtopic', 'description'],
+          attributes: ['category', 'subtopic', 'description'],
         },
       ],
     });

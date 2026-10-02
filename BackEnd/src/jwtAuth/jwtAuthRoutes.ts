@@ -186,12 +186,18 @@ jwtAuthRouter.post(
 
 jwtAuthRouter.get('/verify', isAuthenticated as any,(req: any, res: any) => {
 try {
-    // req.user is set by isAuthenticated middleware
+    // req.user is set by isAuthenticated middleware - it's the full raw
+    // Sequelize row (password hash, tokenVersion, etc.), so only hand back
+    // the same safe shape signup/signin already return, never req.user itself.
     const user = req.user;
-    console.log('trying to verify this guy:')
-    console.log(user)
-    // Return a 200 status along with the user data (excluding sensitive info like password)
-    res.json({ user: req.user });
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        school: user.school,
+        username: user.username,
+      },
+    });
   } catch (err) {
     console.error("Verify error:", err);
     return res.status(500).json({ error: "Internal Server Error" });
