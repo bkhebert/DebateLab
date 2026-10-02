@@ -26,16 +26,16 @@ export default function ExtensionDownloadPage() {
     }
   };
   return (
-    <div className="min-h-screen w-full px-4 py-10 bg-cstmwhite text-cstmblack dark:bg-covenantDark dark:text-cstmneutral transition-colors">
+    <div className="min-h-screen w-full px-4 py-10 bg-background text-foreground transition-colors">
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
-          <h1 className="text-4xl font-bold text-primary dark:text-cstmwhite text-center">
+          <h1 className="text-4xl font-bold text-primary text-center">
             DebateLab Chrome Extension
           </h1>
-          <p className="mt-2 text-center text-lg text-cstmgray dark:text-cstmneutral">
+          <p className="mt-2 text-center text-lg text-muted-foreground">
             Enhance your critical thinking. Analyze arguments instantly.
           </p>
-          <p className="mt-2 text-center text-lg text-cstmgray dark:text-cstmneutral">
+          <p className="mt-2 text-center text-lg text-muted-foreground">
             Current Limit: 5 Analysis per 24hrs
           </p>
         </header>
@@ -50,7 +50,7 @@ export default function ExtensionDownloadPage() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-primary dark:text-covenantAccent mb-4">
+          <h2 className="text-2xl font-semibold text-primary mb-4">
             How to Install the Extension
           </h2>
           <ol className="space-y-6">
@@ -59,7 +59,7 @@ export default function ExtensionDownloadPage() {
               <img
                 src="/step1.gif"
                 alt="Step 1 screenshot"
-                className="w-full rounded-md border border-cstmgray dark:border-cstmneutral"
+                className="w-full rounded-md border border-border"
               />
             </li>
             <li>
@@ -67,7 +67,7 @@ export default function ExtensionDownloadPage() {
               <img
                 src="/step2.png"
                 alt="Step 2 screenshot"
-                className="w-full rounded-md border border-cstmgray dark:border-cstmneutral"
+                className="w-full rounded-md border border-border"
               />
             </li>
             <li>
@@ -75,7 +75,7 @@ export default function ExtensionDownloadPage() {
               <img
                 src="/step3.gif"
                 alt="Step 3 screenshot"
-                className="w-full rounded-md border border-cstmgray dark:border-cstmneutral"
+                className="w-full rounded-md border border-border"
               />
             </li>
             <li>
@@ -85,13 +85,13 @@ export default function ExtensionDownloadPage() {
               <img
                 src="/step4.gif"
                 alt="Step 4 screenshot"
-                className="w-full rounded-md border border-cstmgray dark:border-cstmneutral"
+                className="w-full rounded-md border border-border"
               />
             </li>
           </ol>
         </section>
 
-        <footer className="text-center text-sm text-cstmgray dark:text-cstmneutral">
+        <footer className="text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} DebateLab. All rights reserved.
         </footer>
       </div>

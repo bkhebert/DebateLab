@@ -9,7 +9,7 @@ const DesktopLayout = () => {
   return (
    
 
-      <div className="relative text-white">
+      <div className="relative">
         <div className="absolute top-1 left-1/4 opacity-20">
         <IconCloudDemo />
         </div>

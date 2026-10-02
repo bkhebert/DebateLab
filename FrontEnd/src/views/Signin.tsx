@@ -63,13 +63,13 @@ const [form, setForm] = useState<FormState>({ email: "", password: "" });
 
   return (
     <div className="flex justify-center mt-5">
-      <Card className="w-full max-w-sm bg-cstmwhite">
+      <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>
           Enter your email below to login to your account
           {error && (
-                      <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                      <div className="bg-destructive/10 text-destructive p-3 rounded-lg text-sm">
                         {error}
                       </div>
                     )}

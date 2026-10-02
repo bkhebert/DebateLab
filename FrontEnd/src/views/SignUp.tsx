@@ -52,16 +52,16 @@ const SignUp = () => {
   };
 
   return (   <div className="max-w-sm mx-auto mb-10 md:mt-10">
-                <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 dark:bg-cstmdarkaccent dark:text-white">
+                <div className="bg-card rounded-2xl shadow-card p-6 border border-border text-card-foreground">
                   <div className="text-center mb-6">
-                    <h2 className="text-xl font-bold text-slate-900 mb-2 dark:text-white">Create Your Account</h2>
-                    <p className="text-slate-600 dark:text-white">The best way to use this app is to be honest about who you are and what you believe in. </p>
-                    
+                    <h2 className="text-xl font-bold text-foreground mb-2">Create Your Account</h2>
+                    <p className="text-muted-foreground">The best way to use this app is to be honest about who you are and what you believe in. </p>
+
                   </div>
 
                   <div className="space-y-6">
                     {error && (
-                      <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm dark:text-cstmred">
+                      <div className="bg-destructive/10 text-destructive p-3 rounded-lg text-sm">
                         {error}
                       </div>
                     )}
