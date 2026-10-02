@@ -79,7 +79,6 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
       content: {
         argument,
         fallacies: aiResponse.listOfFallacies.length > 0 ? aiResponse.listOfFallacies : [],
-        user,
       },
         topic,
         userId: user? user.id : null,
@@ -100,9 +99,8 @@ export default function ArgumentForm({topic, isDemo, closeModal}) {
     const {factCheckedMessage} = aiResponse;
         axios.post(`${baseURL}/api/message/`,  {
       content: {
-        factCheckedMessage,
+        argument: factCheckedMessage,
         fallacies: [],
-        user,
       },
         topic,
         userId: user? user.id : null,
